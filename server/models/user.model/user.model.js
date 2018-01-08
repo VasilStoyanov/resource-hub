@@ -1,5 +1,5 @@
-const { validator } = require('./../utils');
-const createSchema = require('./schema.factory');
+const { validator } = require('./../../utils');
+const createSchema = require('./../schema.factory');
 
 const USER_MODEL_CONSTANTS = require('./user.model.constants');
 
