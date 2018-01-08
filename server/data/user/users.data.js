@@ -16,10 +16,14 @@ const getOneByUsername = (db) => (collection) => (obj) => ({
 const checkUserPassword = (db) => (collection) => (obj) => ({
   ...obj,
   checkPassword: async ({ username, password }) => {
-    const { hashedPwd, salt } = await obj.getOneByUsername(username);
+    const user = await obj.getOneByUsername(username);
     const hashPassword = hash(password);
-    const { hashedPassword } = hashPassword(salt);
-    return Promise.resolve(hashedPassword === hashedPwd);
+    const { hashedPassword } = hashPassword(user.salt);
+
+    return Promise.resolve({
+      user,
+      validPassword: hashedPassword === user.hashedPwd
+    });
   }
 });
 
