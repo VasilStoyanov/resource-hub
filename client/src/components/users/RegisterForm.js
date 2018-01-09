@@ -3,10 +3,11 @@ import { reduxForm, Field } from 'redux-form';
 import { RenderInput } from './common/RenderInput';
 import { AuthButton } from './common/AuthButton';
 import { registerValidation as validate } from '../../utilities/validators/authenticationValidator';
+import registerUser from '../../actions/users/registerUser';
 
 class RegisterForm extends Component {
   submit(results) {
-    console.log('----------------------------->', results);
+    this.props.dispatch(registerUser(results));
   }
 
   render() {
