@@ -1,28 +1,24 @@
-const passport = require('passport');
+const authenticationController = require('./auth.controller');
+const { Router } = require('express');
 
-const attachTo = (app) => {
-  app.get('/login', (req, res) => {
-    res.send(`
-      <form action="/login" method="post">
-          <div>
-              <label>Username:</label>
-              <input type="text" name="username"/>
-          </div>
-          <div>
-              <label>Password:</label>
-              <input type="password" name="password"/>
-          </div>
-          <div>
-              <input type="submit" value="Log In"/>
-          </div>
-      </form>
-    `);
+const attachTo = (app, data) => {
+  const router = new Router();
+
+  const routerPostfix = '/auth';
+  const authController = authenticationController.init(app, data);
+
+  router.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+      const token = await authController.login({ username, password });
+      res.json(token);
+    } catch ({ statusCode, errorMessage }) {
+      res.status(statusCode).json({ message: errorMessage });
+    }
   });
 
-  app.post('/login', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login'
-  }));
+  app.use(routerPostfix, router);
 };
 
 module.exports = { attachTo };

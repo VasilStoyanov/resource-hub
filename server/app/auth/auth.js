@@ -1,40 +1,34 @@
 const passport = require('passport');
-const { Strategy } = require('passport-local');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
+const { ExtractJwt, Strategy } = require('passport-jwt');
+const { jwt } = require('./../config');
 
-const USERNAME_NOT_FOUND = (username) => `${username} not found`;
-const INCORRECT_PASSWORD = 'Incorrect password';
-
-const applyTo = (app, data) => {
-  passport.use(new Strategy((username, password, done) => {
-    data.users.getOneByUsername(username)
-      .then(user => (
-        user ? data.users.checkPassword({ username, password }) :
-        done(null, false, { message: USERNAME_NOT_FOUND(username) })
-      ))
-      .then(dbResponse => (
-        dbResponse.validPassword ? done(null, dbResponse.user) :
-        done(null, false, { message: INCORRECT_PASSWORD })));
-  }));
-
-  app.use(cookieParser());
-  app.use(session({ secret: 'jsgurus', resave: false, saveUninitialized: true }));
-  app.use(passport.initialize());
-  app.use(passport.session());
-
-  passport.serializeUser((user, done) => {
-    done(null, user._id);
-  });
-
-  passport.deserializeUser((id, done) => {
-    console.log('hakuna deserializana');
-    data.users.getById(id)
-      .then((user) => {
-        done(null, user);
-      })
-      .catch(done);
-  });
+const params = {
+  secretOrKey: jwt.secret,
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
 };
 
-module.exports = { applyTo };
+const applyTo = (app, data) => {
+  const strategy = new Strategy(params, (payload, done) => {
+    data.users.getById(payload.id)
+      .then(user => {
+        if (user) {
+          console.log(`USER FOUND ${user.id}`);
+          return done(null, {
+            id: user.id
+          });
+        }
+
+        return done(new Error('User not found'), null);
+      });
+  });
+
+  passport.use(strategy);
+  passport.initialize();
+};
+
+const authenticate = () => passport.authenticate('jwt', jwt.session);
+
+module.exports = {
+  applyTo,
+  authenticate
+};

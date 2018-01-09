@@ -4,11 +4,11 @@ const {
   validator,
 } = require('../../../utils');
 
+const uuidv1 = require('uuid/v1');
 const { userValidationSchema } = require('./../../../models/user.model/user.model');
 
 const USER_PASSWORD_MIN_LENGTH = 6;
 const USER_PASSWORD_MAX_LENGTH = 40;
-
 const userRegistrationRules = {
   password: {
     required: true,
@@ -35,8 +35,10 @@ const init = (data) => {
     const salt = generateSalt({ length: 16 });
     const hashPassword = hash(user.password);
     const passwordHashingResult = hashPassword(salt);
+    const id = uuidv1();
 
     return await data.users.add({
+      id,
       ...user,
       hashedPwd: passwordHashingResult.hashedPassword,
       salt: passwordHashingResult.salt
