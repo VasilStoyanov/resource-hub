@@ -1,3 +1,10 @@
+export const Messages = {
+    SUCCESSFULLY_LOGIN: 'Successfully login!',
+    UNSUCCESSFULLY_LOGIN: 'Wrong username or password!',
+    SUCCESSFULLY_LOGOUT: 'Successfully logout!',
+    UNSUCCESSFULLY_LOGOUT: 'Not authenticated!'
+};
+
 export const UserActions = {
     REGISTER: {
         FULFILLED: 'REGISTER_FULFILLED',
