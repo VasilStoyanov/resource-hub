@@ -4,7 +4,7 @@ const {
   validator,
 } = require('../../../utils');
 
-const { userValidationSchema } = require('./../../../models/user.model');
+const { userValidationSchema } = require('./../../../models/user.model/user.model');
 
 const USER_PASSWORD_MIN_LENGTH = 6;
 const USER_PASSWORD_MAX_LENGTH = 40;

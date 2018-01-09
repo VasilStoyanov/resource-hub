@@ -1,7 +1,7 @@
 const USERS_COLLECTION_NAME = 'users';
 
 const { pipe, hash } = require('./../../utils');
-const { userModelValidator, userUniqueFields } = require('./../../models/user.model');
+const { userModelValidator, userUniqueFields } = require('./../../models/user.model/user.model');
 const { creatable, readable, createUniqueFields } = require('./../data.factory');
 
 // eslint-disable-next-line no-unused-vars
