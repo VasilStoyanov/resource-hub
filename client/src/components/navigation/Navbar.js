@@ -1,24 +1,29 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Navbar } from 'react-bootstrap';
 import NavAuthenticated from './NavAuthenticated';
 import NavNotAuthenticated from './NavNotAuthenticated';
 
-class Navbar extends Component {
+class Navigation extends Component {
   render() {
     const elements = this.props.authenticated 
     ? <NavAuthenticated onClick={this.logoutUser.bind(this)} username={this.props.username} />
-    : <NavNotAuthenticated />;
+    : <NavNotAuthenticated location={this.props.location} />;
 
     return (
-      <nav className="navbar navbar-inverse">
-      <div className="container-fluid">
-          <div className="navbar-header">
-              <a className="navbar-brand nav-item">NodeJs</a>
-          </div>
-              {elements}
-      </div>
-  </nav>
+        <Navbar inverse collapseOnSelect>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a>DHub</a>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            {elements}
+          </Navbar.Collapse>
+        </Navbar>
     );
   }
 }
 
-export default Navbar;
+export default connect()(Navigation);

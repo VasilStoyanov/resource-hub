@@ -92,19 +92,15 @@ body {
 	text-transform: uppercase;
 	border-color: rgb(15, 66, 30);
 }
-.btn-register:hover,
-.btn-register:focus {
+.btn-register:hover {
 	color: #fff;
-	background-color: rgb(53, 95, 105);
-	border-color: rgb(53, 95, 105);
+	background-color: rgb(224, 112, 7);
+	border-color: rgb(224, 112, 7);
 }
 .auth-page-container{
 	margin-top: 10%
 }
-.panel-heading:hover{
-	background-color: rgb(53, 95, 105);
-	border-color: rgb(53, 95, 105);
-}
+
 .link-is-active{
-	color: rgb(3, 139, 60) !important;	
+	color: rgb(224, 112, 7) !important;
 }

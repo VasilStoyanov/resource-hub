@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Row, Col } from 'react-bootstrap';
 
 class AuthNavbar extends Component {    
     getChildrenName() {
@@ -15,14 +16,14 @@ class AuthNavbar extends Component {
         const registerActiveClass = childrenName === 'register' ? 'link-is-active' : '';
 
         return (
-            <div className='row'>
-                <div className='col-xs-6'>
-                <Link className={`login-header ${loginActiveClass}`} to='/users/login'>Login</Link>
-                </div>
-                <div className='col-xs-6'>
-                <Link className={`register-header ${registerActiveClass}`} to='/users/register'>Register</Link>
-                </div>
-            </div>
+            <Row>
+                <Col xs={6}>
+                    <Link className={`login-header ${loginActiveClass}`} to='/users/login'>Login</Link>
+                </Col>
+                <Col xs={6}>
+                    <Link className={`register-header ${registerActiveClass}`} to='/users/register'>Register</Link>
+                </Col>
+            </Row>
         );
     }
 }
