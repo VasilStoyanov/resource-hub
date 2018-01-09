@@ -1,29 +1,20 @@
-import { HttpPost, url } from './HttpConstants';
-
 export const UserActions = {
     REGISTER: {
-        SUCCESS: 'REGISTER_SUCCESS',
-        FAILURE: 'REGISTER_FAILURE',
+        FULFILLED: 'REGISTER_FULFILLED',
+        REJECTED: 'REGISTER_REJECTED',
     },
     LOGIN: {
-        SUCCESS: 'LOGIN_SUCCESS',
-        FAILURE: 'LOGIN_FAILURE'
+        FULFILLED: 'LOGIN_FULFILLED',
+        REJECTED: 'LOGIN_REJECTED'
     },
     LOGOUT: {
-        SUCCESS: 'LOGOUT_SUCCESS',
-        FAILURE: 'LOGOUT_FAILURE'
+        FULFILLED: 'LOGOUT_FULFILLED',
+        REJECTED: 'LOGOUT_REJECTED'
     }
 };
 
-function generate(rest, reqType) {
-    return Object.assign(Object.create(null), {
-        ...reqType,
-        url: `${url}${rest}`
-    });
-}
-
-export const UserHttpRequests = {
-    get REGISTER() { return generate('auth/signup', HttpPost); },
-    get LOGIN() { return generate('auth/login', HttpPost); },
-    get LOGOUT() { return generate('auth/logout', HttpPost); }
+export const URLS = {
+    REGISTER: 'auth/signup',
+    LOGIN: 'auth/login',
+    LOGOUT: 'auth/logout'
 };
