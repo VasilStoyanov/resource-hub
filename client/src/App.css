@@ -1,28 +1,32 @@
-.App {
-  text-align: center;
+@import '../node_modules/bootstrap/dist/css/bootstrap.css';
+@import './css/authentication.css';
+
+body {
+  background: black;
+}
+ .mdl-layout__header,
+ .mdl-layout__drawer-button,
+ .mdl-navigation__link {
+  color: black !important;
+}
+.mdl-layout__header {
+  background-color: white;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
+body{
   color: white;
 }
 
-.App-title {
-  font-size: 1.5em;
+a.nav-item {
+  display: inline-block;
+  color: white !important;
 }
 
-.App-intro {
-  font-size: large;
+a.nav-item:hover {
+  color: rgb(3, 139, 60) !important;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+a.nav-item.active {
+  color: white;
 }
+
