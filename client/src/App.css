@@ -1,0 +1,26 @@
+@import '../node_modules/bootstrap/dist/css/bootstrap.css';
+@import '../node_modules/bootstrap/dist/css/bootstrap-theme.css';
+@import './css/authentication.css';
+
+body {
+  background: black;
+}
+ .mdl-layout__header,
+ .mdl-layout__drawer-button,
+ .mdl-navigation__link {
+  color: black !important;
+}
+.mdl-layout__header {
+  background-color: white;
+}
+
+body{
+  color: white;
+}
+
+div.navbar-header a {
+  display: inline-block;
+  color: rgb(224, 112, 7) !important;
+}
+
+
