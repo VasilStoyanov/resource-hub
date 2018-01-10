@@ -1,26 +1,27 @@
 class Auth {
+    /* eslint-disable */
     static authenticateUser({ token, user }) {
-        window.localStorage.setItem('user', JSON.stringify(user));
-        window.localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);
     }
 
     static getAuthenticatedUser() {
-        const userJson = window.localStorage.getItem('user');
+        const userJson = localStorage.getItem('user');
 
         return userJson ? JSON.parse(userJson) : {};
     }
 
     static isUserAuthenticated() {
-        return !!window.localStorage.getItem('token');
+        return !!localStorage.getItem('token');
     }
 
     static deauthenticateUser() {
-        window.localStorage.removeItem('token');
-        window.localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
     }
 
     static getToken() {
-        return window.localStorage.getItem('token');
+        return localStorage.getItem('token');
     }
 }
 
