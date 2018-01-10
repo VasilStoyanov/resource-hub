@@ -11,11 +11,7 @@
     "body-parser": "^1.18.2",
     "colour": "^0.7.1",
     "compression": "^1.7.1",
-<<<<<<< HEAD
-    "cookie-parser": "^1.4.3",
-=======
     "eslint-plugin-import": "^2.8.0",
->>>>>>> master
     "express": "^4.16.2",
     "glob": "^7.1.2",
     "helmet": "^3.9.0",
