@@ -8,10 +8,16 @@ const SERVER_INITIALIZED_MESSAGE = (port) => (
   `> Server running on localhost:${port}`
 );
 
-const logToConsole = logger({
+const logMessage = logger({
   printer: console,
   method: 'info',
   colour: 'green'
+});
+
+const logErrorMessage = logger({
+  printer: console,
+  method: 'error',
+  colour: 'red'
 });
 
 const startServerAsync = () => Promise.resolve();
@@ -24,6 +30,9 @@ startServerAsync()
   .then(db => dataLayer.init(db))
   .then(data => applicationLayer.init(data))
   .then(app => app.listen(config.PORT, () => {
-    logToConsole(SERVER_INITIALIZED_MESSAGE(config.PORT));
+    logMessage(SERVER_INITIALIZED_MESSAGE(config.PORT));
   }))
-  .catch(exeption => console.error(exeption));
+  .catch(errorMessage => {
+    logErrorMessage(`${errorMessage} \r\n (!) Server initialization aborted`);
+    process.exit();
+  });

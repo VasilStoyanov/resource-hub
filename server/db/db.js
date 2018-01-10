@@ -16,8 +16,7 @@ const init = async ({ connectionString, dataSource }) => {
     successfulConnectionToDb({ connectionString, dataSource });
     return Promise.resolve(db);
   } catch (ex) {
-    failedConnectionToDb(ex.message);
-    return Promise.resolve();
+    return Promise.reject(CONNECTION_TO_DATABASE_FAILED_ERROR_MESSAGE(ex.message));
   }
 };
 
@@ -30,14 +29,6 @@ const successfulConnectionToDb = ({ connectionString, dataSource }) => {
     connectionString,
     dataSource
   }));
-};
-
-const failedConnectionToDb = (message) => {
-  logger({
-    printer: console,
-    method: 'error',
-    colour: 'red'
-  })(CONNECTION_TO_DATABASE_FAILED_ERROR_MESSAGE(message));
 };
 
 module.exports = { init };
