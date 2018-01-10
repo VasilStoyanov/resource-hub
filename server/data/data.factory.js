@@ -1,4 +1,5 @@
 const { ObjectID } = require('mongodb');
+const { pipe } = require('./../utils');
 
 const creatable = (db) => (collection) => (validator) => (obj) => ({
   ...obj,
@@ -21,7 +22,9 @@ const readable = (db) => (collection) => (obj) => ({
   ...obj,
   getAll: () => db.collection(collection).find().toArray(),
 
-  getById: (id) => db.collection(collection).findOne({
+  getById: (id) => db.collection(collection).findOne({ id }),
+
+  getByObjectId: (id) => db.collection(collection).findOne({
     _id: new ObjectID(id)
   }),
 
@@ -38,12 +41,25 @@ const readable = (db) => (collection) => (obj) => ({
 });
 
 const createUniqueFields = (db) => (collection) => (uniqueFields) => {
-  const tuples = uniqueFields.map(field => [field, 1]);
-  return db.collection(collection).ensureIndex(tuples, { unique: true });
+  const promiseCollection = [];
+
+  uniqueFields.forEach(field => promiseCollection.push(
+    db.collection(collection).ensureIndex({
+      [field]: 1
+    }, { unique: true })
+  ));
+
+  return Promise.all(promiseCollection);
 };
+
+const CRUD = (db) => (collection) => (validator) => (obj) => pipe(
+  creatable(db)(collection)(validator),
+  readable(db)(collection)
+)(obj);
 
 module.exports = {
   creatable,
   readable,
+  CRUD,
   createUniqueFields
 };

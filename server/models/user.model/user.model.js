@@ -4,22 +4,27 @@ const createSchema = require('./../schema.factory');
 const USER_MODEL_CONSTANTS = require('./user.model.constants');
 
 const userModelValidationRules = {
-  username: {
-    type: 'string',
-    unique: true,
+  id: {
     required: true,
+    type: 'string',
+    unique: true
+  },
+  username: {
+    maxLength: USER_MODEL_CONSTANTS.USERNAME_MAX_LENGTH,
     minLength: USER_MODEL_CONSTANTS.USERNAME_MIN_LENGTH,
-    maxLength: USER_MODEL_CONSTANTS.USERNAME_MAX_LENGTH
+    required: true,
+    type: 'string',
+    unique: true
   },
   hashedPwd: {
-    type: 'string',
-    required: true
+    required: true,
+    type: 'string'
   },
   salt: {
-    type: 'string',
-    required: true,
+    maxLength: USER_MODEL_CONSTANTS.SALT_MAX_LENGTH,
     minLength: USER_MODEL_CONSTANTS.SALT_MIN_LENGTH,
-    maxLength: USER_MODEL_CONSTANTS.SALT_MAX_LENGTH
+    required: true,
+    type: 'string'
   }
 };
 
