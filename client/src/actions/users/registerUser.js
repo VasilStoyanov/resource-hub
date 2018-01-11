@@ -1,12 +1,12 @@
-import axios from 'axios';
 import { URLS } from '../../constants/UserConstants';
+import { post } from '../../data/data';
 
 const registerUser = (userData) => {
     const userRegisterURL = URLS.REGISTER;
     
     return {
         type: 'REGISTER',
-        payload: axios.post(userRegisterURL, userData)
+        payload: post(userRegisterURL, userData)
     };
 };
 

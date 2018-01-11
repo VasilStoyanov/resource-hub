@@ -43,7 +43,9 @@ export default (state = initialState, action) => {
             return { authenticated: false };
         }
         default: {
-            return state;
+            return {
+                ...state
+            };
         }
     }
 };

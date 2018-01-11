@@ -1,12 +1,12 @@
-import axios from 'axios';
 import { URLS } from '../../constants/UserConstants';
+import { post } from '../../data/data';
 
 const loginUser = (userCredentials) => {
     const userLoginURL = URLS.LOGIN;
     
     return {
         type: 'LOGIN',
-        payload: axios.post(userLoginURL, userCredentials)
+        payload: post(userLoginURL, userCredentials)
     };
 };
 

@@ -1,10 +1,15 @@
 import React from 'react';
-import { FormGroup, FormControl, HelpBlock } from 'react-bootstrap';
+import { FormGroup, FormControl, HelpBlock, Glyphicon, InputGroup } from 'react-bootstrap';
 
-export const RenderInput = ({ input, meta, placeholder, type }) => (
+export const RenderInput = ({ input, meta, placeholder, type, glyph }) => (
     <FormGroup controlId="auth-form-group" validationState={meta.error && meta.touched ? 'error' : null}>
-        <FormControl {...input} placeholder={placeholder} type={type || 'text'} />
-        <FormControl.Feedback />
-        {meta.error && meta.touched && <HelpBlock>{meta.error}</HelpBlock> }
+       <InputGroup>
+            <InputGroup.Addon>
+                <Glyphicon glyph={glyph} />
+            </InputGroup.Addon>
+            <FormControl {...input} placeholder={placeholder} type={type || 'text'} />
+       </InputGroup>
+            <FormControl.Feedback />
+            {meta.error && meta.touched && <HelpBlock className='error-block'>{meta.error}</HelpBlock> }
     </FormGroup>
 );

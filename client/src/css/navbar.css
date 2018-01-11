@@ -1,0 +1,33 @@
+.navbar-inverse{
+    margin-bottom: 0px;
+}
+
+.navbar-inverse .container-fluid{
+    background: linear-gradient(to right,#4b191c, rgb(31, 30, 30));
+    
+}
+
+div.navbar-header a {
+    color: White !important;
+    font-weight: bold;
+  }
+  .navbar-inverse .navbar-nav > li > a{
+    color: white;
+  }
+  .navbar-inverse .navbar-nav > li > a:hover,
+  .navbar-inverse .navbar-nav > li > a:focus {
+    color: #00d8ff;
+    background-color: transparent;
+  }
+  .navbar-logo-image{
+    padding: 12%;
+  }
+
+  @media only screen and (max-width: 500px) {
+  .navbar-logo-image{
+    padding: 0;
+  }
+  .panel-login{
+    margin-top: 15%;
+  }
+}

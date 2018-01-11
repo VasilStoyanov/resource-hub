@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Navbar } from 'react-bootstrap';
+import { Navbar, Image, Nav } from 'react-bootstrap';
 import NavAuthenticated from './NavAuthenticated';
 import NavNotAuthenticated from './NavNotAuthenticated';
 
@@ -11,15 +11,17 @@ class Navigation extends Component {
     : <NavNotAuthenticated location={this.props.location} />;
 
     return (
-        <Navbar inverse collapseOnSelect>
+        <Navbar inverse collapseOnSelect fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <a>DHub</a>
+              <a>ResourceHub</a>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            {elements}
+              <Nav pullRight>
+                {elements}
+              </Nav>
           </Navbar.Collapse>
         </Navbar>
     );
