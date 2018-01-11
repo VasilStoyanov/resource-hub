@@ -13,7 +13,7 @@ class LoginPage extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-        <form onSubmit={handleSubmit(this.submit.bind(this))}>
+        <form className='auth-form' onSubmit={handleSubmit(this.submit.bind(this))}>
               <Field placeholder='Username' name='username' glyph='user' component={RenderInput} />
               <Field type='password' placeholder='Password' name='password' glyph='lock' component={RenderInput} />
               <AuthButton value='Login' />

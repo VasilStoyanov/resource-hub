@@ -1,18 +1,17 @@
 .panel-login {
 	/* margin-top: 20%; */
-	background: transparent;
+	/* background: transparent; */
     border-color: #ccc;
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 }
 .panel-login>.panel-heading {
-	color: #cfc9c9;
-	background: rgb(16, 16, 16);
+	background: rgb(195, 187, 187);
 	border-color: #fff;
 	text-align:center;
-	padding-top: 2%;
-	padding-bottom: 3%;
+	padding-top: 0%;
+	padding-bottom: 0%;
 }
 .panel-login>.panel-heading a{
 	text-decoration: none;
@@ -23,6 +22,10 @@
 	-moz-transition: all 0.1s linear;
 	transition: all 0.1s linear;
 }
+.panel-heading > div > a > div{
+	color: #543030;
+}
+
 .panel-login>.panel-heading a.active{
 	color: #029f5b;
 	font-size: 18px;
@@ -56,24 +59,23 @@
 }
 
 .btn-register, .btn-login  {
-	background-color: rgb(16, 16, 16);
+	background-color: rgb(195, 187, 187);
 	outline: none !important;
-	color: #cfc9c9;
+	color: #000;
 	font-size: 14px;
 	height: auto;
 	font-weight: bold;
 	padding: 14px 0;
 	text-transform: uppercase;
 	border: 1px rgb(109, 1, 7);
-	box-shadow: 0 0 5px rgb(109, 1, 7);
+	/* box-shadow: 0 0 5px rgb(109, 1, 7); */
 }
 .btn:focus{
 	outline: none;
-	color: #cfc9c9;
 }
 .btn-register:hover {
-	color: #fff;
-	background-color: rgb(64, 8, 7);
+	/* color: #fff; */
+	/* background-color: rgb(64, 8, 7); */
 	border-color: black;
 	/* border-color: #00d8ff; */
 }
@@ -81,18 +83,19 @@
 	margin-top: 10%
 }
 
-/* .link-is-active{
-	color: rgb(227, 136, 136) !important;
-} */
+.link-is-active{
+	background: white !important;
+} 
+
 #auth-form-group{
 	background-color: transparent;
     border-color: transparent transparent;
-    border-bottom-color: white;
+    border-bottom-color: black;
 }
 
 .error-block{
-	color: white !important;
-	font-weight: bold;
+	/* color: white !important; */
+	/* font-weight: bold; */
 	font-size: initial;
 	text-align: center;
 }
@@ -102,15 +105,18 @@
 }
 
 input::-webkit-input-placeholder {
-	color: white !important;
+	color: #000 !important;
 	}
 
 input{
-	color:#fff !important;
+	color:#000 !important;
 }	
 
-.input-group-addon{
-	color: white !important;
-    background: transparent !important;
-    border-color: transparent !important;
+.auth-form > div > span > .input-group-addon{
+    /* background: transparent !important; */
+	border-color: #eee !important;
+	/* border-bottom-color: black !important; */
+}
+.panel-heading > div > a > div{
+	padding: 2% 0;
 }

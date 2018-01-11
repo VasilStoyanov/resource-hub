@@ -17,12 +17,16 @@ class AuthNavbar extends Component {
 
         return (
             <Row>
-                <Col xs={6}>
-                    <Link className={`login-header ${loginActiveClass}`} to='/users/login'>Login</Link>
-                </Col>
-                <Col xs={6}>
-                    <Link className={`register-header ${registerActiveClass}`} to='/users/register'>Register</Link>
-                </Col>
+                <Link className='login-header' to='/users/login'>
+                    <Col xs={6} className={`${loginActiveClass}`}>
+                        Login
+                    </Col>
+                </Link>
+                <Link className='register-header' to='/users/register'>
+                    <Col xs={6} className={`${registerActiveClass}`}>
+                        Register
+                    </Col>
+                </Link>
             </Row>
         );
     }

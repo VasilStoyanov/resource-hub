@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Grid, Row, Col } from 'react-bootstrap';
 import getTopics from '../../actions/topics/getTopics';
-import TopicsNavigation from './TopicsNavigation';
+import SearchBar from '../common/SearchBar';
 
 class HomePage extends Component {
   componentDidMount() {
@@ -11,7 +11,15 @@ class HomePage extends Component {
 
   render() {
     return (
-      <div>Home page</div>
+      <Grid>
+        <Row>
+            <SearchBar />
+        </Row>
+        <Row>
+          hi2
+
+        </Row>
+      </Grid>
     );
   }
 }
