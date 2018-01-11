@@ -1,9 +1,11 @@
 const topicController = require('./topic.controller');
 const { Router } = require('express');
 const { getStatusCode } = require('./../../../utils');
+const { authenticate } = require('./../../auth/auth');
 
 const createdStatusCode = getStatusCode('created');
-const okStatusCode = getStatusCode('created');
+const okStatusCode = getStatusCode('ok');
+const notFoundStatusCode = getStatusCode('notFound');
 
 const attachTo = (app, data) => {
   const router = new Router();
@@ -11,27 +13,25 @@ const attachTo = (app, data) => {
 
   const controller = topicController.init(app, data);
 
-  router.get('/topic', async (req, res) => {
-    try {
-      const topics = await controller.getTopics();
-      res.status(okStatusCode).json(topics);
-    } catch ({ statusCode, errorMessage }) {
-      res.status(statusCode).json({ message: errorMessage });
-    }
+  router.get('/topic', (req, res) => {
+    controller.getTopics()
+      .subscribe({
+        next: (topicsCollection) => res.status(okStatusCode).json(topicsCollection),
+        error: () => res.sendStatus(notFoundStatusCode)
+      });
   });
 
-  router.get('/topic/:id', async (req, res) => {
+  router.get('/topic/:id', (req, res) => {
     const topicId = req.params.id;
 
-    try {
-      const topic = await controller.getTopicById(topicId);
-      res.status(okStatusCode).json(topic);
-    } catch ({ statusCode, errorMessage }) {
-      res.status(statusCode).json({ message: errorMessage });
-    }
+    controller.getTopicById(topicId)
+      .subscribe({
+        next: (topic) => res.status(okStatusCode).json(topic),
+        error: () => res.sendStatus(notFoundStatusCode)
+      });
   });
 
-  router.post('/topic', async (req, res) => {
+  router.post('/topic', authenticate(), async (req, res) => {
     const topic = req.body;
 
     try {

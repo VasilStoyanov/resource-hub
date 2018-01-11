@@ -1,31 +1,27 @@
+const {
+  debug,
+  logMessage,
+  logWarnMessage,
+  logErrorMessage
+} = require('./utils');
+
+global.debug = debug;
+
 const config = require('./config');
 const databaseLayer = require('./db');
 const dataLayer = require('./data');
 const applicationLayer = require('./app');
-const { logger } = require('./utils');
 
 const SERVER_INITIALIZED_MESSAGE = (port) => (
   `> Server running on localhost:${port}`
 );
-
-const logMessage = logger({
-  printer: console,
-  method: 'info',
-  colour: 'green'
-});
-
-const logErrorMessage = logger({
-  printer: console,
-  method: 'error',
-  colour: 'red'
-});
 
 const startServerAsync = () => Promise.resolve();
 
 startServerAsync()
   .then(() => databaseLayer.init({
     connectionString: config.connectionString,
-    dataSource: config.dataSources('Agatha')
+    dataSource: config.dataSources('resourceHub')
   }))
   .then(db => dataLayer.init(db))
   .then(data => applicationLayer.init(data))
@@ -33,6 +29,7 @@ startServerAsync()
     logMessage(SERVER_INITIALIZED_MESSAGE(config.PORT));
   }))
   .catch(errorMessage => {
-    logErrorMessage(`${errorMessage} \r\n (!) Server initialization aborted`);
+    logErrorMessage(`${errorMessage}`);
+    logWarnMessage('(!) Server initialization aborted');
     process.exit();
   });

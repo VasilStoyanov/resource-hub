@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb');
-const { logger } = require('./../utils');
+const { logMessage } = require('./../utils');
 
 const CONNECTION_TO_DATABASE_FAILED_ERROR_MESSAGE = (message) =>
   (message ?
@@ -21,11 +21,7 @@ const init = async ({ connectionString, dataSource }) => {
 };
 
 const successfulConnectionToDb = ({ connectionString, dataSource }) => {
-  logger({
-    printer: console,
-    method: 'info',
-    colour: 'green'
-  })(CONNECTION_TO_DATABASE_SUCCESSFUL_MESSAGE({
+  logMessage(CONNECTION_TO_DATABASE_SUCCESSFUL_MESSAGE({
     connectionString,
     dataSource
   }));

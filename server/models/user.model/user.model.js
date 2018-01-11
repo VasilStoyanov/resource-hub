@@ -3,18 +3,17 @@ const createSchema = require('./../schema.factory');
 
 const USER_MODEL_CONSTANTS = require('./user.model.constants');
 
+const userUniqueFields = ['id', 'username'];
 const userModelValidationRules = {
   id: {
     required: true,
-    type: 'string',
-    unique: true
+    type: 'string'
   },
   username: {
     maxLength: USER_MODEL_CONSTANTS.USERNAME_MAX_LENGTH,
     minLength: USER_MODEL_CONSTANTS.USERNAME_MIN_LENGTH,
     required: true,
-    type: 'string',
-    unique: true
+    type: 'string'
   },
   hashedPwd: {
     required: true,
@@ -27,9 +26,6 @@ const userModelValidationRules = {
     type: 'string'
   }
 };
-
-const userUniqueFields = Object.keys(userModelValidationRules)
-  .filter(key => userModelValidationRules[key].unique);
 
 const userValidationSchema = createSchema(userModelValidationRules);
 const userSchema = userValidationSchema.get();
@@ -47,6 +43,5 @@ const userModelValidator = (model) => {
 module.exports = {
   userModelValidator,
   userValidationSchema,
-  userModelValidationRules,
   userUniqueFields
 };

@@ -60,6 +60,14 @@ const validate = (obj) => ({
       if (maxLength && is(currentObjLength).greaterThan(maxLength)) {
         return failedValidation(ERROR_MESSAGES.INVALID_MAX_LENGTH(propName, maxLength));
       }
+
+      if (currentRule.validationPredicate &&
+        typeof currentRule.validationPredicate === 'function') {
+        const validationResult = currentRule.validationPredicate(obj[propName]);
+        if (!validationResult.isValid) {
+          return failedValidation(validationResult.message);
+        }
+      }
     }
 
     return passedValidation();
@@ -91,4 +99,7 @@ validator.validate = (obj) => ({
 
 module.exports = {
   validator,
+  failedValidation,
+  passedValidation,
+  isArray
 };

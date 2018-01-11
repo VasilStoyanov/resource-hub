@@ -9,10 +9,10 @@ const {
 const { CRUD, createUniqueFields } = require('./../data.factory');
 
 const topicsData = async (db) => {
-  const createdUniqueUserFields = createUniqueFields(db)(TOPIC_COLLECTION_NAME);
+  const createdUniqueTopicFields = createUniqueFields(db)(TOPIC_COLLECTION_NAME);
 
   try {
-    await createdUniqueUserFields(topicUniqueFields);
+    await createdUniqueTopicFields(topicUniqueFields);
   } catch (ex) {
     return Promise.reject(ex);
   }
