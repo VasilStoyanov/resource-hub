@@ -10,7 +10,6 @@ const init = (app, data) => {
   const authContorller = Object.create(null);
 
   authContorller.login = ({ username, password }) => new Promise((resolve, reject) => {
-    console.log('here baby');
     data.users.getOneByUsername(username)
       .then(user => {
         if (user) {
