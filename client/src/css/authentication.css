@@ -104,14 +104,6 @@
 	font-size: large !important;
 }
 
-input::-webkit-input-placeholder {
-	color: #000 !important;
-	}
-
-input{
-	color:#000 !important;
-}	
-
 .auth-form > div > span > .input-group-addon{
     /* background: transparent !important; */
 	border-color: #eee !important;

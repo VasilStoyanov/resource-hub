@@ -1,10 +1,14 @@
 import React from 'react';
-import { FormGroup, FormControl, HelpBlock } from 'react-bootstrap';
-import { GlyphInput } from '../../common/GlyphInput';
+import { FormGroup, FormControl, HelpBlock, Glyphicon, InputGroup } from 'react-bootstrap';
 
-export const RenderInput = ({ input, name, meta, placeholder, type, glyph }) => (
+export const RenderInput = ({ input, meta, placeholder, type, glyph }) => (
     <FormGroup controlId="auth-form-group" validationState={meta.error && meta.touched ? 'error' : null}>
-            <GlyphInput {...input} name={name} placeholder={placeholder} type={type} glyph={glyph} />
+       <InputGroup>
+            <InputGroup.Addon>
+                <Glyphicon glyph={glyph} />
+            </InputGroup.Addon>
+            <FormControl {...input} placeholder={placeholder} type={type || 'text'} />
+       </InputGroup>
             <FormControl.Feedback />
             {meta.error && meta.touched && <HelpBlock className='error-block'>{meta.error}</HelpBlock> }
     </FormGroup>

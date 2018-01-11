@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { FormGroup, InputGroup, Glyphicon, FormControl } from 'react-bootstrap';
-import { GlyphInput } from '../common/GlyphInput';
+import { SearchBarInput } from '../common/SearchBarInput';
 
 class SearchBar extends Component {
     submit(result) {
@@ -9,11 +8,11 @@ class SearchBar extends Component {
     }
 
     render() {
+        const { handleSubmit } = this.props;
+        
     return (
-        <form className='search-bar-from' >        
-            <FormGroup>
-                <Field placeholder='Username' name='username' glyph='search' placeRight component={GlyphInput} />
-            </FormGroup>
+        <form className='search-bar-from' onSubmit={handleSubmit(this.submit.bind(this))} >        
+            <Field name='searchString' component={SearchBarInput} />
         </form>
     );
   }

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Grid, Row, Col } from 'react-bootstrap';
 import getTopics from '../../actions/topics/getTopics';
 import SearchBar from '../common/SearchBar';
+import TopicsDropDown from './common/TopicsDropDown';
 
 class HomePage extends Component {
   componentDidMount() {
@@ -13,7 +14,12 @@ class HomePage extends Component {
     return (
       <Grid>
         <Row>
-            <SearchBar />
+          <Col md={3}>
+            <TopicsDropDown topics={this.props.topics} />
+          </Col>
+            <Col md={3}>
+              <SearchBar />
+            </Col>
         </Row>
         <Row>
           hi2
