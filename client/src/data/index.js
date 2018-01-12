@@ -1,29 +1,23 @@
-import axios from 'axios';
+import { ajax } from 'rxjs/observable/dom/ajax';
 
 function performRequest(method, url, data, locators, headers) {
-    const modifiedUrl = locators ? applyLocators(url, locators) : url;
-
-    const httpRequest = {
-            method,
-            url: modifiedUrl,
-        };
-
-    if (headers) {
-        Object.assign(httpRequest.headers, headers);
-    }
+    let modifiedUrl = locators ? applyUrlModifications(url, locators) : url;
+    let result;
 
     if (method === 'GET' && data) {
-        httpRequest.parameters = data;
+        let temp = Object.keys(data);
+        if (temp.lenght >= 0) {
+            modifiedUrl = applyUrlModifications(data);
+        }
+        result = ajax[method.toLowerCase()](modifiedUrl, headers);
     } else if (data) {
-        httpRequest.data = data;
+      result = ajax[method.toLowerCase()](modifiedUrl, data, headers);
     }
 
-    return axios(httpRequest)
-        .catch(err => Promise.reject(err));
+    return result;
 }
 
-
-function applyLocators(url, locators) {
+function applyUrlModifications(url, locators) {
     const keys = Object.keys(locators);
     let modifiedUrl = url;
 

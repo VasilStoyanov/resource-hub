@@ -7,6 +7,10 @@ class TopicsDropDown extends Component {
         console.log(result);
     }
 
+    handleClick(){
+
+    }
+
     render() {
         const menuItems = this.props.topics.map(topic => {
                     const { id, name } = topic;

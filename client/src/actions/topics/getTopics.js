@@ -1,9 +1,17 @@
-import { URLS } from '../../constants/TopicsConstants';
-import { get } from '../../fakeData/data';
+import { TOPICS_ACTIONS } from '../../constants/TopicsConstants';
 
-const getTopics = () => ({
-        type: 'GET_ALL_TOPICS',
-        payload: get(URLS.GET_ALL)
+export const getTopics = () => ({
+        type: TOPICS_ACTIONS.GET_ALL,
+        payload: {}
     });
 
-export default getTopics;
+    export const getTopicsFulfilled = (data) => ({
+        type: TOPICS_ACTIONS.GET_ALL_FULFILLED,
+        payload: data
+    });
+    
+export const getTopicsRejected = () => ({
+        type: TOPICS_ACTIONS.GET_ALL_REJECTED,
+        payload: {}
+    });
+

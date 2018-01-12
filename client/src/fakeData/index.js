@@ -1,4 +1,5 @@
 import faker from 'faker';
+import { Observable } from 'rxjs';
 
 const topicsCount = 100;
 const topicsSchema = () => ({
@@ -23,9 +24,9 @@ function performRequest(method, url) {
         data = fillData(topicsSchema, topicsCount);
     }
     
-    return new Promise((resolve) => {
+    return Observable.fromPromise(new Promise((resolve) => {
         setTimeout(() => resolve(data), 1000);
-    });
+    }));
 }
 
 export const get = (url, data, locators, headers) =>

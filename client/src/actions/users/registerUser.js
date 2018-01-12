@@ -1,5 +1,5 @@
 import { URLS } from '../../constants/UserConstants';
-import { post } from '../../data/data';
+import { post } from '../../data';
 
 const registerUser = (userData) => {
     const userRegisterURL = URLS.REGISTER;
