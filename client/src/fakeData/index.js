@@ -1,17 +1,24 @@
 import faker from 'faker';
 import { Observable } from 'rxjs';
 
-const topicsCount = 100;
-const topicsSchema = () => ({
+const thematicsCount = 50;
+const thematicSchema = () => ({
     id: faker.random.uuid(),
     name: faker.name.title()
+});
+
+const topicsCount = 100;
+const topicSchema = () => ({
+    id: faker.random.uuid(),
+    name: faker.name.title(),
+    thematics: []
 });
 
 function fillData(schema, count) {
     const data = [];
 
     for (let i = 0; i < count; i++) {
-        data.push(topicsSchema());    
+        data.push(topicSchema());    
     }
 
     return data;
@@ -21,7 +28,10 @@ function performRequest(method, url) {
     let data;
 
     if (method === 'GET' && url.split('/').slice(-1).pop() === 'topics') {
-        data = fillData(topicsSchema, topicsCount);
+        data = fillData(topicSchema, topicsCount);
+        data.forEach(element => {
+             element.thematics.push(fillData(thematicSchema, thematicsCount));
+        });
     }
     
     return Observable.fromPromise(new Promise((resolve) => {

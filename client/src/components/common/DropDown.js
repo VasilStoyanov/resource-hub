@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ButtonToolbar, DropdownButton } from 'react-bootstrap';
+import { FormGroup, Row, Col } from 'react-bootstrap';
 
 class DropDown extends Component {
     submit(result) {
@@ -7,18 +7,23 @@ class DropDown extends Component {
     }
 
     render() {
-    const { menuItems, title } = this.props;
+        const options = this.props.options.map(option => {
+            console.log(option);
+            const { id, name } = option;
+            const value = id || name;
         
+        return (<option value={value}>{name}</option>);
+    });
+   
     return (
-        <ButtonToolbar>
-			<DropdownButton
-				bsSize="large"
-				title={title}
-				id="dropdown-size-large"
-			>
-            {menuItems}
-        </DropdownButton>
-		</ButtonToolbar>
+            <FormGroup>
+                <div>
+                    <select id="company" className="form-control">
+                        <option selected>{this.props.title}</option>
+                        {options}
+                    </select> 
+                </div>
+            </FormGroup>
     );
   }
 }

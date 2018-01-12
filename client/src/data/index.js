@@ -1,13 +1,12 @@
 import { ajax } from 'rxjs/observable/dom/ajax';
 
-function performRequest(method, url, data, locators, headers) {
-    let modifiedUrl = locators ? applyUrlModifications(url, locators) : url;
+function performRequest(method, url, data, locators, parameters, headers) {
+    let modifiedUrl = locators ? applyLocators(url, locators) : url;
     let result;
 
     if (method === 'GET' && data) {
-        let temp = Object.keys(data);
-        if (temp.lenght >= 0) {
-            modifiedUrl = applyUrlModifications(data);
+        if (parameters) {
+            modifiedUrl = addQueryStringParameters(modifiedUrl, parameters);
         }
         result = ajax[method.toLowerCase()](modifiedUrl, headers);
     } else if (data) {
@@ -17,7 +16,18 @@ function performRequest(method, url, data, locators, headers) {
     return result;
 }
 
-function applyUrlModifications(url, locators) {
+function addQueryStringParameters(url, parameters) {
+    let modifiedUrl = `${url}?`;
+    const keys = Object.keys(parameters);
+
+    keys.forEach(key => {
+        modifiedUrl = `${modifiedUrl}${key}=${parameters[key]}&`;
+    });
+    
+    return modifiedUrl;
+}
+
+function applyLocators(url, locators) {
     const keys = Object.keys(locators);
     let modifiedUrl = url;
 
@@ -28,8 +38,8 @@ function applyUrlModifications(url, locators) {
     return modifiedUrl;
 }
 
-export const get = (url, data, locators, headers) => 
-        performRequest('GET', url, data, locators, headers);
+export const get = (url, locators, headers) => 
+        performRequest('GET', url, {}, locators, headers);
         
 export const post = (url, data, locators, headers) => 
         performRequest('POST', url, data, locators, headers);
