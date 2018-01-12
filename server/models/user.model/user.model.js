@@ -3,9 +3,9 @@ const createSchema = require('./../schema.factory');
 
 const USER_MODEL_CONSTANTS = require('./user.model.constants');
 
-const userUniqueFields = ['id', 'username'];
+const userUniqueFields = ['userId', 'username'];
 const userModelValidationRules = {
-  id: {
+  userId: {
     required: true,
     type: 'string'
   },

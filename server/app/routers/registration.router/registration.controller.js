@@ -23,6 +23,8 @@ const userRegistrationSchema = {
   ...userRegistrationRules
 };
 
+const userModelFields = userValidationSchema.getFields();
+
 const init = (data) => {
   const userRegistrationController = Object.create(null);
 
@@ -35,14 +37,26 @@ const init = (data) => {
     const salt = generateSalt({ length: 16 });
     const hashPassword = hash(user.password);
     const passwordHashingResult = hashPassword(salt);
-    const id = uuidv1();
+    const userId = uuidv1();
 
-    return await data.users.add({
-      id,
-      ...user,
+    const userEntity = userModelFields.reduce((acc, curr) => {
+      if (!user[curr]) {
+        return acc;
+      }
+
+      const userProperty = {
+        [curr]: user[curr]
+      };
+
+      return Object.assign(acc, userProperty);
+    }, {
+      userId,
+      username: user.username,
       hashedPwd: passwordHashingResult.hashedPassword,
       salt: passwordHashingResult.salt
     });
+
+    return await data.users.add(userEntity);
   };
 
   return userRegistrationController;

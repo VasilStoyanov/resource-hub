@@ -2,9 +2,9 @@ const { validator, failedValidation, passedValidation, isArray } = require('./..
 const createSchema = require('./../schema.factory');
 const TOPIC_MODEL_CONSTANTS = require('./topic.model.constants');
 
-const topicUniqueFields = ['id', 'name'];
+const topicUniqueFields = ['topicId', 'name'];
 const topicModelValidationRules = {
-  id: {
+  topicId: {
     required: true,
     type: 'string'
   },
@@ -21,11 +21,11 @@ const topicModelValidationRules = {
         return failedValidation(TOPIC_MODEL_CONSTANTS.TEMATICS_SHOULD_BE_ARRAY(1));
       }
 
-      for (let i = 0; i < thematicsCollection.length; i++) {
-        if (typeof thematicsCollection[i] !== 'string') {
-          return failedValidation(TOPIC_MODEL_CONSTANTS.TEMATICS_VALUES_SHOULD_BE_OF_TYPE_STRING);
-        }
-      }
+      // for (let i = 0; i < thematicsCollection.length; i++) {
+      //   if (typeof thematicsCollection[i] !== 'string') {
+      // return failedValidation(TOPIC_MODEL_CONSTANTS.TEMATICS_VALUES_SHOULD_BE_OF_TYPE_STRING);
+      //   }
+      // }
 
       return passedValidation();
     }

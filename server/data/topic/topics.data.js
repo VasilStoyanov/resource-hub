@@ -8,6 +8,11 @@ const {
 
 const { CRUD, createUniqueFields } = require('./../data.factory');
 
+const findTopicById = (obj) => ({
+  ...obj,
+  getByTopicId: (id) => obj.getOneByProperty('topicId')(id)
+});
+
 const topicsData = async (db) => {
   const createdUniqueTopicFields = createUniqueFields(db)(TOPIC_COLLECTION_NAME);
 
@@ -19,6 +24,7 @@ const topicsData = async (db) => {
 
   return Promise.resolve(pipe(
     CRUD(db)(TOPIC_COLLECTION_NAME)(topicModelValidator),
+    findTopicById
   )(Object.create(null)));
 };
 

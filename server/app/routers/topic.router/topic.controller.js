@@ -13,7 +13,6 @@ const mapTopicToViewModel = (topic) => ({
 
 const init = (app, data) => {
   const topicContorller = Object.create(null);
-
   topicContorller.getTopics = () => Observable.fromPromise(data.topics.getAll())
     .switchMap(topics => Observable.from(topics)
       .map(mapTopicToViewModel))
@@ -22,25 +21,67 @@ const init = (app, data) => {
 
   topicContorller.getTopicById = (id) => (
     (id) && (typeof id === 'string') && (id.length > 0) ?
-    Observable.fromPromise(data.topics.getById(id))
+    Observable.fromPromise(data.topics.getByTopicId(id))
     .map(mapTopicToViewModel) :
     Observable.throw(new Error('Id should be valid string'))
   );
 
   topicContorller.create = (topic) => new Promise((resolve, reject) => {
     const id = uuidv1();
-    const topicToAdd = Object.create(null);
-    topicToAdd.id = id;
-    Object.assign(topicToAdd, topic);
+    const topicEntity = Object.create(null);
 
-    data.topics.add(topicToAdd)
-      .then(succ => resolve(succ))
-      .catch(errorMessage => {
-        reject({ statusCode: badRequest, errorMessage });
+    topicEntity.topicId = id;
+    topicEntity.thematics = [];
+
+    const checkIfThematicsExistsPromises = [];
+    topic.thematics.forEach(thematic => {
+      checkIfThematicsExistsPromises.push(data.thematics.getByName(thematic));
+    });
+
+    Promise.all(checkIfThematicsExistsPromises)
+      .then(values => {
+        const addMissingThematicPromises = [];
+        values.forEach((value, index) => {
+          if (!value) {
+            const thematicId = uuidv1();
+            addMissingThematicPromises.push(data.thematics.add({
+              thematicId,
+              name: topic.thematics[index]
+            }));
+
+            return;
+          }
+        });
       });
-  });
+  }); // End create
 
   return topicContorller;
 };
 
 module.exports = { init };
+
+// topic.thematics.forEach(thematic => {
+//   data.thematics.getByName(thematic)
+//     .then(foundedThematic => {
+//       if (foundedThematic) {
+//         topicEntity.thematics.push(foundedThematic.thematicId);
+//         resolve();
+//       }
+//
+//       const thematicId = uuidv1();
+//       data.thematics.add({
+//           thematicId,
+//           name: thematic
+//         })
+//         .then(() => {
+//           topicEntity.thematics.push({
+//             thematicId,
+//             name: thematic
+//           });
+//
+//           resolve();
+//         });
+//     })
+//     .catch(e => {
+//       console.log(`in the catch ${e}`);
+//     }))

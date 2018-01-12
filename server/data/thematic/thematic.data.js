@@ -7,6 +7,16 @@ const {
   thematicUniqueFields
 } = require('./../../models/thematic.model/thematic.model');
 
+const findThematicById = (obj) => ({
+  ...obj,
+  getByThematicId: (thematicId) => obj.getOneByProperty('thematicId')(thematicId)
+});
+
+const findThematicByName = (obj) => ({
+  ...obj,
+  getByName: (thematicName) => obj.getOneByProperty('name')(thematicName)
+});
+
 const thematicData = async (db) => {
   const createUniqueThematicFields = createUniqueFields(db)(THEMATIC_COLLECTION_NAME);
 
@@ -18,6 +28,8 @@ const thematicData = async (db) => {
 
   return Promise.resolve(pipe(
     CRUD(db)(THEMATIC_COLLECTION_NAME)(thematicModelValidator),
+    findThematicById,
+    findThematicByName
   )(Object.create(null)));
 };
 

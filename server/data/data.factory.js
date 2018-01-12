@@ -22,8 +22,6 @@ const readable = (db) => (collection) => (obj) => ({
   ...obj,
   getAll: () => db.collection(collection).find().toArray(),
 
-  getById: (id) => db.collection(collection).findOne({ id }),
-
   getByObjectId: (id) => db.collection(collection).findOne({
     _id: new ObjectID(id)
   }),

@@ -9,16 +9,15 @@ const params = {
 
 const applyTo = (app, data) => {
   const strategy = new Strategy(params, (payload, done) => {
-    data.users.getById(payload.id)
+    data.users.getByUserId(payload.id)
       .then(user => {
         if (user) {
-          console.log(`USER FOUND ${user.id}`);
           return done(null, {
-            id: user.id
+            id: user.userId
           });
         }
 
-        return done(new Error('User not found'), null);
+        return done();
       });
   });
 

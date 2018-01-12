@@ -4,19 +4,22 @@ const { pipe, hash } = require('./../../utils');
 const { userModelValidator, userUniqueFields } = require('./../../models/user.model/user.model');
 const { CRUD, createUniqueFields } = require('./../data.factory');
 
-// eslint-disable-next-line no-unused-vars
-const findByUsername = (db) => (collection) => (obj) => ({
+const findByUsername = (obj) => ({
   ...obj,
-  getOneByUsername: (username) => (
+  getByUsername: (username) => (
     obj.getOneByProperty('username')(username)
   )
 });
 
-// eslint-disable-next-line no-unused-vars
-const checkUserPassword = (db) => (collection) => (obj) => ({
+const findUserById = (obj) => ({
+  ...obj,
+  getByUserId: (id) => obj.getOneByProperty('userId')(id)
+});
+
+const checkUserPassword = (obj) => ({
   ...obj,
   checkPassword: async ({ username, password }) => {
-    const user = await obj.getOneByUsername(username);
+    const user = await obj.getByUsername(username);
     const hashPassword = hash(password);
     const { hashedPassword } = hashPassword(user.salt);
 
@@ -38,8 +41,9 @@ const userData = async (db) => {
 
   return Promise.resolve(pipe(
     CRUD(db)(USERS_COLLECTION_NAME)(userModelValidator),
-    findByUsername(db)(USERS_COLLECTION_NAME),
-    checkUserPassword(db)(USERS_COLLECTION_NAME)
+    findUserById,
+    findByUsername,
+    checkUserPassword
   )(Object.create(null)));
 };
 
