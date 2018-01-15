@@ -17,7 +17,7 @@ class AuthNavbar extends Component {
 
         return (
             <Row>
-                <Link classNam='login-header' to='/users/login'>
+                <Link className='login-header' to='/users/login'>
                     <Col xs={6} className={`${loginActiveClass}`}>
                         Login
                     </Col>
