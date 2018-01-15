@@ -9,10 +9,10 @@ const generateSalt = ({ length = 16 }) => (
 const hash = (string) => (salt) => {
   const hmac = crypto.createHmac('sha512', salt);
   hmac.update(string);
-  const hashedPassword = hmac.digest('hex');
+  const hashingResult = hmac.digest('hex');
   return {
     salt,
-    hashedPassword
+    hashingResult
   };
 };
 

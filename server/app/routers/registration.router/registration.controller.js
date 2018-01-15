@@ -34,9 +34,10 @@ const init = (data) => {
       return Promise.reject(validationResult.message);
     }
 
-    const salt = generateSalt({ length: 16 });
+    const userSalt = generateSalt({ length: 16 });
     const hashPassword = hash(user.password);
-    const passwordHashingResult = hashPassword(salt);
+    const { hashingResult, salt } = hashPassword(userSalt);
+
     const userId = uuidv1();
 
     const userEntity = userModelFields.reduce((acc, curr) => {
@@ -52,11 +53,11 @@ const init = (data) => {
     }, {
       userId,
       username: user.username,
-      hashedPwd: passwordHashingResult.hashedPassword,
-      salt: passwordHashingResult.salt
+      hashedPwd: hashingResult,
+      salt
     });
 
-    return await data.users.add(userEntity);
+    return await data.users.create(userEntity);
   };
 
   return userRegistrationController;

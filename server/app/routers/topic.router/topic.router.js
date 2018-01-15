@@ -1,7 +1,7 @@
 const topicController = require('./topic.controller');
 const { Router } = require('express');
 const { getStatusCode } = require('./../../../utils');
-const { authenticate } = require('./../../auth/auth');
+const { requireAuthentication } = require('./../../auth/auth');
 
 const createdStatusCode = getStatusCode('created');
 const okStatusCode = getStatusCode('ok');
@@ -31,7 +31,7 @@ const attachTo = (app, data) => {
       });
   });
 
-  router.post('/topic', authenticate(), async (req, res) => {
+  router.post('/topic', requireAuthentication(), async (req, res) => {
     const topic = req.body;
 
     try {

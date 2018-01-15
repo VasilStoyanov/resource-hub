@@ -75,7 +75,7 @@ const init = (app, data) => {
                     resources: []
                   };
 
-                  data.thematics.add(tematicEntity)
+                  data.thematics.create(tematicEntity)
                     .then((createdTematic) => {
                       res(createdTematic.thematicId);
                     })
@@ -98,7 +98,7 @@ const init = (app, data) => {
               topicEntity.thematics.push({ thematicId });
             });
 
-            data.topics.add(topicEntity)
+            data.topics.create(topicEntity)
               .then(createdTopic => {
                 resolve(topicToViewModel(createdTopic));
               })

@@ -3,7 +3,7 @@ const { pipe } = require('./../utils');
 
 const creatable = (db) => (collection) => (validator) => (obj) => ({
   ...obj,
-  add: async (data) => {
+  create: async (data) => {
     const validationResult = await validator(data);
     if (!validationResult || !validationResult.isValid) {
       return Promise.reject(validationResult.message);
