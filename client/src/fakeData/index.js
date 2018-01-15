@@ -1,13 +1,21 @@
+/* eslint-disable */
+
 import faker from 'faker';
 import { Observable } from 'rxjs';
 
-const thematicsCount = 50;
+const resourcesCount = 10;
+const resourcesSchema = () => ({
+    id: faker.random.uuid(),
+    name: faker.name.title()
+});
+
+const thematicsCount = 10;
 const thematicSchema = () => ({
     id: faker.random.uuid(),
     name: faker.name.title()
 });
 
-const topicsCount = 100;
+const topicsCount = 30;
 const topicSchema = () => ({
     id: faker.random.uuid(),
     name: faker.name.title(),
@@ -30,10 +38,11 @@ function performRequest(method, url) {
     if (method === 'GET' && url.split('/').slice(-1).pop() === 'topics') {
         data = fillData(topicSchema, topicsCount);
         data.forEach(element => {
-             element.thematics.push(fillData(thematicSchema, thematicsCount));
+             element.thematics = element.thematics.concat(fillData(thematicSchema, thematicsCount));
         });
+    }else if (method === 'GET' && url.split('/').slice(-1).pop() === 'names') {
+        data = fillData(resourcesSchema, resourcesCount);
     }
-    
     return Observable.fromPromise(new Promise((resolve) => {
         setTimeout(() => resolve(data), 1000);
     }));

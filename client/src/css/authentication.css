@@ -7,7 +7,7 @@
 	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 }
 .panel-login>.panel-heading {
-	background: rgb(195, 187, 187);
+	background: rgb(234, 235, 239);
 	border-color: #fff;
 	text-align:center;
 	padding-top: 0%;
@@ -23,7 +23,7 @@
 	transition: all 0.1s linear;
 }
 .panel-heading > div > a > div{
-	color: #543030;
+	color: black;
 }
 
 .panel-login>.panel-heading a.active{
@@ -59,7 +59,7 @@
 }
 
 .btn-register, .btn-login  {
-	background-color: rgb(195, 187, 187);
+    background: rgb(234, 235, 239);
 	outline: none !important;
 	color: #000;
 	font-size: 14px;
@@ -67,7 +67,7 @@
 	font-weight: bold;
 	padding: 14px 0;
 	text-transform: uppercase;
-	border: 1px rgb(109, 1, 7);
+	border: 1px black;
 	/* box-shadow: 0 0 5px rgb(109, 1, 7); */
 }
 .btn:focus{

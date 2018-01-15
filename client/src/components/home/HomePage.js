@@ -11,8 +11,12 @@ class HomePage extends Component {
 
   render() {
     return (
-      <Grid>
-        <HomePageMenuForm {...this.props} />
+      <Grid fluid>
+        <Row className='home-page-menu'>
+          <Col lg={6} lgOffset={6}>
+            <HomePageMenuForm {...this.props} />
+          </Col>
+        </Row>
         <Row>
           hi2
         </Row>
@@ -22,7 +26,9 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = state => ({
-        topics: state.topicsReducer.topics
+        topics: state.topicsReducer.topics,
+        selectedTopic: state.topicsReducer.selectedTopic,
+        filteredResources: state.resourcesReducer.filteredResources
     });
 
 

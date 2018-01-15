@@ -4,7 +4,6 @@ import { Row, Col } from 'react-bootstrap';
 
 class AuthNavbar extends Component {    
     getChildrenName() {
-        console.log(this.props);
         const { pathname } = this.props.location;
         
         return pathname.split('/').slice(-1).pop();      
@@ -17,7 +16,7 @@ class AuthNavbar extends Component {
 
         return (
             <Row>
-                <Link classNam='login-header' to='/users/login'>
+                <Link className='login-header' to='/users/login'>
                     <Col xs={6} className={`${loginActiveClass}`}>
                         Login
                     </Col>

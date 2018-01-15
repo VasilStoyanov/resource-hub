@@ -2,6 +2,9 @@ import { toast } from 'react-toastify';
 import { TOPICS_ACTIONS, MESSAGES } from '../constants/TopicsConstants';
 
 const initialState = {
+    selectedTopic: {
+        thematics: []
+    },
     topics: [{
         id: '',
         name: ''
@@ -15,6 +18,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case TOPICS_ACTIONS.GET_ALL_FULFILLED: {
             return {
+                ...state,
                 topics: action.payload
             };
         }
@@ -37,6 +41,14 @@ export default (state = initialState, action) => {
             
             return {
                 ...state
+            };
+        }
+        case TOPICS_ACTIONS.SELECT: {
+            return {
+                ...state,
+                selectedTopic: action.payload || {
+                    thematics: []
+                }
             };
         }
         default: {

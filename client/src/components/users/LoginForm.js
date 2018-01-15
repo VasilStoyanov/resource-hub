@@ -7,7 +7,6 @@ import loginUser from '../../actions/users/loginUser';
 
 class LoginPage extends Component {
   submit(results) {
-    console.log(results);
       this.props.dispatch(loginUser(results));
   }
 

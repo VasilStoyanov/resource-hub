@@ -19,9 +19,3 @@ export const selectTopic = (topic) => ({
         type: TOPICS_ACTIONS.SELECT,
         payload: topic
     });
-    
-export const selectTopicFulfilled = (topic) => ({
-        type: TOPICS_ACTIONS.SELECT_FULFILLED,
-        payload: topic
-    });
-

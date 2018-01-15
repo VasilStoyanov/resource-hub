@@ -6,10 +6,9 @@
 @import './css/navbar.css';
 
 body {
-  background: lightgray;
+  background: no-repeat url('http://www.ultrahdfreewallpapers.com/uploads/large/3d-and-abstract/abstract-hd-wallpaper-488.jpg');
   color: black;
-  background-repeat: no-repeat;
-  background-size: stretch;
+  background-size: cover;
 }
  .mdl-layout__header,
  .mdl-layout__drawer-button,

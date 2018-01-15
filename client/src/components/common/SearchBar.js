@@ -1,30 +1,21 @@
 import React, { Component } from 'react';
-import { AutoComplete as MUIAutoComplete } from 'material-ui';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { AutoComplete } from 'redux-form-material-ui';
-import { reduxForm, Field } from 'redux-form';
+import { reduxForm } from 'redux-form';
+import { Typeahead } from 'react-bootstrap-typeahead'; 
 
 class SearchBar extends Component {
-    submit(result) {
-        console.log('searchREsult ---------------------- >', result);
-    }
-
     render() {
-        const { dataSource, handleSubmit } = this.props;
+        const { input, options, handleChange, minLength, handleInputChange, placeholder } = this.props;
+
         return (
-           <form className='search-bar-form' onSubmit={handleSubmit(this.submit.bind(this))}>
-                <MuiThemeProvider>
-                <Field
-                    name='searchByText'
-                    component={AutoComplete}
-                    floatingLabelText='Search Subtopic'
-                    // openOnFocus
-                    filter={MUIAutoComplete.fuzzyFilter}
-                    dataSource={dataSource}
-                    onBlur={() => {}}
-                />
-                </MuiThemeProvider>
-           </form>
+            <Typeahead
+                    {...input}
+                    onInputChange={handleInputChange}
+                    onChange={handleChange}            
+                    labelKey="name"
+                    minLength={minLength}
+                    options={options}
+                    placeholder={placeholder}
+            />
         );
   }
 }

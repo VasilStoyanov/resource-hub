@@ -3,7 +3,7 @@ import RegisterFormReducer from './RegisterFormReducer';
 
 
 const FormReducers = formReducer.plugin({
-    'register-form': RegisterFormReducer
+    'home-page-menu-form': RegisterFormReducer
 });
 
 
