@@ -4,6 +4,8 @@
 @import './css/homepage.css';
 @import './css/searchbar.css';
 @import './css/navbar.css';
+@import './css/zoomEffect.css';
+@import './css/card.css';
 
 body {
   background: lightgray;
