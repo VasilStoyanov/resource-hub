@@ -5,7 +5,7 @@ export const getTopics = () => ({
         payload: {}
     });
 
-    export const getTopicsFulfilled = (data) => ({
+export const getTopicsFulfilled = (data) => ({
         type: TOPICS_ACTIONS.GET_ALL_FULFILLED,
         payload: data
     });
@@ -13,5 +13,15 @@ export const getTopics = () => ({
 export const getTopicsRejected = () => ({
         type: TOPICS_ACTIONS.GET_ALL_REJECTED,
         payload: {}
+    });
+    
+export const selectTopic = (topic) => ({
+        type: TOPICS_ACTIONS.SELECT,
+        payload: topic
+    });
+    
+export const selectTopicFulfilled = (topic) => ({
+        type: TOPICS_ACTIONS.SELECT_FULFILLED,
+        payload: topic
     });
 
