@@ -10,10 +10,6 @@ const init = (data) => {
   auth.applyTo(app, data);
   routers.attachTo(app, data);
 
-  app.get('/testauth', auth.authenticate(), (req, res) => {
-    res.send('ok');
-  });
-
   return Promise.resolve(app);
 };
 

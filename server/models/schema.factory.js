@@ -13,7 +13,11 @@ const createSchema = (validationRules) => {
 
       return schemaCpy;
     },
+
     getRule: (ruleName) => Object.assign(Object.create(null), schema[ruleName]),
+
+    getFields: () => Object.keys(schema),
+
     extendWithRule: (rule) => {
       if (typeof rule !== 'object') {
         throw new Error('New rule must be an object');

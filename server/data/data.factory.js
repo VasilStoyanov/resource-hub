@@ -12,7 +12,7 @@ const creatable = (db) => (collection) => (validator) => (obj) => ({
     return new Promise((resolve, reject) => {
       db.collection(collection)
         .insertOne(data)
-        .then(dbResponse => resolve({ userId: new ObjectID(dbResponse.insertedId) }))
+        .then(dbResponse => resolve(dbResponse.ops[0]))
         .catch(dbError => reject(dbError));
     });
   }
@@ -21,8 +21,6 @@ const creatable = (db) => (collection) => (validator) => (obj) => ({
 const readable = (db) => (collection) => (obj) => ({
   ...obj,
   getAll: () => db.collection(collection).find().toArray(),
-
-  getById: (id) => db.collection(collection).findOne({ id }),
 
   getByObjectId: (id) => db.collection(collection).findOne({
     _id: new ObjectID(id)

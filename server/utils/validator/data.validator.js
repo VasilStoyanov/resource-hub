@@ -2,9 +2,12 @@ const ERROR_MESSAGES = require('./data.validator.err.messages');
 
 const passedValidation = () => ({ isValid: true });
 const failedValidation = (message) => ({ isValid: false, message });
-const property = (prop) => ({
-  existsInObject: (obj) => (!!obj[prop]),
-  isOfType: (type) => (typeof prop === type)
+const property = (prop) => ({ in: (obj) => ({
+    exists: !!obj[prop],
+    isOfType: (type) =>
+      ((type === 'array') ? Array.isArray(obj[prop]) :
+        (typeof obj[prop] === type))
+  })
 });
 
 const isArray = (potentialArray) => {
@@ -38,11 +41,11 @@ const validate = (obj) => ({
       const propName = schemaKeys[i];
       const currentRule = validationSchema[propName];
 
-      if (currentRule.required && !property(propName).existsInObject(obj)) {
+      if (currentRule.required && !property(propName).in(obj).exists) {
         return failedValidation(ERROR_MESSAGES.REQUIRED(propName));
       }
 
-      if (currentRule.type && !property(obj[propName]).isOfType(currentRule.type)) {
+      if (currentRule.type && !property(propName).in(obj).isOfType(currentRule.type)) {
         return failedValidation(ERROR_MESSAGES.INVALID_ARGUMENT(currentRule.type));
       }
 
@@ -56,6 +59,14 @@ const validate = (obj) => ({
 
       if (maxLength && is(currentObjLength).greaterThan(maxLength)) {
         return failedValidation(ERROR_MESSAGES.INVALID_MAX_LENGTH(propName, maxLength));
+      }
+
+      if (currentRule.validationPredicate &&
+        typeof currentRule.validationPredicate === 'function') {
+        const validationResult = currentRule.validationPredicate(obj[propName]);
+        if (!validationResult.isValid) {
+          return failedValidation(validationResult.message);
+        }
       }
     }
 
@@ -88,4 +99,7 @@ validator.validate = (obj) => ({
 
 module.exports = {
   validator,
+  failedValidation,
+  passedValidation,
+  isArray
 };
