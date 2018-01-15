@@ -13,6 +13,11 @@ const findTopicById = (obj) => ({
   getByTopicId: (id) => obj.getOneByProperty('topicId')(id)
 });
 
+const findTopicByName = (obj) => ({
+  ...obj,
+  getByName: (topicName) => obj.getOneByProperty('name')(topicName)
+});
+
 const topicsData = async (db) => {
   const createdUniqueTopicFields = createUniqueFields(db)(TOPIC_COLLECTION_NAME);
 
@@ -24,7 +29,8 @@ const topicsData = async (db) => {
 
   return Promise.resolve(pipe(
     CRUD(db)(TOPIC_COLLECTION_NAME)(topicModelValidator),
-    findTopicById
+    findTopicById,
+    findTopicByName
   )(Object.create(null)));
 };
 

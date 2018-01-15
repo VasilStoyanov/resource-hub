@@ -35,8 +35,8 @@ const attachTo = (app, data) => {
     const topic = req.body;
 
     try {
-      await controller.create(topic);
-      res.sendStatus(createdStatusCode);
+      const createdTopic = await controller.create(topic);
+      res.status(createdStatusCode).json(createdTopic);
     } catch ({ statusCode, errorMessage }) {
       res.status(statusCode).json({ message: errorMessage });
     }

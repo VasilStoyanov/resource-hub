@@ -12,7 +12,7 @@ const creatable = (db) => (collection) => (validator) => (obj) => ({
     return new Promise((resolve, reject) => {
       db.collection(collection)
         .insertOne(data)
-        .then(dbResponse => resolve({ userId: new ObjectID(dbResponse.insertedId) }))
+        .then(dbResponse => resolve(dbResponse.ops[0]))
         .catch(dbError => reject(dbError));
     });
   }
