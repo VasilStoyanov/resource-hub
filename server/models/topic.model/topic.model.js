@@ -32,7 +32,7 @@ const topicModelValidationRules = {
   }
 };
 
-const topicValidationSchema = createSchema(topicModelValidationRules);
+const topicValidationSchema = createSchema.forModel('topic')(topicModelValidationRules);
 const topicSchema = topicValidationSchema.get();
 
 const topicModelValidator = (model) => {
