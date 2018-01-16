@@ -14,7 +14,7 @@ const attachTo = (app, data) => {
       const createdUser = await controller.registerNewUser(user);
       res.status(createdStatusCode).json(createdUser);
     } catch ({ statusCode = badRequestStatusCode, errorMessage }) {
-      res.status(badRequestStatusCode).json({ errorMessage });
+      res.status(statusCode).json({ errorMessage });
     }
   });
 };

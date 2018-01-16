@@ -1,8 +1,10 @@
 const uuidv1 = require('uuid/v1');
-const { hash, generateSalt } = require('../../../utils');
+const { hash, generateSalt, getStatusCode } = require('../../../utils');
 const { validateUser } = require('./registration.validation');
 
 const { userValidationSchema } = require('./../../../models/user.model/user.model');
+
+const conflictStatusCode = getStatusCode('conflict');
 
 const userModelFields = userValidationSchema.getFields();
 
@@ -50,7 +52,7 @@ const init = (data) => {
   userRegistrationController.registerNewUser = async (user) => {
     const validationResult = validateUser(user);
     if (!validationResult.isValid) {
-      return Promise.reject(validationResult.message);
+      return Promise.reject({ errorMessage: validationResult.message });
     }
 
     const checkForUniqueFields = ['username', 'email'];
@@ -64,14 +66,16 @@ const init = (data) => {
         });
 
         if (exists) {
-          return Promise.reject(PROPERTY_ALREADY_IN_USE({
-            property: uniqueFieldName,
-            value: user[uniqueFieldName]
-          }));
+          return Promise.reject({
+            statusCode: conflictStatusCode,
+            errorMessage: PROPERTY_ALREADY_IN_USE({
+              property: uniqueFieldName,
+              value: user[uniqueFieldName]
+            })
+          });
         }
-      } catch (ex) {
-        console.log(ex);
-        return Promise.reject(ex);
+      } catch (errorMessage) {
+        return Promise.reject({ errorMessage });
       }
     }
 
@@ -81,8 +85,8 @@ const init = (data) => {
       const createdUser = await data.users.create(userEntity);
       const userAsVM = userToViewModel(createdUser);
       return Promise.resolve(userAsVM);
-    } catch (exeption) {
-      return Promise.reject(exeption);
+    } catch (errorMessage) {
+      return Promise.reject({ errorMessage });
     }
   };
 
