@@ -45,7 +45,6 @@ const attachTo = (app, data) => {
       statusCode = badRequestStatusCode,
       errorMessage = DB_ERROR_MESSAGE
     }) {
-      console.log(errorMessage);
       res.status(statusCode).json({ message: errorMessage });
     }
   });

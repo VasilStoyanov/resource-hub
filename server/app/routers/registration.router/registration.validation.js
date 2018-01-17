@@ -19,11 +19,11 @@ const {
   INVALID_ARGUMENT,
 } = require('./../../../utils/validator/data.validator.err.messages');
 
-const validateUser = (user) => {
-  const objName = 'user';
-  const usernameDesiredType = 'string';
-  const passwordDesiredType = 'string';
+const objName = 'user';
+const usernameDesiredType = 'string';
+const passwordDesiredType = 'string';
 
+const validateUser = (user) => {
   if (!property('username').in(user).exists) {
     return failedValidation(REQUIRED({
       objName,

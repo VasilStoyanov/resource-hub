@@ -3,6 +3,7 @@ const uuidv1 = require('uuid/v1');
 const { Observable } = require('rxjs/Rx');
 const { logErrorMessage } = require('./../../../utils');
 const { topicValidationSchema } = require('./../../../models/topic.model');
+const { validateTopic } = require('./topic.validation');
 
 const TOPIC_WITH_SUCH_NAME_ALREADY_EXISTS_ERROR_MESSAGE =
   'A topic with this name already exists';
@@ -49,6 +50,10 @@ const init = (app, data) => {
   );
 
   topicContorller.create = (topic) => new Promise(async (resolve, reject) => {
+    const validationResult = validateTopic(topic);
+    if (!validationResult.isValid) {
+      return reject(validationResult.messsage);
+    }
     const topicEntity = createTopicEntity(topic);
 
     try {
@@ -66,44 +71,32 @@ const init = (app, data) => {
 
       const checkIfThematicsExistsPromises = [];
       topic.thematics.forEach(thematicName => {
-        const promise = new Promise(async (res, rej) => {
-          try {
-            const foundedThematic = await data.thematics.getByName(thematicName);
-            if (foundedThematic) {
-              return res(foundedThematic.thematicId);
-            }
-
-            const thematicEntity = {
-              thematicId: uuidv1(),
-              name: thematicName,
-              resources: []
-            };
-
-            try {
-              const createdThematic = await data.thematics.create(thematicEntity);
-              return res(createdThematic.thematicId);
-            } catch (errorMessage) {
-              return rej(errorMessage);
-            }
-          } catch (errorMessage) {
-            return rej(errorMessage);
+        const promise = new Promise(async res => {
+          const foundedThematic = await data.thematics.getByName(thematicName);
+          if (foundedThematic) {
+            return res(foundedThematic.thematicId);
           }
+
+          const thematicEntity = {
+            thematicId: uuidv1(),
+            name: thematicName,
+            resources: []
+          };
+
+          const createdThematic = await data.thematics.create(thematicEntity);
+          return res(createdThematic.thematicId);
         });
 
         checkIfThematicsExistsPromises.push(promise);
       }); // End forEach
 
-      Promise.all(checkIfThematicsExistsPromises)
-        .then(thematicsForCurrentTopic => {
-          thematicsForCurrentTopic.forEach(thematicId => {
-            topicEntity.thematics.push({ thematicId });
-          });
+      const thematicsForCurrentTopic = await Promise.all(checkIfThematicsExistsPromises);
+      thematicsForCurrentTopic.forEach(thematicId => {
+        topicEntity.thematics.push({ thematicId });
+      });
 
-          data.topics.create(topicEntity)
-            .then(createdTopic => resolve(topicToViewModel(createdTopic)))
-            .catch((errorMessage) => reject({ errorMessage }));
-        })
-        .catch(errorMessage => reject({ errorMessage }));
+      const createdTopic = await data.topics.create(topicEntity);
+      return resolve(topicToViewModel(createdTopic));
     } catch (errorMessage) {
       return reject({ errorMessage });
     }
