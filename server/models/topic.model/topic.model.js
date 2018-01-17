@@ -35,14 +35,10 @@ const topicModelValidationRules = {
 
         const currentThematicKeys = Object.keys(currentThematicObject);
         if (currentThematicKeys.length > 1 || currentThematicKeys[0] !== 'thematicId') {
-          return failedValidation(
-            'Invalid thematic object.'
-          );
+          return failedValidation('Invalid thematic object.');
         } else if (!currentThematicObject.thematicId ||
           typeof currentThematicObject.thematicId !== 'string') {
-          return failedValidation(
-            'Invalid value for thematicId object'
-          );
+          return failedValidation('Invalid value for thematicId object');
         }
       }
 
