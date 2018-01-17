@@ -6,7 +6,7 @@ const {
   topicUniqueFields
 } = require('./../../models/topic.model/topic.model');
 
-const { CRUD, createUniqueFields } = require('./../data.factory');
+const { CRUD, createUniqueFields, exists } = require('./../data.factory');
 
 const findTopicById = (obj) => ({
   ...obj,
@@ -30,7 +30,8 @@ const topicsData = async (db) => {
   return Promise.resolve(pipe(
     CRUD(db)(TOPIC_COLLECTION_NAME)(topicModelValidator),
     findTopicById,
-    findTopicByName
+    findTopicByName,
+    exists
   )(Object.create(null)));
 };
 

@@ -54,7 +54,7 @@ const init = (app, data) => {
   topicContorller.create = (topic) => new Promise((resolve, reject) => {
     const topicEntity = createTopicEntity(topic);
 
-    data.topics.getByName(topicEntity.name)
+    data.topics.exists({ property: 'name', value: topicEntity.name })
       .then(topicExists => {
         if (topicExists) {
           return reject({

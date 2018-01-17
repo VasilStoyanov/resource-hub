@@ -21,11 +21,11 @@ const checkUserPassword = (obj) => ({
   checkPassword: async ({ username, password }) => {
     const user = await obj.getByUsername(username);
     const hashPassword = hash(password);
-    const { hashedPassword } = hashPassword(user.salt);
+    const { hashingResult } = hashPassword(user.salt);
 
     return Promise.resolve({
       user,
-      validPassword: hashedPassword === user.hashedPwd
+      validPassword: hashingResult === user.hashedPwd
     });
   }
 });
