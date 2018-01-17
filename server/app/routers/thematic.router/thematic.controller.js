@@ -6,7 +6,7 @@ const init = (app, data) => {
   const topicContorller = Object.create(null);
 
   topicContorller.create = (topic) => new Promise((resolve, reject) => {
-    data.topics.add(topic)
+    data.topics.create(topic)
       .then(succ => {})
       .catch(fail => {});
   });

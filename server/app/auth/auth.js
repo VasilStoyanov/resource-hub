@@ -25,9 +25,9 @@ const applyTo = (app, data) => {
   passport.initialize();
 };
 
-const authenticate = () => passport.authenticate('jwt', jwt.session);
+const requireAuthentication = () => passport.authenticate('jwt', jwt.session);
 
 module.exports = {
   applyTo,
-  authenticate
+  requireAuthentication
 };

@@ -3,7 +3,7 @@ const { pipe } = require('./../utils');
 
 const creatable = (db) => (collection) => (validator) => (obj) => ({
   ...obj,
-  add: async (data) => {
+  create: async (data) => {
     const validationResult = await validator(data);
     if (!validationResult || !validationResult.isValid) {
       return Promise.reject(validationResult.message);
@@ -50,6 +50,15 @@ const createUniqueFields = (db) => (collection) => (uniqueFields) => {
   return Promise.all(promiseCollection);
 };
 
+const exists = (obj) => ({
+  ...obj,
+  exists: ({ property, value }) => new Promise((resolve, reject) => {
+    obj.getOneByProperty(property)(value)
+      .then(object => (object ? resolve(true) : resolve(false)))
+      .catch(dbError => reject(dbError));
+  })
+});
+
 const CRUD = (db) => (collection) => (validator) => (obj) => pipe(
   creatable(db)(collection)(validator),
   readable(db)(collection)
@@ -59,5 +68,6 @@ module.exports = {
   creatable,
   readable,
   CRUD,
+  exists,
   createUniqueFields
 };

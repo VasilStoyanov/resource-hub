@@ -11,10 +11,10 @@ const attachTo = (app, data) => {
     const user = req.body;
 
     try {
-      await controller.registerNewUser(user);
-      res.sendStatus(createdStatusCode);
-    } catch (errorMessage) {
-      res.status(badRequestStatusCode).json({ errorMessage });
+      const createdUser = await controller.registerNewUser(user);
+      res.status(createdStatusCode).json(createdUser);
+    } catch ({ statusCode = badRequestStatusCode, errorMessage }) {
+      res.status(statusCode).json({ errorMessage });
     }
   });
 };

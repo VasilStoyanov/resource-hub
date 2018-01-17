@@ -1,7 +1,7 @@
 const THEMATIC_COLLECTION_NAME = 'thematics';
 
 const { pipe } = require('./../../utils');
-const { CRUD, createUniqueFields } = require('./../data.factory');
+const { CRUD, createUniqueFields, exists } = require('./../data.factory');
 const {
   thematicModelValidator,
   thematicUniqueFields
@@ -29,7 +29,8 @@ const thematicData = async (db) => {
   return Promise.resolve(pipe(
     CRUD(db)(THEMATIC_COLLECTION_NAME)(thematicModelValidator),
     findThematicById,
-    findThematicByName
+    findThematicByName,
+    exists
   )(Object.create(null)));
 };
 

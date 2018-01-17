@@ -2,7 +2,7 @@ const USERS_COLLECTION_NAME = 'users';
 
 const { pipe, hash } = require('./../../utils');
 const { userModelValidator, userUniqueFields } = require('./../../models/user.model/user.model');
-const { CRUD, createUniqueFields } = require('./../data.factory');
+const { CRUD, createUniqueFields, exists } = require('./../data.factory');
 
 const findByUsername = (obj) => ({
   ...obj,
@@ -21,11 +21,11 @@ const checkUserPassword = (obj) => ({
   checkPassword: async ({ username, password }) => {
     const user = await obj.getByUsername(username);
     const hashPassword = hash(password);
-    const { hashedPassword } = hashPassword(user.salt);
+    const { hashingResult } = hashPassword(user.salt);
 
     return Promise.resolve({
       user,
-      validPassword: hashedPassword === user.hashedPwd
+      validPassword: hashingResult === user.hashedPwd
     });
   }
 });
@@ -43,7 +43,8 @@ const userData = async (db) => {
     CRUD(db)(USERS_COLLECTION_NAME)(userModelValidator),
     findUserById,
     findByUsername,
-    checkUserPassword
+    checkUserPassword,
+    exists
   )(Object.create(null)));
 };
 

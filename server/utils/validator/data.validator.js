@@ -1,7 +1,14 @@
-const ERROR_MESSAGES = require('./data.validator.err.messages');
+const {
+  INVALID_ARGUMENT,
+  INVALID_MAX_LENGTH,
+  INVALID_MIN_LENGTH,
+  REQUIRED,
+  VALUE_CANNOT_BE_NAN
+} = require('./data.validator.err.messages');
 
 const passedValidation = () => ({ isValid: true });
 const failedValidation = (message) => ({ isValid: false, message });
+
 const property = (prop) => ({ in: (obj) => ({
     exists: !!obj[prop],
     isOfType: (type) =>
@@ -36,29 +43,51 @@ const is = (value) => ({
 const validate = (obj) => ({
   usingSchema: (validationSchema) => {
     const schemaKeys = Object.keys(validationSchema);
+    const objName = validationSchema.callerName;
 
     for (let i = 0; i < schemaKeys.length; i++) {
       const propName = schemaKeys[i];
       const currentRule = validationSchema[propName];
 
       if (currentRule.required && !property(propName).in(obj).exists) {
-        return failedValidation(ERROR_MESSAGES.REQUIRED(propName));
+        return failedValidation(REQUIRED({
+          objName,
+          propName
+        }));
       }
 
       if (currentRule.type && !property(propName).in(obj).isOfType(currentRule.type)) {
-        return failedValidation(ERROR_MESSAGES.INVALID_ARGUMENT(currentRule.type));
+        if (currentRule.type === 'number' && isNaN(obj[propName])) {
+          return failedValidation(VALUE_CANNOT_BE_NAN({
+            objName,
+            propName
+          }));
+        }
+
+        return failedValidation(INVALID_ARGUMENT({
+          objName,
+          propName,
+          desiredType: currentRule.type
+        }));
       }
 
       const minLength = currentRule.minLength;
       const maxLength = currentRule.maxLength;
-      const currentObjLength = obj[propName].length;
 
-      if (minLength && is(currentObjLength).lessThan(minLength)) {
-        return failedValidation(ERROR_MESSAGES.INVALID_MIN_LENGTH(propName, minLength));
+      if (minLength && is(obj[propName].length).lessThan(minLength)) {
+        return failedValidation(INVALID_MIN_LENGTH({
+          objName,
+          propName,
+          desiredMinLength: minLength
+        }));
       }
 
-      if (maxLength && is(currentObjLength).greaterThan(maxLength)) {
-        return failedValidation(ERROR_MESSAGES.INVALID_MAX_LENGTH(propName, maxLength));
+      if (maxLength && is(obj[propName].length).greaterThan(maxLength)) {
+        return failedValidation(INVALID_MAX_LENGTH({
+          objName,
+          propName,
+          desiredMaxLength: maxLength
+        }));
       }
 
       if (currentRule.validationPredicate &&
@@ -81,7 +110,7 @@ validator.validate = (obj) => ({
     if (isArray(obj).value) {
       for (let i = 0; i < obj.length; i++) {
         if (typeof obj[i] !== 'object') {
-          return failedValidation(ERROR_MESSAGES.INVALID_ARGUMENT('object'));
+          return failedValidation(INVALID_ARGUMENT('object'));
         }
 
         const currentValidationResult = validate(obj[i]).usingSchema(validationSchema);
@@ -98,8 +127,10 @@ validator.validate = (obj) => ({
 });
 
 module.exports = {
-  validator,
   failedValidation,
+  is,
+  isArray,
   passedValidation,
-  isArray
+  property,
+  validator
 };

@@ -4,12 +4,9 @@ const { Observable } = require('rxjs/Rx');
 const { logErrorMessage } = require('./../../../utils');
 const { topicValidationSchema } = require('./../../../models/topic.model');
 
-const topicAlreadyExistsErrorMessage = 'A topic with this name already exists';
+const TOPIC_WITH_SUCH_NAME_ALREADY_EXISTS_ERROR_MESSAGE =
+  'A topic with this name already exists';
 
-const DB_ERROR_MESSAGE =
-  'There was a problem processing your request. Please check all fields and retry.';
-
-const badRequestStatusCode = getStatusCode('badRequest');
 const conflictStatusCode = getStatusCode('conflict');
 
 const topicToViewModel = (topic) => {
@@ -51,79 +48,65 @@ const init = (app, data) => {
     Observable.throw(new Error('Id should be valid string'))
   );
 
-  topicContorller.create = (topic) => new Promise((resolve, reject) => {
+  topicContorller.create = (topic) => new Promise(async (resolve, reject) => {
     const topicEntity = createTopicEntity(topic);
 
-    data.topics.getByName(topicEntity.name)
-      .then(topicExists => {
-        if (topicExists) {
-          return reject({
-            statusCode: conflictStatusCode,
-            errorMessage: topicAlreadyExistsErrorMessage
-          });
-        }
-
-        const checkIfThematicsExistsPromises = [];
-        topic.thematics.forEach(thematic => {
-          const promise = new Promise((res, rej) => {
-            data.thematics.getByName(thematic)
-              .then(foundedTematic => {
-                if (!foundedTematic) {
-                  const tematicEntity = {
-                    thematicId: uuidv1(),
-                    name: thematic,
-                    resources: []
-                  };
-
-                  data.thematics.add(tematicEntity)
-                    .then((createdTematic) => {
-                      res(createdTematic.thematicId);
-                    })
-                    .catch(dbError => rej(dbError));
-
-                  return;
-                }
-
-                res(foundedTematic.thematicId);
-              })
-              .catch((errorMessage) => rej(errorMessage));
-          }); // End promise
-
-          checkIfThematicsExistsPromises.push(promise);
-        }); // End forEach
-
-        Promise.all(checkIfThematicsExistsPromises)
-          .then(thematicsForCurrentTopic => {
-            thematicsForCurrentTopic.forEach(thematicId => {
-              topicEntity.thematics.push({ thematicId });
-            });
-
-            data.topics.add(topicEntity)
-              .then(createdTopic => {
-                resolve(topicToViewModel(createdTopic));
-              })
-              .catch((dbError) => {
-                reject({
-                  statusCode: badRequestStatusCode,
-                  errorMessage: dbError
-                });
-              });
-          })
-          .catch(error => {
-            console.error(error);
-            reject({
-              statusCode: badRequestStatusCode,
-              errorMessage: DB_ERROR_MESSAGE
-            });
-          });
-      })
-      .catch((dbError) => {
-        console.error(dbError);
-        reject({
-          statusCode: badRequestStatusCode,
-          errorMessage: DB_ERROR_MESSAGE
-        });
+    try {
+      const topicWithSuchNameExists = await data.topics.exists({
+        property: 'name',
+        value: topicEntity.name
       });
+
+      if (topicWithSuchNameExists) {
+        return reject({
+          statusCode: conflictStatusCode,
+          errorMessage: TOPIC_WITH_SUCH_NAME_ALREADY_EXISTS_ERROR_MESSAGE
+        });
+      }
+
+      const checkIfThematicsExistsPromises = [];
+      topic.thematics.forEach(thematicName => {
+        const promise = new Promise(async (res, rej) => {
+          try {
+            const foundedThematic = await data.thematics.getByName(thematicName);
+            if (foundedThematic) {
+              return res(foundedThematic.thematicId);
+            }
+
+            const thematicEntity = {
+              thematicId: uuidv1(),
+              name: thematicName,
+              resources: []
+            };
+
+            try {
+              const createdThematic = await data.thematics.create(thematicEntity);
+              return res(createdThematic.thematicId);
+            } catch (errorMessage) {
+              return rej(errorMessage);
+            }
+          } catch (errorMessage) {
+            return rej(errorMessage);
+          }
+        });
+
+        checkIfThematicsExistsPromises.push(promise);
+      }); // End forEach
+
+      Promise.all(checkIfThematicsExistsPromises)
+        .then(thematicsForCurrentTopic => {
+          thematicsForCurrentTopic.forEach(thematicId => {
+            topicEntity.thematics.push({ thematicId });
+          });
+
+          data.topics.create(topicEntity)
+            .then(createdTopic => resolve(topicToViewModel(createdTopic)))
+            .catch((errorMessage) => reject({ errorMessage }));
+        })
+        .catch(errorMessage => reject({ errorMessage }));
+    } catch (errorMessage) {
+      return reject({ errorMessage });
+    }
   }); // End create
 
   return topicContorller;

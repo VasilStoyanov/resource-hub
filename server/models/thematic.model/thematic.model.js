@@ -16,7 +16,7 @@ const thematicModelValidationRules = {
   }
 };
 
-const thematicValidationSchema = createSchema(thematicModelValidationRules);
+const thematicValidationSchema = createSchema.forModel('thematic')(thematicModelValidationRules);
 const thematicSchema = thematicValidationSchema.get();
 
 const thematicModelValidator = (model) => {

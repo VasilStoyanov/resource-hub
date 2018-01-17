@@ -1,11 +1,15 @@
 const topicController = require('./topic.controller');
 const { Router } = require('express');
 const { getStatusCode } = require('./../../../utils');
-const { authenticate } = require('./../../auth/auth');
+const { requireAuthentication } = require('./../../auth/auth');
 
 const createdStatusCode = getStatusCode('created');
 const okStatusCode = getStatusCode('ok');
 const notFoundStatusCode = getStatusCode('notFound');
+const badRequestStatusCode = getStatusCode('badRequest');
+
+const DB_ERROR_MESSAGE =
+  'There was a problem processing your request. Please check all fields and retry.';
 
 const attachTo = (app, data) => {
   const router = new Router();
@@ -31,13 +35,17 @@ const attachTo = (app, data) => {
       });
   });
 
-  router.post('/topic', authenticate(), async (req, res) => {
+  router.post('/topic', requireAuthentication(), async (req, res) => {
     const topic = req.body;
 
     try {
       const createdTopic = await controller.create(topic);
       res.status(createdStatusCode).json(createdTopic);
-    } catch ({ statusCode, errorMessage }) {
+    } catch ({
+      statusCode = badRequestStatusCode,
+      errorMessage = DB_ERROR_MESSAGE
+    }) {
+      console.log(errorMessage);
       res.status(statusCode).json({ message: errorMessage });
     }
   });
