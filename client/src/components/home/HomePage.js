@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { Grid, Row, Col } from 'react-bootstrap';
 import { getTopics } from '../../actions/topics/';
 import HomePageMenuForm from './HomePageMenuForm';
+import ResourceList from '../resources/ResourceList';
 
 class HomePage extends Component {
   componentDidMount() {
@@ -17,19 +18,17 @@ class HomePage extends Component {
             <HomePageMenuForm {...this.props} />
           </Col>
         </Row>
-        <Row>
-          hi2
+        <Row className='home-page-resources-list'>
+          <Col sm={12} md={4}>
+            Top Resources
+          </Col>
+          <Col sm={12} md={7}>
+            <ResourceList resources={this.props.resources} />
+          </Col>
         </Row>
       </Grid>
     );
   }
 }
 
-const mapStateToProps = state => ({
-        topics: state.topicsReducer.topics,
-        selectedTopic: state.topicsReducer.selectedTopic,
-        filteredResources: state.resourcesReducer.filteredResources
-    });
-
-
-export default connect(mapStateToProps)(HomePage);
+export default connect()(HomePage);

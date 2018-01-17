@@ -1,20 +1,13 @@
 .home-page-menu{
   margin-top: 2%;
 }
-
-/* .topics-search-block, .thematic-search-block{
-  margin-top: 1%
-} */
-/* 
-.dropdown-menu{
-    width: 1000px;
+.home-page-resources-list{
+  margin-top: 3%
 }
-.topic-menu-item{
-  display: table-column;
-} */
-/* .topics-search-block > div > div > ul,
- .thematic-search-block > div > div > ul{
-  overflow: hidden;
-  overflow-y: scroll;
-  height: 500px;
-} */
+
+
+@media only screen and (max-width: 500px) {
+  .resources-list-row{
+    margin-right: 1%; 
+  }
+}

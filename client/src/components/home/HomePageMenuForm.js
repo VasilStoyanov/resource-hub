@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { debounce } from 'throttle-debounce'; 
 import { Col, InputGroup, Button, Glyphicon } from 'react-bootstrap';
@@ -31,7 +32,7 @@ class HomePageMenuForm extends Component {
     }
 
     render() {
-        const { handleSubmit, selectedTopic } = this.props;
+        const { handleSubmit, selectedTopic, filteredResourcesNames } = this.props;
 
         return (
             <form onSubmit={handleSubmit(this.submit.bind(this))}>
@@ -60,7 +61,7 @@ class HomePageMenuForm extends Component {
                             placeholder='Search...'
                             minLength={3}
                             handleInputChange={this.handleSearchBarInputChange.bind(this)}
-                            options={this.props.filteredResources.map(n => n.name)}
+                            options={filteredResourcesNames.map(n => n.name)}
                             component={SearchBar}
                         />
                         <InputGroup.Button>
@@ -75,4 +76,11 @@ class HomePageMenuForm extends Component {
   }
 }
 
-export default reduxForm({ form: 'home-page-menu-form' })(HomePageMenuForm);
+const mapStateToProps = state => ({
+    topics: state.topicsReducer.topics,
+    selectedTopic: state.topicsReducer.selectedTopic,
+    filteredResourcesNames: state.resourcesReducer.filteredResourcesNames
+});
+
+export default connect(mapStateToProps)(
+        reduxForm({ form: 'home-page-menu-form' })(HomePageMenuForm));

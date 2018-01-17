@@ -8,7 +8,7 @@ export default ({ id, imageUrl, title, description, href }) => (
             <div className="panel panel-default card-round-top">
                 <div className="panel-body">
                     <div className="zoom">
-                        <Image width='100%' height='200px' src={imageUrl} rounded />
+                        <Image style={{ width: '100%', height: '170px' }} src={imageUrl} rounded />
                         <span className="overlay" />
                     </div>
                 </div>
