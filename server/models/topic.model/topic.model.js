@@ -1,6 +1,10 @@
 const { validator, failedValidation, passedValidation, isArray } = require('./../../utils');
 const createSchema = require('./../schema.factory');
-const TOPIC_MODEL_CONSTANTS = require('./topic.model.constants');
+const {
+  NAME_MAX_LENGTH,
+  NAME_MIN_LENGTH,
+  TEMATICS_SHOULD_BE_ARRAY
+} = require('./topic.model.constants');
 
 const topicUniqueFields = ['topicId', 'name'];
 const topicModelValidationRules = {
@@ -9,8 +13,8 @@ const topicModelValidationRules = {
     type: 'string'
   },
   name: {
-    maxLength: TOPIC_MODEL_CONSTANTS.NAME_MAX_LENGTH,
-    minLength: TOPIC_MODEL_CONSTANTS.NAME_MIN_LENGTH,
+    maxLength: NAME_MAX_LENGTH,
+    minLength: NAME_MIN_LENGTH,
     required: true,
     type: 'string'
   },
@@ -18,14 +22,29 @@ const topicModelValidationRules = {
     required: true,
     validationPredicate: (thematicsCollection) => {
       if (!isArray(thematicsCollection).withLengthBiggerThan(0)) {
-        return failedValidation(TOPIC_MODEL_CONSTANTS.TEMATICS_SHOULD_BE_ARRAY(1));
+        return failedValidation(TEMATICS_SHOULD_BE_ARRAY(1));
       }
 
-      // for (let i = 0; i < thematicsCollection.length; i++) {
-      //   if (typeof thematicsCollection[i] !== 'string') {
-      // return failedValidation(TOPIC_MODEL_CONSTANTS.TEMATICS_VALUES_SHOULD_BE_OF_TYPE_STRING);
-      //   }
-      // }
+      for (let i = 0; i < thematicsCollection.length; i++) {
+        const currentThematicObject = thematicsCollection[i];
+        if (typeof currentThematicObject !== 'object') {
+          return failedValidation(
+            "Expected thematic ID's to be passes as an object: { thmaticId: thematicId }"
+          );
+        }
+
+        const currentThematicKeys = Object.keys(currentThematicObject);
+        if (currentThematicKeys.length > 1 || currentThematicKeys[0] !== 'thematicId') {
+          return failedValidation(
+            'Invalid thematic object.'
+          );
+        } else if (!currentThematicObject.thematicId ||
+          typeof currentThematicObject.thematicId !== 'string') {
+          return failedValidation(
+            'Invalid value for thematicId object'
+          );
+        }
+      }
 
       return passedValidation();
     }

@@ -43,7 +43,7 @@ const is = (value) => ({
 const validate = (obj) => ({
   usingSchema: (validationSchema) => {
     const schemaKeys = Object.keys(validationSchema);
-    const objName = validationSchema.objName;
+    const objName = validationSchema.callerName;
 
     for (let i = 0; i < schemaKeys.length; i++) {
       const propName = schemaKeys[i];
