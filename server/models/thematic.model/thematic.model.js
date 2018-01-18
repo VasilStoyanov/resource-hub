@@ -13,6 +13,14 @@ const thematicModelValidationRules = {
     minLength: THEMATIC_MODEL_CONSTANTS.NAME_MIN_LENGTH,
     required: true,
     type: 'string'
+  },
+  resources: {
+    required: true,
+    type: 'array'
+  },
+  creationDateTimestamp: {
+    required: true,
+    type: 'number'
   }
 };
 
