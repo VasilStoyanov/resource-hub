@@ -5,6 +5,7 @@ import { searchResourcesFulfilled,
         searchResourcesRejected,
         getResourcesNamesFulfilled, 
         getResourcesNamesRejected } from '../../actions/resources';
+import { createWorkerPromise } from '../../workers/index';
 
 export const searchResourceEpic = action$ =>
   action$.ofType(RESOURCES_ACTIONS.SEARCH)
@@ -16,9 +17,21 @@ export const searchResourceEpic = action$ =>
 
 export const getResourcesNames = action$ =>
   action$.ofType(RESOURCES_ACTIONS.GET_NAMES)
-    .mergeMap(action =>
+    .flatMap(action => 
         get(`${URLS.GET_NAMES}`, {}, action.payload)
-        .map(response => getResourcesNamesFulfilled(response))
-        .catch(error => Observable.of(getResourcesNamesRejected(error)))
-    );
+    )
+    .flatMap(response => {
+        //console.log(`ewdwcfev------>${response}`);
+        return Observable.fromPromise(createWorkerPromise('/suggestionWorker.js', response));
+    })
+    .flatMap(data => {
+        return Observable.fromPromise(createWorkerPromise('/topSuggestionWorker.js', { topCount: 3, userInput: 'a', data: data.c }));
+    })
+    .map(processedData => {
+        
+        console.log(`ewdwcfev------>${processedData}`);
+        return getResourcesNamesFulfilled(processedData);
+    })
+    .catch(error =>
+        Observable.of(getResourcesNamesRejected(error)));
 
