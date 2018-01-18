@@ -3,11 +3,16 @@ const uuidv1 = require('uuid/v1');
 const { Observable } = require('rxjs/Rx');
 const { logErrorMessage } = require('./../../../utils');
 const { topicValidationSchema } = require('./../../../models/topic.model');
+const { thematicValidationSchema } = require('./../../../models/thematic.model');
+const { validateTopic } = require('./topic.validation');
 
 const TOPIC_WITH_SUCH_NAME_ALREADY_EXISTS_ERROR_MESSAGE =
   'A topic with this name already exists';
 
 const conflictStatusCode = getStatusCode('conflict');
+
+const topicFields = topicValidationSchema.getFields();
+const thematicFields = thematicValidationSchema.getFields();
 
 const topicToViewModel = (topic) => {
   const thematicsAsVM = topic.thematics.map(thematic => ({ id: thematic.thematicId }));
@@ -19,7 +24,6 @@ const topicToViewModel = (topic) => {
 };
 
 const createTopicEntity = (topic) => {
-  const topicFields = topicValidationSchema.getFields();
   const result = Object.create(null);
 
   topicFields.forEach(field => {
@@ -28,6 +32,30 @@ const createTopicEntity = (topic) => {
 
   result.topicId = uuidv1();
   result.thematics = [];
+
+  return result;
+};
+
+const createThematicEntity = (thematic) => {
+  const thematicId = uuidv1();
+  const resources = [];
+  const creationDateTimestamp = Date.now();
+
+  const result = thematicFields.reduce((acc, curr) => {
+    if (!thematic[curr]) {
+      return acc;
+    }
+
+    const thematicProperty = {
+      [curr]: thematic[curr]
+    };
+
+    return Object.assign(acc, thematicProperty);
+  }, {
+    thematicId,
+    resources,
+    creationDateTimestamp
+  });
 
   return result;
 };
@@ -49,6 +77,11 @@ const init = (app, data) => {
   );
 
   topicContorller.create = (topic) => new Promise(async (resolve, reject) => {
+    const validationResult = validateTopic(topic);
+    if (!validationResult.isValid) {
+      return reject({ errorMessage: validationResult.message });
+    }
+
     const topicEntity = createTopicEntity(topic);
 
     try {
@@ -66,44 +99,28 @@ const init = (app, data) => {
 
       const checkIfThematicsExistsPromises = [];
       topic.thematics.forEach(thematicName => {
-        const promise = new Promise(async (res, rej) => {
-          try {
-            const foundedThematic = await data.thematics.getByName(thematicName);
-            if (foundedThematic) {
-              return res(foundedThematic.thematicId);
-            }
-
-            const thematicEntity = {
-              thematicId: uuidv1(),
-              name: thematicName,
-              resources: []
-            };
-
-            try {
-              const createdThematic = await data.thematics.create(thematicEntity);
-              return res(createdThematic.thematicId);
-            } catch (errorMessage) {
-              return rej(errorMessage);
-            }
-          } catch (errorMessage) {
-            return rej(errorMessage);
+        const promise = new Promise(async res => {
+          const foundedThematic = await data.thematics.getByName(thematicName);
+          if (foundedThematic) {
+            return res(foundedThematic.thematicId);
           }
+
+          const thematicEntity = createThematicEntity({ name: thematicName });
+
+          const createdThematic = await data.thematics.create(thematicEntity);
+          return res(createdThematic.thematicId);
         });
 
         checkIfThematicsExistsPromises.push(promise);
       }); // End forEach
 
-      Promise.all(checkIfThematicsExistsPromises)
-        .then(thematicsForCurrentTopic => {
-          thematicsForCurrentTopic.forEach(thematicId => {
-            topicEntity.thematics.push({ thematicId });
-          });
+      const thematicsForCurrentTopic = await Promise.all(checkIfThematicsExistsPromises);
+      thematicsForCurrentTopic.forEach(thematicId => {
+        topicEntity.thematics.push({ thematicId });
+      });
 
-          data.topics.create(topicEntity)
-            .then(createdTopic => resolve(topicToViewModel(createdTopic)))
-            .catch((errorMessage) => reject({ errorMessage }));
-        })
-        .catch(errorMessage => reject({ errorMessage }));
+      const createdTopic = await data.topics.create(topicEntity);
+      return resolve(topicToViewModel(createdTopic));
     } catch (errorMessage) {
       return reject({ errorMessage });
     }

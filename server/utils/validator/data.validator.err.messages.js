@@ -23,7 +23,7 @@ ERROR_MESSAGES.INVALID_VALIDATION_RULE = (name) => (
 );
 
 ERROR_MESSAGES.INVALID_ARGUMENT = ({ objName, propName, desiredType }) => (
-  `Expected ${objName}.${propName} to exist and to be of type: ${desiredType}`
+  `Expected ${objName}.${propName} to exist and to be of type '${desiredType}'`
 );
 
 ERROR_MESSAGES.NO_VALIDATION_FUNCTIONS_PROVIDED = 'No validation functions were provided';
