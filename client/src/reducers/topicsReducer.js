@@ -1,9 +1,18 @@
 import { toast } from 'react-toastify';
 import { TOPICS_ACTIONS, MESSAGES } from '../constants/TopicsConstants';
+import { THEMATICS_ACTIONS } from '../constants/ThematicsConstants';
+import { RESOURCES_ACTIONS } from '../constants/ResourcesConstants';
+import { containsCaseInsensitive } from '../utilities/contains';
 
 const initialState = {
     selectedTopic: {
         thematics: []
+    },
+    selectedThematic: {
+        id: '',
+        name: '',
+        filteredResources: [],
+        resources: []
     },
     topics: [{
         id: '',
@@ -11,43 +20,58 @@ const initialState = {
     }]
 };
 
-//<img id="ItemPreview" src="" /> 
-// document.getElementById("ItemPreview").src = "data:image/png;base64," + YourByte;
-
 export default (state = initialState, action) => {
-    switch (action.type) {
+    const { type, payload } = action;
+    switch (type) {
         case TOPICS_ACTIONS.GET_ALL_FULFILLED: {
             return {
                 ...state,
-                topics: action.payload
+                topics: payload
             };
         }
         case TOPICS_ACTIONS.GET_ALL_REJECTED: {
-            toast(action.payload.error || MESSAGES.GET_ALL_FAILED, { className: 'red-toast' });
+            toast(payload.error || MESSAGES.GET_ALL_FAILED, { className: 'red-toast' });
             
             return {
                 ...initialState
             };
         }
-        case TOPICS_ACTIONS.ADD_FULFILLED: {
-            toast(action.payload.error || MESSAGES.ADD_SUCCESS, { className: 'green-toast' });
-            
-            return {
-                ...state
-            };
-        }
-        case TOPICS_ACTIONS.ADD_REJECTED: {
-            toast(action.payload.error || MESSAGES.GET_ALL_FAILED, { className: 'red-toast' });
-            
-            return {
-                ...state
-            };
-        }
         case TOPICS_ACTIONS.SELECT: {
             return {
                 ...state,
-                selectedTopic: action.payload || {
+                selectedTopic: payload || {
                     thematics: []
+                }
+            };
+        }
+        case THEMATICS_ACTIONS.SELECT: {
+            return {
+                ...state,
+                selectedThematic: {
+                    ...initialState.selectedThematic,
+                    ...payload
+                }
+            };
+        }
+        case RESOURCES_ACTIONS.USER_INPUT_CHANGED: {
+            const filteredResources = !payload || payload === '' ? 
+                                        [] :
+                                        state.selectedThematic.resources.filter(n => containsCaseInsensitive(n.name, payload));
+            return {
+                ...state,
+                selectedThematic: {
+                    ...state.selectedThematic,
+                    filteredResources
+                }                
+            };
+        }
+
+        case RESOURCES_ACTIONS.GET_NAMES_FULFILLED: {
+            return {
+                ...state,
+                selectedThematic: {
+                    resources: payload,
+                    filteredResources: []
                 }
             };
         }

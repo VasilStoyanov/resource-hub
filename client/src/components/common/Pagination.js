@@ -11,8 +11,7 @@ class Pages extends Component {
         const { dispatch, switchPage } = this.props; 
         dispatch(switchPage(pageNumber));
     }
-//pageNumber = 0
- //1, 2 ,3 ,4 , 5 ,6 ,7 ,8 ,9 , 10
+
     createPageItems() {
         const { pagesCount, pageNumber, delta } = this.props;
         const items = [];
@@ -30,7 +29,7 @@ class Pages extends Component {
                 items.push(<Pagination.Item key={key++} onClick={this.onClick.bind(this, i)}>{i + 1}</Pagination.Item>);
             }
         }
-        if (right <= pagesCount) {
+        if (right < pagesCount) {
             items.push(<Pagination.Ellipsis key={key++} />);
             items.push(<Pagination.Item key={key++} onClick={this.onClick.bind(this, pagesCount)}>{pagesCount + 1}</Pagination.Item>);
         }

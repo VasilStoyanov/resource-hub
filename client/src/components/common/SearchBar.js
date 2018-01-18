@@ -1,23 +1,34 @@
 import React, { Component } from 'react';
-import { reduxForm } from 'redux-form';
+import { debounce } from 'throttle-debounce'; 
 import { Typeahead } from 'react-bootstrap-typeahead'; 
 
 class SearchBar extends Component {
+    componentDidUpdate() {
+        const { disabled } = this.props;
+        if (disabled && this.refs.typeahead) {
+            this.refs.typeahead.getInstance().clear();
+        }
+    }
+
     render() {
-        const { input, options, handleChange, minLength, handleInputChange, placeholder } = this.props;
+        const { input, options, handleChange, minLength, handleInputChange, placeholder, disabled } = this.props;
 
         return (
             <Typeahead
                     {...input}
-                    onInputChange={handleInputChange}
-                    onChange={handleChange}            
+                    ref='typeahead'          
                     labelKey="name"
                     minLength={minLength}
                     options={options}
                     placeholder={placeholder}
+                    disabled={disabled}
+                    onInputChange={selected => {
+                        input.onChange(selected);
+                        if (handleChange) debounce(1000, handleChange(selected));
+                    }}  
             />
         );
   }
 }
 
-export default reduxForm({ form: 'search-form' })(SearchBar);
+export default SearchBar;
