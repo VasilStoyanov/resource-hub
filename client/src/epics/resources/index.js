@@ -4,7 +4,8 @@ import { RESOURCES_ACTIONS, URLS } from '../../constants/ResourcesConstants';
 import { searchResourcesFulfilled,
         searchResourcesRejected,
         getResourcesNamesFulfilled, 
-        getResourcesNamesRejected } from '../../actions/resources';
+        getResourcesNamesRejected,
+        searchInputChangeFulfilled } from '../../actions/resources';
 import { createWorkerPromise } from '../../workers/index';
 
 export const searchResourceEpic = action$ =>
@@ -20,18 +21,26 @@ export const getResourcesNames = action$ =>
     .flatMap(action => 
         get(`${URLS.GET_NAMES}`, {}, action.payload)
     )
-    .flatMap(response => {
-        //console.log(`ewdwcfev------>${response}`);
-        return Observable.fromPromise(createWorkerPromise('/suggestionWorker.js', response));
-    })
-    .flatMap(data => {
-        return Observable.fromPromise(createWorkerPromise('/topSuggestionWorker.js', { topCount: 3, userInput: 'a', data: data.c }));
-    })
-    .map(processedData => {
-        
-        console.log(`ewdwcfev------>${processedData}`);
-        return getResourcesNamesFulfilled(processedData);
-    })
+    .flatMap(response => Observable.fromPromise(createWorkerPromise('/suggestionWorker.js', response)))
+    .map(processedData => getResourcesNamesFulfilled(processedData))
     .catch(error =>
         Observable.of(getResourcesNamesRejected(error)));
 
+export const searchInputChange = action$ => 
+    action$.ofType(RESOURCES_ACTIONS.USER_INPUT_CHANGED)
+        .debounceTime(1)
+        .filter(data => data.payload.topCount 
+                    && data.payload.userInput 
+                    && data.payload.userInput.length > 0
+                    && data.payload.resources 
+                    && Array.isArray(data.payload.resources[data.payload.userInput[0]]))
+        .switchMap(data => {
+            const { topCount, userInput, resources } = data.payload;
+
+            return Observable.fromPromise(createWorkerPromise('/topSuggestionWorker.js', {
+                     topCount,
+                     userInput,
+                     data: resources[userInput[0]]
+                 }));
+        })
+        .map(processedData => searchInputChangeFulfilled(processedData));

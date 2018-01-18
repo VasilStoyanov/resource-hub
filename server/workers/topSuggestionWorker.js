@@ -15,12 +15,18 @@ self.addEventListener('message', (e) => {
     
     Rx.Observable.from(data)
         .filter(item =>
-            item.name.indexOf(userInput) !== -1)
+            item.name.toLocaleLowerCase().indexOf(userInput.toLocaleLowerCase()) !== -1)
         .reduce((acc, current) => {
             acc.push(current);
             return acc;
         }, [])
-        .take(topCount)
         .map(sortAlphabetic)
+        //.map(arr => arr.slice(topCount))
+        .flatMap(arr => Rx.Observable.from(arr))
+        .take(topCount)
+        .reduce((acc, current) => {
+            acc.push(current);
+            return acc;
+        }, [])
         .subscribe(processedData => self.postMessage(processedData));
 }); 

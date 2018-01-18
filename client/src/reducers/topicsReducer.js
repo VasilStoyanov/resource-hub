@@ -53,15 +53,12 @@ export default (state = initialState, action) => {
                 }
             };
         }
-        case RESOURCES_ACTIONS.USER_INPUT_CHANGED: {
-            const filteredResources = !payload || payload === '' ? 
-                                        [] :
-                                        state.selectedThematic.resources.filter(n => containsCaseInsensitive(n.name, payload));
+        case RESOURCES_ACTIONS.USER_INPUT_CHANGED_FULFILLED: {
             return {
-                ...state,
+                ...state, 
                 selectedThematic: {
                     ...state.selectedThematic,
-                    filteredResources
+                    filteredResources: payload
                 }                
             };
         }

@@ -3,6 +3,7 @@ export const createWorkerPromise = (workerURL, data) => new Promise((resolve, re
     
     worker.onmessage = function (e) {
         resolve(e.data);
+        worker.terminate();
     };
 
     worker.postMessage(data);

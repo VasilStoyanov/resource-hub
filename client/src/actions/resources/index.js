@@ -35,6 +35,11 @@ export const userInputChange = (searchQuery) => ({
     payload: searchQuery
 });
 
+export const searchInputChangeFulfilled = (searchQuery) => ({
+    type: RESOURCES_ACTIONS.USER_INPUT_CHANGED_FULFILLED,
+    payload: searchQuery
+});
+
 export const switchPage = (pageNumber) => ({
     type: RESOURCES_ACTIONS.SWTICH_PAGE,
     payload: pageNumber

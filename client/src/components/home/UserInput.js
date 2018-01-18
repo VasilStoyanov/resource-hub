@@ -9,13 +9,17 @@ export default ({ filteredResourcesNames, resourcesNames, dispatch }) => (
     <Col md={4} >
                     <InputGroup>
                         <Field
-                            name='userInput'
+                            name='userInput' 
                             placeholder='Search...'
                             minLength={3}
                             options={filteredResourcesNames.map(n => n.name)}
                             component={SearchBar}
                             disabled={resourcesNames && resourcesNames.length === 0}
-                            handleInputChange={result => debounce(1000, dispatch(userInputChange(result.name)))}
+                            handleChange={result => dispatch(userInputChange({
+                                resources: resourcesNames,
+                                userInput: result,
+                                topCount: 10
+                            }))}
                         />
                         <InputGroup.Button>
                                 <Button className="btn-secondary" type="submit">                           
