@@ -17,7 +17,7 @@ const applyTo = (app) => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  const staticsPath = path.join(__dirname, './../../../client');
+  const staticsPath = path.join(__dirname, './../../../client/dist/');
   app.use('/', express.static(staticsPath));
 };
 
