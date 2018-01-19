@@ -8,35 +8,32 @@ class Pages extends Component {
         if (pageNumber > this.props.pagesCount || pageNumber < 0) {
             return;
         }
-        // this.active=true;
+
         const { dispatch, switchPage } = this.props; 
         dispatch(switchPage(pageNumber));
     }
 
-    createPageItems() {
-        const { pagesCount, pageNumber, delta } = this.props;
+    createPageItems({ pagesCount, pageNumber, delta }) {
         const items = [];
-        const left = pageNumber - delta;
-        const right = pageNumber + delta + 1;
+        const left = pageNumber <= delta ? 1 : pageNumber - delta;
+        const right = pageNumber + delta + 1 >= pagesCount ? pagesCount - 2 : pageNumber + delta;
         let key = 0;
 
-        if (right >= 6) {
-            items.push(
-                <Pagination.Item 
-                    key={key++}
-                    active={pageNumber === 0}  
-                    onClick={this.onClick.bind(this, 0)}
-                >
-                    {1}
-                </Pagination.Item>
-            );
-            if (right > 6) {
-                items.push(<Pagination.Ellipsis key={key++} onClick={this.onClick.bind(this, pageNumber - 3)} />);
-            }
+        items.push(
+            <Pagination.Item 
+                key={key++}
+                active={pageNumber === 0}  
+                onClick={this.onClick.bind(this, 0)}
+            >
+                {1}
+            </Pagination.Item>
+        );
+
+        if (right > 6) {
+            items.push(<Pagination.Ellipsis key={key++} onClick={this.onClick.bind(this, pageNumber - 3)} />);
         }
 
-        for (let i = left; i <= right && i <= pagesCount - 1; i++) {
-            if (i >= 0) {
+        for (let i = left; i <= right; i++) {
                 items.push(
                     <Pagination.Item
                         key={key++} 
@@ -46,30 +43,28 @@ class Pages extends Component {
                         {i + 1}
                     </Pagination.Item>
                 );
-            }
-        }
-        if (right < pagesCount - 1) {
-            if (right < pagesCount - 2) {
-                items.push(<Pagination.Ellipsis key={key++} onClick={this.onClick.bind(this, pageNumber + 4)} />);
-            }
-            items.push(
-                    <Pagination.Item 
-                        key={key++} 
-                        onClick={this.onClick.bind(this, pagesCount - 1)}
-                    >
-                        {pagesCount}
-                    </Pagination.Item>
-                );
         }
 
-        // items[pageNumber].props.active = true;
-        console.log(items[pageNumber]);
+        if (right < pagesCount - 2) {
+            items.push(<Pagination.Ellipsis key={key++} onClick={this.onClick.bind(this, pageNumber + 4)} />);
+        }
+
+        items.push(
+                <Pagination.Item 
+                    key={key++} 
+                    onClick={this.onClick.bind(this, pagesCount - 1)}
+                >
+                    {pagesCount}
+                </Pagination.Item>
+            );
+        
+
         return items;
     }
 
     render() {
         const { pagesCount, pageNumber } = this.props;
-        const items = this.createPageItems();
+        const items = this.createPageItems(this.props);
 
         return (
             <Pagination>
