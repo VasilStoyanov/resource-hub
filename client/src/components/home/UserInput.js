@@ -1,6 +1,5 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { debounce } from 'throttle-debounce'; 
 import { Col, InputGroup, Button, Glyphicon } from 'react-bootstrap';
 import { userInputChange } from '../../actions/resources/';
 import SearchBar from '../common/SearchBar';
