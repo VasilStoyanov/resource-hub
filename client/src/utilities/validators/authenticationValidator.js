@@ -42,6 +42,8 @@ const RegisterValidationModel = {
     email: {
         required: true,
         minLength: 3,
+        // eslint-disable-next-line
+        matchRegex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     },
     username: {
         required: true,

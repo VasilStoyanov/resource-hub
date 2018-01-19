@@ -5,20 +5,27 @@ class Validator {
                 if (isRequired && (!value || value.length <= 0)) {
                     return '{propName} is required!';
                 }
-                return undefined;
             },
             minLength: (minLength, value) => {
-                console.log(minLength, value);
                 if (value && minLength > value.length) {
                     return `{propName} mimum length is ${minLength}!`;
                 }
-                return undefined;
+            },
+            maxLength: (maxLength, value) => {
+                if (value && maxLength < value.length) {
+                    return `{propName} maximum length is ${maxLength}!`;
+                }
+            },
+            matchRegex: (regexString, value) => {
+                const regex = new RegExp(regexString);
+                if (!regex.test(value)) {
+                    return '{propName} has incorrect format!';
+                }
             },
             matches: (comparableName, value, values) => {
                 if (values[comparableName] !== value) {
                     return `{propName} must match ${comparableName}!`;
                 }
-                return undefined;
             }
         };
         
