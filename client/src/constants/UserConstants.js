@@ -21,7 +21,7 @@ export const UserActions = {
 };
 
 export const URLS = {
-    REGISTER: '/auth/signup',
+    REGISTER: '/register',
     LOGIN: '/auth/login',
     LOGOUT: '/auth/logout'
 };

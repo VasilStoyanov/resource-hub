@@ -3,7 +3,7 @@ import { reduxForm, Field } from 'redux-form';
 import { RenderInput } from './common/RenderInput';
 import { AuthButton } from './common/AuthButton';
 import { registerValidation as validate } from '../../utilities/validators/authenticationValidator';
-import registerUser from '../../actions/users/registerUser';
+import { registerUser } from '../../actions/users';
 
 class RegisterForm extends Component {
   submit(results) {
