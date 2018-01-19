@@ -38,10 +38,35 @@ const REGISTER_VALUES_VALIDATIONS = {
     }
 };
 
-const LOGIN_VALUES_VALIDATIONS = {
-    ...AUTHENTICATION_VALUES_VALIDATIONS
+const RegisterValidationModel = { 
+    email: {
+        required: true,
+        minLength: 3,
+    },
+    username: {
+        required: true,
+        minLength: 3,
+    },
+    password: {
+        required: true,
+        minLength: 3,
+    },
+    confirmPassword: {
+        required: true,
+        minLength: 3,
+        matches: 'password' 
+    }
+};
+const LoginValidationModel = { 
+    username: {
+        required: true,
+        minLength: 3,
+    },
+    password: {
+        required: true,
+        minLength: 3,
+    }
 };
 
-
-export const registerValidation = Validate(REGISTER_VALUES_VALIDATIONS);
-export const loginValidation = Validate(LOGIN_VALUES_VALIDATIONS);
+export const registerValidation = Validate(RegisterValidationModel);
+export const loginValidation = Validate(LoginValidationModel);
