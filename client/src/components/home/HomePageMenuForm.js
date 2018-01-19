@@ -11,7 +11,8 @@ import UserInput from './UserInput';
 class HomePageMenuForm extends Component {
     submit(result) {
         const { selectedTopic, selectedThematic } = this.props;
-        const errors = validate(result);
+        // const errors = validate(result);
+        const errors = {};
 
         if (Object.keys(errors).length > 0) {
             const keys = Object.keys(errors);

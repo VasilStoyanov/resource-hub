@@ -6,6 +6,7 @@
 @import './css/navbar.css';
 @import './css/zoomEffect.css';
 @import './css/card.css';
+@import './css/pagination.css';
 
 body {
   background: no-repeat url('http://www.ultrahdfreewallpapers.com/uploads/large/3d-and-abstract/abstract-hd-wallpaper-488.jpg');

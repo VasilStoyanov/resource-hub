@@ -14,7 +14,7 @@ export default (state = initialState, { type, payload }) => {
     switch (type) {
         case RESOURCES_ACTIONS.SEARCH_FULFILLED: {
             const orderedResources = orderBy(payload, 'name');
-            const pagesCount = Math.floor(orderedResources.length / PAGE_SIZE); 
+            const pagesCount = Math.ceil(orderedResources.length / PAGE_SIZE); 
 
             return {
                 ...state,

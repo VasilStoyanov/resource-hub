@@ -26,21 +26,22 @@ export const getResourcesNames = action$ =>
     .catch(error =>
         Observable.of(getResourcesNamesRejected(error)));
 
+
 export const searchInputChange = action$ => 
     action$.ofType(RESOURCES_ACTIONS.USER_INPUT_CHANGED)
-        .debounceTime(1)
-        .filter(data => data.payload.topCount 
-                    && data.payload.userInput 
-                    && data.payload.userInput.length > 0
-                    && data.payload.resources 
-                    && Array.isArray(data.payload.resources[data.payload.userInput[0]]))
-        .switchMap(data => {
-            const { topCount, userInput, resources } = data.payload;
-
-            return Observable.fromPromise(createWorkerPromise('/topSuggestionWorker.js', {
-                     topCount,
-                     userInput,
-                     data: resources[userInput[0]]
-                 }));
-        })
+        .pluck('payload')
+        .debounceTime(500)
+        .distinctUntilChanged((p1, p2) => p1.userInput === p2.userInput)
+        .filter(payload => payload)
+        .filter(({ topCount, userInput, resources }) => topCount 
+                    && userInput 
+                    && userInput.length > 0
+                    && resources 
+                    && Array.isArray(resources[userInput[0]]))
+        .switchMap(({ topCount, userInput, resources }) => 
+                    Observable.fromPromise(createWorkerPromise('/topSuggestionWorker.js', {
+                            topCount,
+                            userInput,
+                            data: resources[userInput[0]]
+                        })))
         .map(processedData => searchInputChangeFulfilled(processedData));

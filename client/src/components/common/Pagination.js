@@ -8,6 +8,7 @@ class Pages extends Component {
         if (pageNumber > this.props.pagesCount || pageNumber < 0) {
             return;
         }
+        // this.active=true;
         const { dispatch, switchPage } = this.props; 
         dispatch(switchPage(pageNumber));
     }
@@ -20,19 +21,49 @@ class Pages extends Component {
         let key = 0;
 
         if (right >= 6) {
-            items.push(<Pagination.Item key={key++} onClick={this.onClick.bind(this, 0)}>{1}</Pagination.Item>);
-            items.push(<Pagination.Ellipsis key={key++} />);
-        }
-
-        for (let i = left; i <= right && i <= pagesCount; i++) {
-            if (i >= 0) {
-                items.push(<Pagination.Item key={key++} onClick={this.onClick.bind(this, i)}>{i + 1}</Pagination.Item>);
+            items.push(
+                <Pagination.Item 
+                    key={key++}
+                    active={pageNumber === 0}  
+                    onClick={this.onClick.bind(this, 0)}
+                >
+                    {1}
+                </Pagination.Item>
+            );
+            if (right > 6) {
+                items.push(<Pagination.Ellipsis key={key++} onClick={this.onClick.bind(this, pageNumber - 3)} />);
             }
         }
-        if (right < pagesCount) {
-            items.push(<Pagination.Ellipsis key={key++} />);
-            items.push(<Pagination.Item key={key++} onClick={this.onClick.bind(this, pagesCount)}>{pagesCount + 1}</Pagination.Item>);
+
+        for (let i = left; i <= right && i <= pagesCount - 1; i++) {
+            if (i >= 0) {
+                items.push(
+                    <Pagination.Item
+                        key={key++} 
+                        active={pageNumber === i} 
+                        onClick={this.onClick.bind(this, i)}
+                    >
+                        {i + 1}
+                    </Pagination.Item>
+                );
+            }
         }
+        if (right < pagesCount - 1) {
+            if (right < pagesCount - 2) {
+                items.push(<Pagination.Ellipsis key={key++} onClick={this.onClick.bind(this, pageNumber + 4)} />);
+            }
+            items.push(
+                    <Pagination.Item 
+                        key={key++} 
+                        onClick={this.onClick.bind(this, pagesCount - 1)}
+                    >
+                        {pagesCount}
+                    </Pagination.Item>
+                );
+        }
+
+        // items[pageNumber].props.active = true;
+        console.log(items[pageNumber]);
         return items;
     }
 
