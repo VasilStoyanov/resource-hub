@@ -8,11 +8,10 @@ const environment = process.env.NODE_ENV;
 
 const dataSources = (name) => {
   const dataSourcesList = {
-    agatha: 'Agatha'
+    resourceHub: 'ResourceHub'
   };
 
-  const nameLowerCase = name.toLowerCase();
-  return dataSourcesList[nameLowerCase];
+  return dataSourcesList[name];
 };
 
 module.exports = {

@@ -1,32 +1,50 @@
 const { validator } = require('./../../utils');
 const createSchema = require('./../schema.factory');
 
-const USER_MODEL_CONSTANTS = require('./user.model.constants');
+const {
+  USERNAME_MAX_LENGTH,
+  USERNAME_MIN_LENGTH,
+  SALT_MAX_LENGTH,
+  SALT_MIN_LENGTH,
+  USER_EMAIL_MAX_LENGTH,
+  USER_EMAIL_MIN_LENGTH
+} = require('./user.model.constants');
 
+const userUniqueFields = ['userId', 'username', 'email'];
 const userModelValidationRules = {
-  username: {
-    type: 'string',
-    unique: true,
+  userId: {
     required: true,
-    minLength: USER_MODEL_CONSTANTS.USERNAME_MIN_LENGTH,
-    maxLength: USER_MODEL_CONSTANTS.USERNAME_MAX_LENGTH
+    type: 'string'
+  },
+  username: {
+    maxLength: USERNAME_MAX_LENGTH,
+    minLength: USERNAME_MIN_LENGTH,
+    required: true,
+    type: 'string'
   },
   hashedPwd: {
-    type: 'string',
-    required: true
+    required: true,
+    type: 'string'
   },
   salt: {
-    type: 'string',
+    maxLength: SALT_MAX_LENGTH,
+    minLength: SALT_MIN_LENGTH,
     required: true,
-    minLength: USER_MODEL_CONSTANTS.SALT_MIN_LENGTH,
-    maxLength: USER_MODEL_CONSTANTS.SALT_MAX_LENGTH
+    type: 'string'
+  },
+  email: {
+    maxLength: USER_EMAIL_MAX_LENGTH,
+    minLength: USER_EMAIL_MIN_LENGTH,
+    required: true,
+    type: 'string'
+  },
+  creationDateTimestamp: {
+    required: true,
+    type: 'number'
   }
 };
 
-const userUniqueFields = Object.keys(userModelValidationRules)
-  .filter(key => userModelValidationRules[key].unique);
-
-const userValidationSchema = createSchema(userModelValidationRules);
+const userValidationSchema = createSchema.forModel('user')(userModelValidationRules);
 const userSchema = userValidationSchema.get();
 
 const userModelValidator = (model) => {
@@ -42,6 +60,5 @@ const userModelValidator = (model) => {
 module.exports = {
   userModelValidator,
   userValidationSchema,
-  userModelValidationRules,
   userUniqueFields
 };

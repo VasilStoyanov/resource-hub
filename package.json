@@ -7,7 +7,6 @@
   "name": "",
   "version": "",
   "dependencies": {
-    "apollo-server-express": "^1.2.0",
     "axios": "^0.17.1",
     "body-parser": "^1.18.2",
     "colour": "^0.7.1",
@@ -15,9 +14,14 @@
     "eslint-plugin-import": "^2.8.0",
     "express": "^4.16.2",
     "glob": "^7.1.2",
-    "graphql": "^0.11.7",
     "helmet": "^3.9.0",
-    "mongodb": "^3.0.0-rc0",
+    "jquery": "^3.2.1",
+    "jwt-simple": "^0.5.1",
+    "mongodb": "^3.0.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.1",
+    "rxjs": "^5.5.6",
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

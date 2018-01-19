@@ -21,13 +21,18 @@ const colourThemeKeys = Object.keys(colourThemes);
 colourLib.setTheme(colourThemes);
 
 const logger = (config) => (message) => {
-  const { printer, method, colour } = config;
+  if (typeof message !== 'string') {
+    console.warn('Logger does not support printing objects');
+    console.log(message);
+    return;
+  }
+  const { printer, method, colourKey } = config;
   if (typeof printer[method] !== 'function') {
     throw NOT_A_FUNCTION_ERROR_MESSAGE(method);
   }
 
-  if (colour && typeof colour === 'string') {
-    const colourToLowerCase = colour.toLowerCase();
+  if (colourKey && typeof colourKey === 'string') {
+    const colourToLowerCase = colourKey.toLowerCase();
     if (colourThemeKeys.indexOf(colourToLowerCase) !== -1) {
       printer[method](message[colourToLowerCase]);
       return;
@@ -37,5 +42,34 @@ const logger = (config) => (message) => {
   printer[method](message);
 };
 
+const logMessage = logger({
+  printer: console,
+  method: 'info',
+  colourKey: 'info'
+});
 
-module.exports = { logger };
+const logWarnMessage = logger({
+  printer: console,
+  method: 'warn',
+  colourKey: 'warn'
+});
+
+const logErrorMessage = logger({
+  printer: console,
+  method: 'error',
+  colourKey: 'error'
+});
+
+const debug = logger({
+  printer: console,
+  method: 'log',
+  colourKey: 'help'
+});
+
+module.exports = {
+  debug,
+  logger,
+  logMessage,
+  logWarnMessage,
+  logErrorMessage
+};
