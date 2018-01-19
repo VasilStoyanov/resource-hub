@@ -1,12 +1,12 @@
-import axios from 'axios';
 import { URLS } from '../../constants/UserConstants';
+import { post } from '../../data';
 
 const logoutUser = (userToken) => {
     const userLogoutURL = URLS.LOGOUT;
     
     return {
         type: 'LOGOUT',
-        payload: axios.post(userLogoutURL, userToken)
+        payload: post(userLogoutURL, userToken)
     };
 };
 
