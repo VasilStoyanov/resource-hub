@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { debounce } from 'throttle-debounce'; 
 import { Typeahead } from 'react-bootstrap-typeahead'; 
 
 class SearchBar extends Component {
@@ -24,7 +23,7 @@ class SearchBar extends Component {
                     disabled={disabled}
                     onInputChange={selected => {
                         input.onChange(selected);
-                        if (handleChange) debounce(1000, handleChange(selected));
+                        if (handleChange) handleChange(selected);
                     }}  
             />
         );
