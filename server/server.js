@@ -1,11 +1,8 @@
 const {
-  debug,
   logMessage,
   logWarnMessage,
   logErrorMessage
 } = require('./utils');
-
-global.debug = debug;
 
 const config = require('./config');
 const databaseLayer = require('./db');
