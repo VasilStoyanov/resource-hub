@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Image, Row, Col } from 'react-bootstrap';
 import AuthNavbar from './AuthNavbar';
 
 class AuthPage extends Component {
@@ -7,11 +7,10 @@ class AuthPage extends Component {
         return (
                 <Grid className="auth-page-container">
                     <Row>
-                        <Col md={6} mdOffset={3}>
+                        <Col sm={6} smOffset={3}>
                             <div className="panel panel-login">
                                 <div className="panel-heading">
                                     <AuthNavbar location={this.props.location} />
-                                    <hr />
                                 </div>
                                 <Row className="panel-body">
                                     <Col lg={12}>

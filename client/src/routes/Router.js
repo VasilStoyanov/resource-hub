@@ -10,7 +10,7 @@ const Router = () => (
     <main>
         <Switch>
             <Route exact path='/' component={HomePage} />
-            <AuthPage path='/users'>
+            <AuthPage>
                 <Route path='/users/login' component={LoginForm} />
                 <Route path='/users/register' component={RegisterForm} />
             </AuthPage>

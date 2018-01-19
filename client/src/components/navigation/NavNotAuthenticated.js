@@ -7,10 +7,10 @@ class NavNotAuthenticated extends Component {
         // const this.props.location.split('/').slice(-1).pop();
         return (            
             <Nav>
-                <NavItem componentClass={Link} eventKey={1} href='/home' to='/home'>
+                <NavItem componentClass={Link} eventKey={1} href='/' to='/'>
                     Home
                 </NavItem>
-                <NavItem componentClass={Link} eventKey={2} href='/users' to='/users'>
+                <NavItem componentClass={Link} eventKey={2} href='/users/login' to='/users/login'>
                     Authentication
                 </NavItem>
             </Nav>

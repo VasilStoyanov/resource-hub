@@ -1,0 +1,13 @@
+.home-page-menu{
+  margin-top: 2%;
+}
+.home-page-resources-list{
+  margin-top: 3%
+}
+
+
+@media only screen and (max-width: 500px) {
+  .resources-list-row{
+    margin-right: 1%; 
+  }
+}

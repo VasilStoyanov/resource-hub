@@ -1,9 +1,17 @@
 @import '../node_modules/bootstrap/dist/css/bootstrap.css';
 @import '../node_modules/bootstrap/dist/css/bootstrap-theme.css';
 @import './css/authentication.css';
+@import './css/homepage.css';
+@import './css/searchbar.css';
+@import './css/navbar.css';
+@import './css/zoomEffect.css';
+@import './css/card.css';
+@import './css/pagination.css';
 
 body {
-  background: black;
+  background: no-repeat url('http://www.ultrahdfreewallpapers.com/uploads/large/3d-and-abstract/abstract-hd-wallpaper-488.jpg');
+  color: black;
+  background-size: cover;
 }
  .mdl-layout__header,
  .mdl-layout__drawer-button,
@@ -13,14 +21,25 @@ body {
 .mdl-layout__header {
   background-color: white;
 }
-
-body{
-  color: white;
+.glyph-button-input-group > span{
+   padding: 0;
+}
+.glyph-button-input-group > span > button,
+.glyph-button-input-group > span > button:hover,
+.glyph-button-input-group > span > button:focus{
+    padding: 0;
+    background: transparent;
+    border: transparent;
 }
 
-div.navbar-header a {
-  display: inline-block;
-  color: rgb(224, 112, 7) !important;
+.glyph-button-input-group > span > button > span{
+    width: 50px;
 }
 
+.glyph-button-input-group > span > span{
+  width: 50px;
+}
 
+@media only screen and (max-width: 500px) {
+    /* bacground-s */
+}

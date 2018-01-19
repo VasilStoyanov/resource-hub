@@ -1,28 +1,31 @@
-body {
-    padding-top: 90px;
-}
 .panel-login {
 	/* margin-top: 20%; */
+	/* background: transparent; */
     border-color: #ccc;
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 }
 .panel-login>.panel-heading {
-	color: #00415d;
-	background: rgba(0, 0, 0, 0.69);
+	background: rgb(234, 235, 239);
 	border-color: #fff;
 	text-align:center;
+	padding-top: 0%;
+	padding-bottom: 0%;
 }
 .panel-login>.panel-heading a{
 	text-decoration: none;
-	color: #fff;
+	color: #cfc9c9;
 	font-weight: bold;
 	font-size: 15px;
 	-webkit-transition: all 0.1s linear;
 	-moz-transition: all 0.1s linear;
 	transition: all 0.1s linear;
 }
+.panel-heading > div > a > div{
+	color: black;
+}
+
 .panel-login>.panel-heading a.active{
 	color: #029f5b;
 	font-size: 18px;
@@ -54,53 +57,58 @@ body {
 	box-shadow: none;
 	border-color: #ccc;
 }
-.btn-login {
-	background-color: #59B2E0;
-	outline: none;
-	color: #fff;
-	font-size: 14px;
-	height: auto;
-	font-weight: normal;
-	padding: 14px 0;
-	text-transform: uppercase;
-	border-color: #59B2E6;
-}
-.btn-login:hover,
-.btn-login:focus {
-	color: #fff;
-	background-color: #53A3CD;
-	border-color: #53A3CD;
-}
-.forgot-password {
-	text-decoration: underline;
-	color: #888;
-}
-.forgot-password:hover,
-.forgot-password:focus {
-	text-decoration: underline;
-	color: #666;
-}
 
-.btn-register {
-	background-color: rgb(73, 82, 76);
-	outline: none;
-	color: #fff;
+.btn-register, .btn-login  {
+    background: rgb(234, 235, 239);
+	outline: none !important;
+	color: #000;
 	font-size: 14px;
 	height: auto;
-	font-weight: normal;
+	font-weight: bold;
 	padding: 14px 0;
 	text-transform: uppercase;
-	border-color: rgb(15, 66, 30);
+	border: 1px black;
+	/* box-shadow: 0 0 5px rgb(109, 1, 7); */
+}
+.btn:focus{
+	outline: none;
 }
 .btn-register:hover {
-	color: #fff;
-	background-color: rgb(224, 112, 7);
-	border-color: rgb(224, 112, 7);
+	/* color: #fff; */
+	/* background-color: rgb(64, 8, 7); */
+	border-color: black;
+	/* border-color: #00d8ff; */
 }
 .auth-page-container{
 	margin-top: 10%
 }
 
 .link-is-active{
-	color: rgb(224, 112, 7) !important;
+	background: white !important;
+} 
+
+#auth-form-group{
+	background-color: transparent;
+    border-color: transparent transparent;
+    border-bottom-color: black;
+}
+
+.error-block{
+	/* color: white !important; */
+	/* font-weight: bold; */
+	font-size: initial;
+	text-align: center;
+}
+
+.register-header, .login-header{
+	font-size: large !important;
+}
+
+.auth-form > div > span > .input-group-addon{
+    /* background: transparent !important; */
+	border-color: #eee !important;
+	/* border-bottom-color: black !important; */
+}
+.panel-heading > div > a > div{
+	padding: 2% 0;
 }
