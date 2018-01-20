@@ -15,7 +15,7 @@ const attachTo = (app, data) => {
 
     try {
       const token = await controller.login({ username, password });
-      res.status(okStatusCode).json({ token });
+      res.status(okStatusCode).json(token);
     } catch ({ statusCode, errorMessage }) {
       res.status(statusCode).json({ message: errorMessage });
     }
