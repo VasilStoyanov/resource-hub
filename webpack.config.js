@@ -1,17 +1,27 @@
+const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './client/src/',
+  entry: [
+    'babel-polyfill',
+    'react-hot-loader/patch',
+    './client/src/index.js'
+  ],
   output: {
+    publicPath: '/',
     filename: 'app.js',
     path: `${__dirname}/client/dist`
   },
   devtool: 'source-map',
+  devServer: {
+    contentBase: './client/dist/',
+    hot: true
+  },
   module: {
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loader: 'babel-loader'
+      loader: ['babel-loader']
     }, {
       test: /\.css$/,
       use: ['style-loader', 'css-loader']
@@ -26,6 +36,8 @@ module.exports = {
   plugins: [
     new HtmlPlugin({
       template: './client/public/index.html'
-    })
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 };
