@@ -5,3 +5,7 @@ ul {
 ul > li {
     margin-top: 1%;
 }
+
+button {
+    background: rgb(234, 235, 239);
+}

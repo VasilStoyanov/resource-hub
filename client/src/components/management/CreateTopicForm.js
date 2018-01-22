@@ -21,8 +21,8 @@ class CreateTopicForm extends Component {
     return (
         <form onSubmit={handleSubmit(this.submit.bind(this))}>    
             <Field name='name' placeholder='Topic name' glyph='asterisk' component={Glyphicon} />
-            <FieldArray name='randArr' component={RenderThematicInputs} />
-            <button type='submit'>Add Topic</button>
+            <FieldArray name='thematics' component={RenderThematicInputs} />
+            <button type='submit' className='btn btn-default'>Add Topic</button>
         </form>
     );
   }

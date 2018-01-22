@@ -25,13 +25,23 @@ class HomePageMenuForm extends Component {
     }
 
     render() {
-        const { topics, handleSubmit, selectedTopic, dispatch, filteredResourcesNames, resourcesNames } = this.props;
+        const { 
+                topics, 
+                handleSubmit, 
+                selectedTopic,
+                dispatch,
+                filteredResourcesNames, 
+                resourcesNames } = this.props;
 
         return (
             <form onSubmit={handleSubmit(this.submit.bind(this))}>
                 <SelectTopicInput topics={topics} dispatch={dispatch} />
                 <SelectThematicInput selectedTopic={selectedTopic} dispatch={dispatch} />
-                <UserInput filteredResourcesNames={filteredResourcesNames} resourcesNames={resourcesNames} dispatch={dispatch} />
+                <UserInput 
+                    filteredResourcesNames={filteredResourcesNames} 
+                    resourcesNames={resourcesNames} 
+                    dispatch={dispatch}
+                />
             </form>
         );
   }
