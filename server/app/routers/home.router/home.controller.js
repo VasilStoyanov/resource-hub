@@ -1,4 +1,4 @@
-const init = (data) => {
+const init = () => {
   const homeController = Object.create(null);
   return homeController;
 };
