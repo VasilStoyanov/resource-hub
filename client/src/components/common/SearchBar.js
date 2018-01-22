@@ -10,7 +10,7 @@ class SearchBar extends Component {
     }
 
     render() {
-        const { input, options, handleChange, minLength, handleInputChange, placeholder, disabled } = this.props;
+        const { input, options, handleChange, minLength, placeholder, disabled } = this.props;
 
         return (
             <Typeahead

@@ -14,7 +14,7 @@ function performRequest(method, url, data, locators, parameters, headers) {
       result = ajax[method.toLowerCase()](modifiedUrl, data, headers);
     }
 
-    return result;
+    return result.map(({ response }) => response);
 }
 
 function addQueryStringParameters(url, parameters) {
