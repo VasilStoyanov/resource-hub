@@ -1,3 +1,5 @@
+/* global document */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
@@ -28,6 +30,5 @@ if (module.hot) {
     render(App);
   });
 }
-
 
 registerServiceWorker();
