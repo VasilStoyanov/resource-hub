@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
-import { RenderThematicInputs } from './list';
+import RenderThematicInputs from './RenderThematicInputs';
+import Glyphicon from '../common/GlyphInput';
 
 class CreateTopicForm extends Component {
   constructor() {
@@ -19,7 +20,7 @@ class CreateTopicForm extends Component {
     const { handleSubmit } = this.props;
     return (
         <form onSubmit={handleSubmit(this.submit.bind(this))}>    
-            <Field name='name' placeholder='Topic name' component='input' />
+            <Field name='name' placeholder='Topic name' glyph='asterisk' component={Glyphicon} />
             <FieldArray name='randArr' component={RenderThematicInputs} />
             <button type='submit'>Add Topic</button>
         </form>
