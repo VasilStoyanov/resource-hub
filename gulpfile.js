@@ -8,7 +8,7 @@ gulp.task('lint', () =>
   gulp.src([
     '!node_modules/**',
     './server/**/*.js',
-    // './client/src/**/*.js'
+    './client/src/**/*.js'
    ])
   .pipe(eslint())
   .pipe(eslint.format())
