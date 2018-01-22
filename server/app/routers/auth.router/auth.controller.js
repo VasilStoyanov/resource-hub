@@ -10,6 +10,15 @@ const INCORRECT_PASSWORD = 'Incorrect password';
 const USERNAME_IS_REQUIRED_ERROR_MESSAGE = 'Username is required';
 const PASSWORD_IS_REQUIRED_ERROR_MESSAGE = 'Password is required';
 
+
+const createAuthResponse = ({ token, user }) => ({
+  token,
+  user: {
+    id: user.userId,
+    username: user.username
+  }
+});
+
 const init = (app, data) => {
   const authContorller = Object.create(null);
 
@@ -44,8 +53,8 @@ const init = (app, data) => {
           };
 
           const token = jwt.encode(payload, jwtConfig.secret);
-
-          return resolve(token);
+          const authResponse = createAuthResponse({ token, user });
+          return resolve(authResponse);
         }
 
         return reject({

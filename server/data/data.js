@@ -1,6 +1,6 @@
 const userData = require('./user/users.data');
 const topicsData = require('./topic/topics.data');
-const thematicsData = require('./thematic/thematic.data');
+const thematicsData = require('./thematic/thematics.data');
 
 const init = async (db) => {
   try {

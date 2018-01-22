@@ -1,3 +1,4 @@
+/* eslint-disable */
 const { getStatusCode } = require('./../../../utils');
 
 const badRequest = getStatusCode('badRequest');
