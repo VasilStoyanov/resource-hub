@@ -1,11 +1,8 @@
 {
   "scripts": {
-    "start": "gulp && nodemon server/server.js",
+    "start": "set NODE_ENV=production && webpack --config webpack.prod.js && node ./server/cluster.js",
     "dev": "set NODE_ENV=development && webpack-dev-server --open --config webpack.dev.js",
-    "debug": "set NODE_ENV=development && node --inspect-brk ./server/server.js",
-    "prod": "set NODE_ENV=development && webpack --config webpack.prod.js && node ./server/cluster.js",
-    "build": "webpack --config webpack.prod.js",
-    "watch-client": "webpack-dev-server --open --config webpack.dev.js"
+    "debug": "set NODE_ENV=development && node --inspect-brk ./server/server.js"
   },
   "name": "ResourceHub",
   "version": "0.0.3",
