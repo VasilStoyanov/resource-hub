@@ -1,9 +1,9 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
-const common = require('./webpack.common.js');
+const webpackCommonConfig = require('./webpack.common.js');
 const NodemonPlugin = require('nodemon-webpack-plugin');
 
-module.exports = merge(common, {
+module.exports = merge(webpackCommonConfig, {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './client/dist/',
