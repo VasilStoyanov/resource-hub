@@ -3,7 +3,7 @@ const TOPIC_MODEL_CONSTANTS = Object.create(null);
 TOPIC_MODEL_CONSTANTS.NAME_MIN_LENGTH = 3;
 TOPIC_MODEL_CONSTANTS.NAME_MAX_LENGTH = 30;
 
-TOPIC_MODEL_CONSTANTS.TEMATICS_SHOULD_BE_ARRAY = (minThematics) => (
+TOPIC_MODEL_CONSTANTS.TEMATICS_SHOULD_BE_ARRAY = minThematics => (
   `Thematics should be passed as an array and should have at least ${minThematics} thematic!`
 );
 

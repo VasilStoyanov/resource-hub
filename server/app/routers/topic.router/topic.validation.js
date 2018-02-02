@@ -8,7 +8,7 @@ const {
   is,
   isArray,
   passedValidation,
-  property
+  property,
 } = require('../../../utils');
 
 const {
@@ -30,25 +30,25 @@ const validateTopic = (topic) => {
   } else if (!property('name').in(topic).exists) {
     return failedValidation(REQUIRED({
       objName,
-      propName: 'name'
+      propName: 'name',
     }));
   } else if (!property('name').in(topic).isOfType(topicNameDesiredType)) {
     return failedValidation(INVALID_ARGUMENT({
       objName,
       propName: 'name',
-      desiredType: topicNameDesiredType
+      desiredType: topicNameDesiredType,
     }));
   } else if (is(topic.name.length).lessThan(TOPIC_MODEL_CONSTANTS.NAME_MIN_LENGTH)) {
     return failedValidation(INVALID_MIN_LENGTH({
       objName,
       propName: 'name',
-      desiredMinLength: TOPIC_MODEL_CONSTANTS.NAME_MIN_LENGTH
+      desiredMinLength: TOPIC_MODEL_CONSTANTS.NAME_MIN_LENGTH,
     }));
   } else if (is(topic.name.length).greaterThan(TOPIC_MODEL_CONSTANTS.NAME_MAX_LENGTH)) {
     return failedValidation(INVALID_MAX_LENGTH({
       objName,
       propName: 'name',
-      desiredMinLength: TOPIC_MODEL_CONSTANTS.NAME_MIN_LENGTH
+      desiredMinLength: TOPIC_MODEL_CONSTANTS.NAME_MIN_LENGTH,
     }));
   }
 
@@ -56,26 +56,26 @@ const validateTopic = (topic) => {
     return failedValidation(TOPIC_MODEL_CONSTANTS.TEMATICS_SHOULD_BE_ARRAY(1));
   }
 
-  for (let i = 0; i < topic.thematics.length; i++) {
+  for (let i = 0; i < topic.thematics.length; i += 1) {
     const currentThematic = topic.thematics[i];
 
     if (typeof currentThematic !== 'string') {
       return failedValidation(INVALID_ARGUMENT({
         objName,
         propName: `thematics[${i}]`,
-        desiredType: thematicsItemDesiredType
+        desiredType: thematicsItemDesiredType,
       }));
     } else if (is(currentThematic.length).lessThan(THEMATIC_MODEL_CONSTANTS.NAME_MIN_LENGTH)) {
       return failedValidation(INVALID_MIN_LENGTH({
         objName,
         propName: `thematics[${i}]`,
-        desiredMinLength: THEMATIC_MODEL_CONSTANTS.NAME_MIN_LENGTH
+        desiredMinLength: THEMATIC_MODEL_CONSTANTS.NAME_MIN_LENGTH,
       }));
     } else if (is(currentThematic.length).greaterThan(THEMATIC_MODEL_CONSTANTS.NAME_MAX_LENGTH)) {
       return failedValidation({
         objName,
         propName: `thematics[${i}]`,
-        desiredMaxLength: THEMATIC_MODEL_CONSTANTS.NAME_MAX_LENGTH
+        desiredMaxLength: THEMATIC_MODEL_CONSTANTS.NAME_MAX_LENGTH,
       });
     }
   }

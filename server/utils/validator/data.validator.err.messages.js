@@ -12,12 +12,12 @@ ERROR_MESSAGES.INVALID_MAX_LENGTH = ({ objName, propName, desiredMaxLength }) =>
   `${objName}.${propName}'s length should be less than ${desiredMaxLength}!`
 );
 
-ERROR_MESSAGES.OUT_OF_RANGE = (name) => (requiredMinLength, requiredMaxLength) => (
+ERROR_MESSAGES.OUT_OF_RANGE = name => (requiredMinLength, requiredMaxLength) => (
   `${name}'s length should be at least
    ${requiredMinLength} and maximum ${requiredMaxLength} long!`
 );
 
-ERROR_MESSAGES.INVALID_VALIDATION_RULE = (name) => (
+ERROR_MESSAGES.INVALID_VALIDATION_RULE = name => (
   `${name} does not have either 'minLength' or
   'maxLength' validation properties!`
 );

@@ -13,10 +13,10 @@ module.exports = merge(webpackCommonConfig, {
     proxy: [{
       context: ['/'],
       target: 'http://localhost:3000',
-    }]
+    }],
   },
   plugins: [
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ]
+    new webpack.HotModuleReplacementPlugin(),
+  ],
 });

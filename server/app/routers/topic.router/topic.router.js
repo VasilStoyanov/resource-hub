@@ -20,8 +20,8 @@ const attachTo = (app, data) => {
   router.get('/topic', (req, res) => {
     controller.getTopics()
       .subscribe({
-        next: (topicsCollection) => res.status(okStatusCode).json(topicsCollection),
-        error: () => res.sendStatus(notFoundStatusCode)
+        next: topicsCollection => res.status(okStatusCode).json(topicsCollection),
+        error: () => res.sendStatus(notFoundStatusCode),
       });
   });
 
@@ -30,8 +30,8 @@ const attachTo = (app, data) => {
 
     controller.getTopicById(topicId)
       .subscribe({
-        next: (topic) => res.status(okStatusCode).json(topic),
-        error: () => res.sendStatus(notFoundStatusCode)
+        next: topic => res.status(okStatusCode).json(topic),
+        error: () => res.sendStatus(notFoundStatusCode),
       });
   });
 
@@ -43,7 +43,7 @@ const attachTo = (app, data) => {
       res.status(createdStatusCode).json(createdTopic);
     } catch ({
       statusCode = badRequestStatusCode,
-      errorMessage = DB_ERROR_MESSAGE
+      errorMessage = DB_ERROR_MESSAGE,
     }) {
       res.status(statusCode).json({ message: errorMessage });
     }

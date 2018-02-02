@@ -4,17 +4,17 @@ const { pipe } = require('./../../utils');
 const { CRUD, createUniqueFields, exists } = require('./../data.factory');
 const {
   thematicModelValidator,
-  thematicUniqueFields
+  thematicUniqueFields,
 } = require('./../../models/thematic.model/thematic.model');
 
-const findThematicById = (obj) => ({
+const findThematicById = obj => ({
   ...obj,
-  getByThematicId: (thematicId) => obj.getOneByProperty('thematicId')(thematicId)
+  getByThematicId: thematicId => obj.getOneByProperty('thematicId')(thematicId),
 });
 
-const findThematicByName = (obj) => ({
+const findThematicByName = obj => ({
   ...obj,
-  getByName: (thematicName) => obj.getOneByProperty('name')(thematicName)
+  getByName: thematicName => obj.getOneByProperty('name')(thematicName),
 });
 
 const thematicData = async (db) => {
@@ -30,7 +30,7 @@ const thematicData = async (db) => {
     CRUD(db)(THEMATIC_COLLECTION_NAME)(thematicModelValidator),
     findThematicById,
     findThematicByName,
-    exists
+    exists,
   )(Object.create(null)));
 };
 

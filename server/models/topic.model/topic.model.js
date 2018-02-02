@@ -1,22 +1,27 @@
-const { validator, failedValidation, passedValidation, isArray } = require('./../../utils');
+const {
+  validator,
+  failedValidation,
+  passedValidation,
+  isArray,
+} = require('./../../utils');
 const createSchema = require('./../schema.factory');
 const {
   NAME_MAX_LENGTH,
   NAME_MIN_LENGTH,
-  TEMATICS_SHOULD_BE_ARRAY
+  TEMATICS_SHOULD_BE_ARRAY,
 } = require('./topic.model.constants');
 
 const topicUniqueFields = ['topicId', 'name'];
 const topicModelValidationRules = {
   topicId: {
     required: true,
-    type: 'string'
+    type: 'string',
   },
   name: {
     maxLength: NAME_MAX_LENGTH,
     minLength: NAME_MIN_LENGTH,
     required: true,
-    type: 'string'
+    type: 'string',
   },
   thematics: {
     required: true,
@@ -25,12 +30,10 @@ const topicModelValidationRules = {
         return failedValidation(TEMATICS_SHOULD_BE_ARRAY(1));
       }
 
-      for (let i = 0; i < thematicsCollection.length; i++) {
+      for (let i = 0; i < thematicsCollection.length; i += 1) {
         const currentThematicObject = thematicsCollection[i];
         if (typeof currentThematicObject !== 'object') {
-          return failedValidation(
-            "Expected thematic ID's to be passes as an object: { thmaticId: thematicId }"
-          );
+          return failedValidation("Expected thematic ID's to be passes as an object: { thmaticId: thematicId }");
         }
 
         const currentThematicKeys = Object.keys(currentThematicObject);
@@ -43,8 +46,8 @@ const topicModelValidationRules = {
       }
 
       return passedValidation();
-    }
-  }
+    },
+  },
 };
 
 const topicValidationSchema = createSchema.forModel('topic')(topicModelValidationRules);
@@ -63,5 +66,5 @@ const topicModelValidator = (model) => {
 module.exports = {
   topicModelValidator,
   topicValidationSchema,
-  topicUniqueFields
+  topicUniqueFields,
 };
