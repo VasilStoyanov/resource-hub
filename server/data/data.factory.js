@@ -38,19 +38,14 @@ const readable = db => collection => obj => ({
     .toArray(),
 });
 
-const updatable = db => collection => validator => obj => ({
+const updatable = db => collection => obj => ({
   ...obj,
-  updateOneByProperty: ({ findByProperty, match }) => async ({ propertyToUpdate, newValue }) => {
-    const validationResult = await validator({ propertyToUpdate: newValue });
-    if (!validationResult || !validationResult.isValid) {
-      return Promise.reject(validationResult.message);
-    }
-
-    return db.collection(collection).updateOne(
+  updateOneByProperty: ({ findByProperty, match }) => async ({ propertyToUpdate, newValue }) => (
+    db.collection(collection).updateOne(
       { [findByProperty]: match },
       { $set: { [propertyToUpdate]: newValue } },
-    );
-  },
+    )
+  ),
 });
 
 const createUniqueFields = db => collection => (uniqueFields) => {
