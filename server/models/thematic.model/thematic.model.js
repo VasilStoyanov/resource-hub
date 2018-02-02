@@ -6,22 +6,22 @@ const thematicUniqueFields = ['thematicId', 'name'];
 const thematicModelValidationRules = {
   thematicId: {
     required: true,
-    type: 'string'
+    type: 'string',
   },
   name: {
     maxLength: THEMATIC_MODEL_CONSTANTS.NAME_MAX_LENGTH,
     minLength: THEMATIC_MODEL_CONSTANTS.NAME_MIN_LENGTH,
     required: true,
-    type: 'string'
+    type: 'string',
   },
   resources: {
     required: true,
-    type: 'array'
+    type: 'array',
   },
   creationDateTimestamp: {
     required: true,
-    type: 'number'
-  }
+    type: 'number',
+  },
 };
 
 const thematicValidationSchema = createSchema.forModel('thematic')(thematicModelValidationRules);
@@ -40,5 +40,5 @@ const thematicModelValidator = (model) => {
 module.exports = {
   thematicModelValidator,
   thematicValidationSchema,
-  thematicUniqueFields
+  thematicUniqueFields,
 };

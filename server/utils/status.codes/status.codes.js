@@ -1,4 +1,4 @@
-const INVALID_STATUS_CODE = (code) => `${code} does not exist!`;
+const INVALID_STATUS_CODE = code => `${code} does not exist!`;
 
 const statusCodes = {
   ok: 200,
@@ -12,7 +12,7 @@ const statusCodes = {
   unauthorized: 401,
   forbidden: 403,
   notFound: 404,
-  conflict: 409
+  conflict: 409,
 };
 
 const getStatusCode = (statusCodeName) => {

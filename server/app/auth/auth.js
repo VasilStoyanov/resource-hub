@@ -4,16 +4,16 @@ const { jwt } = require('./../config');
 
 const params = {
   secretOrKey: jwt.secret,
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 };
 
 const applyTo = (app, data) => {
   const strategy = new Strategy(params, (payload, done) => {
     data.users.getByUserId(payload.id)
-      .then(user => {
+      .then((user) => {
         if (user) {
           return done(null, {
-            id: user.userId
+            id: user.userId,
           });
         }
 
@@ -29,5 +29,5 @@ const requireAuthentication = () => passport.authenticate('jwt', jwt.session);
 
 module.exports = {
   applyTo,
-  requireAuthentication
+  requireAuthentication,
 };

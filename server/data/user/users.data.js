@@ -4,19 +4,19 @@ const { pipe, hash } = require('./../../utils');
 const { userModelValidator, userUniqueFields } = require('./../../models/user.model/user.model');
 const { CRUD, createUniqueFields, exists } = require('./../data.factory');
 
-const findByUsername = (obj) => ({
+const findByUsername = obj => ({
   ...obj,
-  getByUsername: (username) => (
+  getByUsername: username => (
     obj.getOneByProperty('username')(username)
-  )
+  ),
 });
 
-const findUserById = (obj) => ({
+const findUserById = obj => ({
   ...obj,
-  getByUserId: (id) => obj.getOneByProperty('userId')(id)
+  getByUserId: id => obj.getOneByProperty('userId')(id),
 });
 
-const checkUserPassword = (obj) => ({
+const checkUserPassword = obj => ({
   ...obj,
   checkPassword: async ({ username, password }) => {
     const user = await obj.getByUsername(username);
@@ -25,9 +25,9 @@ const checkUserPassword = (obj) => ({
 
     return Promise.resolve({
       user,
-      validPassword: hashingResult === user.hashedPwd
+      validPassword: hashingResult === user.hashedPwd,
     });
-  }
+  },
 });
 
 const userData = async (db) => {
@@ -44,7 +44,7 @@ const userData = async (db) => {
     findUserById,
     findByUsername,
     checkUserPassword,
-    exists
+    exists,
   )(Object.create(null)));
 };
 

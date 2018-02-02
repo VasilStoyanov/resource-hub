@@ -8,7 +8,7 @@ const environment = process.env.NODE_ENV;
 
 const dataSources = (name) => {
   const dataSourcesList = {
-    resourceHub: 'ResourceHub'
+    resourceHub: 'ResourceHub',
   };
 
   return dataSourcesList[name];
@@ -18,5 +18,5 @@ module.exports = {
   PORT,
   connectionString,
   dataSources,
-  environment
+  environment,
 };
