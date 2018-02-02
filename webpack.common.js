@@ -8,7 +8,8 @@ module.exports = {
   ],
   output: {
     filename: 'app.js',
-    path: `${__dirname}/client/dist`
+    path: `${__dirname}/client/dist`,
+    publicPath: '/'
   },
   module: {
     rules: [

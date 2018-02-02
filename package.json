@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "set NODE_ENV=production && webpack --config webpack.prod.js && node ./server/cluster.js",
-    "dev": "set NODE_ENV=development && webpack-dev-server --open --config webpack.dev.js",
+    "dev": "concurrently \"set NODE_ENV=development\" \"webpack --config webpack.watcher.js\" \"webpack-dev-server --open --config webpack.dev.js\" \"nodemon server/server.js\"",
     "debug": "set NODE_ENV=development && node --inspect-brk ./server/server.js"
   },
   "name": "ResourceHub",
@@ -21,10 +21,6 @@
     "express": "^4.16.2",
     "faker": "4.1.0",
     "glob": "^7.1.2",
-    "gulp": "^4.0.0",
-    "gulp-babel": "^7.0.0",
-    "gulp-eslint": "^4.0.1",
-    "gulp-webpack": "^1.5.0",
     "helmet": "^3.9.0",
     "html-webpack-plugin": "^2.30.1",
     "jquery": "^3.2.1",
