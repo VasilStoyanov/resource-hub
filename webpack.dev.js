@@ -1,20 +1,22 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const webpackCommonConfig = require('./webpack.common.js');
-const NodemonPlugin = require('nodemon-webpack-plugin');
+
+const DEV_SERVER_PORT = 3001;
 
 module.exports = merge(webpackCommonConfig, {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './client/dist/',
-    hot: true
+    hot: true,
+    port: DEV_SERVER_PORT,
+    proxy: [{
+      context: ['/'],
+      target: 'http://localhost:3000',
+    }]
   },
   plugins: [
-    new NodemonPlugin({
-      script: './server/server.js',
-      watch: './server/'
-    }),
     new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ]
 });
