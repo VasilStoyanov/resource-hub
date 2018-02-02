@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
-import { Row, Col } from 'react-bootstrap';
-import { NavigationButton } from '../common/NavigationButton';
+import { connect } from 'react-redux';
+import RenderProfilePage from './RenderProfilePage';
 
-
-export default class ProfilePage extends Component {
+export class ProfilePage extends Component {
   render() {
     return (
-      <Row>
-        <Col xs={1}>
-            <p>Email address: cparandiev@gmail.comm </p>
-        </Col>
-        <Col>
-            <NavigationButton value="Change your email!" />
-        </Col>
-      </Row>
+      <div>
+        <RenderProfilePage
+            handleChangeEmail={this.props.changeEmail}
+            username={this.props.username}   
+            email={this.props.email}
+            changepassurl='/users/profile/changepassword'
+            changeemailurl='/users/profile/changeemail'
+        />
+      </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  username: state.authReducer.currentUser.username,
+  email: state.authReducer.currentUser.email
+});
+
+export default connect(mapStateToProps)(ProfilePage);
+
