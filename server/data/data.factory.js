@@ -38,12 +38,29 @@ const readable = db => collection => obj => ({
     .toArray(),
 });
 
+const updatable = db => collection => validator => obj => ({
+  ...obj,
+  updateOneByProperty: ({ findByProperty, match }) => async ({ propertyToUpdate, newValue }) => {
+    const validationResult = await validator({ propertyToUpdate: newValue });
+    if (!validationResult || !validationResult.isValid) {
+      return Promise.reject(validationResult.message);
+    }
+
+    return db.collection(collection).updateOne(
+      { [findByProperty]: match },
+      { $set: { [propertyToUpdate]: newValue } },
+    );
+  },
+});
+
 const createUniqueFields = db => collection => (uniqueFields) => {
   const promiseCollection = [];
 
-  uniqueFields.forEach(field => promiseCollection.push(db.collection(collection).ensureIndex({
-    [field]: 1,
-  }, { unique: true })));
+  uniqueFields.forEach(field => (
+    promiseCollection.push(db.collection(collection).ensureIndex({
+      [field]: 1,
+    }, { unique: true }))
+  ));
 
   return Promise.all(promiseCollection);
 };
@@ -60,11 +77,13 @@ const exists = obj => ({
 const CRUD = db => collection => validator => obj => pipe(
   creatable(db)(collection)(validator),
   readable(db)(collection),
+  updatable(db)(collection)(validator),
 )(obj);
 
 module.exports = {
   creatable,
   readable,
+  updatable,
   CRUD,
   exists,
   createUniqueFields,
