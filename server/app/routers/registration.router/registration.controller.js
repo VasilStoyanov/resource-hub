@@ -26,7 +26,7 @@ const createUserEntity = (user) => {
     }
 
     const userProperty = {
-      [curr]: user[curr]
+      [curr]: user[curr],
     };
 
     return Object.assign(acc, userProperty);
@@ -35,15 +35,15 @@ const createUserEntity = (user) => {
     username: user.username,
     hashedPwd: hashingResult,
     salt,
-    creationDateTimestamp
+    creationDateTimestamp,
   });
 
   return result;
 };
 
-const userToViewModel = (user) => ({
+const userToViewModel = user => ({
   id: user.userId,
-  username: user.username
+  username: user.username,
 });
 
 const init = (data) => {
@@ -62,7 +62,7 @@ const init = (data) => {
       try {
         const exists = await data.users.exists({
           property: uniqueFieldName,
-          value: user[uniqueFieldName]
+          value: user[uniqueFieldName],
         });
 
         if (exists) {
@@ -70,8 +70,8 @@ const init = (data) => {
             statusCode: conflictStatusCode,
             errorMessage: PROPERTY_ALREADY_IN_USE({
               property: uniqueFieldName,
-              value: user[uniqueFieldName]
-            })
+              value: user[uniqueFieldName],
+            }),
           });
         }
       } catch (errorMessage) {
