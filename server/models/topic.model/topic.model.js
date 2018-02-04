@@ -1,5 +1,5 @@
+const { createModelValidator } = require('../model.validator.factory.js');
 const {
-  validator,
   failedValidation,
   passedValidation,
   isArray,
@@ -51,17 +51,7 @@ const topicModelValidationRules = {
 };
 
 const topicValidationSchema = createSchema.forModel('topic')(topicModelValidationRules);
-const topicSchema = topicValidationSchema.get();
-
-const topicModelValidator = (model) => {
-  const validationResult = validator.validate(model).using(topicSchema);
-
-  if (!validationResult.isValid) {
-    return Promise.reject(validationResult.message);
-  }
-
-  return Promise.resolve({ isValid: true });
-};
+const topicModelValidator = createModelValidator(topicValidationSchema);
 
 module.exports = {
   topicModelValidator,

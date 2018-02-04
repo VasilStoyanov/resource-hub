@@ -1,4 +1,4 @@
-const { validator } = require('./../../utils');
+const { createModelValidator } = require('../model.validator.factory.js');
 const createSchema = require('./../schema.factory');
 const THEMATIC_MODEL_CONSTANTS = require('./thematic.model.constants');
 
@@ -25,17 +25,7 @@ const thematicModelValidationRules = {
 };
 
 const thematicValidationSchema = createSchema.forModel('thematic')(thematicModelValidationRules);
-const thematicSchema = thematicValidationSchema.get();
-
-const thematicModelValidator = (model) => {
-  const validationResult = validator.validate(model).using(thematicSchema);
-
-  if (!validationResult.isValid) {
-    return Promise.reject(validationResult.message);
-  }
-
-  return Promise.resolve({ isValid: true });
-};
+const thematicModelValidator = createModelValidator(thematicValidationSchema);
 
 module.exports = {
   thematicModelValidator,

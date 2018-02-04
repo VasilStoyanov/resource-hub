@@ -1,4 +1,4 @@
-const { validator } = require('./../../utils');
+const { createModelValidator } = require('./../model.validator.factory.js');
 const createSchema = require('./../schema.factory');
 
 const {
@@ -45,17 +45,7 @@ const userModelValidationRules = {
 };
 
 const userValidationSchema = createSchema.forModel('user')(userModelValidationRules);
-const userSchema = userValidationSchema.get();
-
-const userModelValidator = (model) => {
-  const validationResult = validator.validate(model).using(userSchema);
-
-  if (!validationResult.isValid) {
-    return Promise.reject(validationResult.message);
-  }
-
-  return Promise.resolve({ isValid: true });
-};
+const userModelValidator = createModelValidator(userValidationSchema);
 
 module.exports = {
   userModelValidator,

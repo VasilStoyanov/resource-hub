@@ -17,7 +17,13 @@ const init = (data) => {
     res.sendFile(PATH_TO_INDEX_HTML);
   });
 
-  data.users.updateUsername({ userId: '9daa21f0-fb8e-11e7-8c72-e993596a0dd5', newUsername: 'shestka' })
+  data.users.updateOneByProperty({
+    findByProperty: 'userId',
+    match: '36fca5f0-09e8-11e8-88e5-6d134d53351c',
+  })({
+    propertyToUpdate: 'shalala',
+    newValue: 'test@abv.bg',
+  })
     .then(r => console.log(r))
     .catch(e => console.log(e));
 

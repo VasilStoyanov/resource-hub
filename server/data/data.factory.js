@@ -4,7 +4,7 @@ const { pipe } = require('./../utils');
 const creatable = db => collection => validator => obj => ({
   ...obj,
   create: async (data) => {
-    const validationResult = await validator(data);
+    const validationResult = await validator.validateModel(data);
     if (!validationResult || !validationResult.isValid) {
       return Promise.reject(validationResult.message);
     }
@@ -38,14 +38,25 @@ const readable = db => collection => obj => ({
     .toArray(),
 });
 
-const updatable = db => collection => obj => ({
+const updatable = db => collection => validator => obj => ({
   ...obj,
-  updateOneByProperty: ({ findByProperty, match }) => async ({ propertyToUpdate, newValue }) => (
-    db.collection(collection).updateOne(
-      { [findByProperty]: match },
-      { $set: { [propertyToUpdate]: newValue } },
-    )
-  ),
+  updateOneByProperty: ({ findByProperty, match }) => async ({ propertyToUpdate, newValue }) => {
+    const validationResult = await validator.validateObject({ [propertyToUpdate]: newValue });
+    if (!validationResult || !validationResult.isValid) {
+      return Promise.reject(validationResult.message);
+    }
+
+    try {
+      const dbResponse = await db.collection(collection)
+        .updateOne({ [findByProperty]: match }, {
+          $set: { [propertyToUpdate]: newValue },
+        });
+
+      return dbResponse;
+    } catch (ex) {
+      return Promise.reject(ex);
+    }
+  },
 });
 
 const createUniqueFields = db => collection => (uniqueFields) => {
@@ -54,7 +65,9 @@ const createUniqueFields = db => collection => (uniqueFields) => {
   uniqueFields.forEach(field => (
     promiseCollection.push(db.collection(collection).ensureIndex({
       [field]: 1,
-    }, { unique: true }))
+    }, {
+      unique: true,
+    }))
   ));
 
   return Promise.all(promiseCollection);
@@ -79,7 +92,7 @@ module.exports = {
   creatable,
   readable,
   updatable,
-  CRUD,
   exists,
   createUniqueFields,
+  CRUD,
 };

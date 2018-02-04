@@ -51,16 +51,16 @@ const userData = async (db) => {
   try {
     await createdUniqueUserFields(userUniqueFields);
   } catch (ex) {
-    return Promise.reject(ex);
+    return ex;
   }
 
-  return Promise.resolve(pipe(
+  return pipe(
     CRUD(db)(USERS_COLLECTION_NAME)(userModelValidator),
     fetchUserData,
     modifyUserData,
     checkUserPassword,
     exists,
-  )(Object.create(null)));
+  )(Object.create(null));
 };
 
 module.exports = userData;
