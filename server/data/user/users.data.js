@@ -3,7 +3,7 @@ const USERS_USERNAME_COLUMN_NAME = 'username';
 
 const { pipe, hash } = require('./../../utils');
 const { userModelValidator, userUniqueFields } = require('./../../models/user.model/user.model');
-const { CRUD, createUniqueFields, exists } = require('./../data.factory');
+const { CRUD, createUniqueFields, exists } = require('./../factories/data.factory');
 
 const fetchUserData = obj => ({
   ...obj,

@@ -1,7 +1,7 @@
 const THEMATIC_COLLECTION_NAME = 'thematics';
 
 const { pipe } = require('./../../utils');
-const { CRUD, createUniqueFields, exists } = require('./../data.factory');
+const { CRUD, createUniqueFields, exists } = require('./../factories/data.factory');
 const {
   thematicModelValidator,
   thematicUniqueFields,

@@ -6,7 +6,7 @@ const {
   topicUniqueFields,
 } = require('./../../models/topic.model/topic.model');
 
-const { CRUD, createUniqueFields, exists } = require('./../data.factory');
+const { CRUD, createUniqueFields, exists } = require('./../factories/data.factory');
 
 const findTopicById = obj => ({
   ...obj,

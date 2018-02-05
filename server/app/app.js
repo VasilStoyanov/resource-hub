@@ -20,15 +20,6 @@ const init = async (data) => {
     res.sendFile(PATH_TO_INDEX_HTML);
   });
 
-  data.users.updateOneByProperty({
-    findByProperty: 'userId',
-    match: '36fca5f0-09e8-11e8-88e5-6d134d53351c',
-    propertyToUpdate: 'email',
-    newValue: 'b',
-  })
-    .then(r => console.log(r))
-    .catch(e => console.log(`Error: ${e}`));
-
   return app;
 };
 
