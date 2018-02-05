@@ -42,6 +42,12 @@ const userModelValidationRules = {
     required: true,
     type: 'number',
   },
+  deleted: {
+    type: 'boolean',
+  },
+  banned: {
+    type: 'object',
+  },
 };
 
 const userValidationSchema = createSchema.forModel('user')(userModelValidationRules);

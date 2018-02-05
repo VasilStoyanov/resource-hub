@@ -1,4 +1,5 @@
 const USERS_COLLECTION_NAME = 'users';
+const USERS_USERNAME_COLUMN_NAME = 'username';
 
 const { pipe, hash } = require('./../../utils');
 const { userModelValidator, userUniqueFields } = require('./../../models/user.model/user.model');
@@ -7,7 +8,7 @@ const { CRUD, createUniqueFields, exists } = require('./../data.factory');
 const fetchUserData = obj => ({
   ...obj,
   getByUsername: username => (
-    obj.getOneByProperty('username')(username)
+    obj.getOneByProperty(USERS_USERNAME_COLUMN_NAME)(username)
   ),
   getByUserId: id => obj.getOneByProperty('userId')(id),
 });
@@ -19,14 +20,13 @@ const modifyUserData = obj => ({
       const { result } = await obj.updateOneByProperty({
         findByProperty: 'userId',
         match: userId,
-      })({
-        propertyToUpdate: 'username',
+        propertyToUpdate: USERS_USERNAME_COLUMN_NAME,
         newValue: newUsername,
       });
 
       return { modifiedObjects: result.nModified };
     } catch (ex) {
-      return ex;
+      return Promise.reject(ex);
     }
   },
 });
@@ -37,11 +37,12 @@ const checkUserPassword = obj => ({
     const user = await obj.getByUsername(username);
     const hashPassword = hash(password);
     const { hashingResult } = hashPassword(user.salt);
+    const validPassword = hashingResult === user.hashedPwd;
 
-    return Promise.resolve({
+    return {
       user,
-      validPassword: hashingResult === user.hashedPwd,
-    });
+      validPassword,
+    };
   },
 });
 

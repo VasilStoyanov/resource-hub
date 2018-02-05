@@ -4,9 +4,12 @@ const routers = require('./routers');
 const auth = require('./auth');
 const path = require('path');
 
-const PATH_TO_INDEX_HTML = path.join(__dirname, '../../client/dist/index.html');
+const PATH_TO_INDEX_HTML = path.join(
+  __dirname,
+  '../../client/dist/index.html',
+);
 
-const init = (data) => {
+const init = async (data) => {
   const app = express();
 
   appConfig.applyTo(app);
@@ -20,14 +23,13 @@ const init = (data) => {
   data.users.updateOneByProperty({
     findByProperty: 'userId',
     match: '36fca5f0-09e8-11e8-88e5-6d134d53351c',
-  })({
-    propertyToUpdate: 'shalala',
-    newValue: 'test@abv.bg',
+    propertyToUpdate: 'email',
+    newValue: 'b',
   })
     .then(r => console.log(r))
-    .catch(e => console.log(e));
+    .catch(e => console.log(`Error: ${e}`));
 
-  return Promise.resolve(app);
+  return app;
 };
 
 module.exports = { init };

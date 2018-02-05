@@ -40,7 +40,9 @@ const readable = db => collection => obj => ({
 
 const updatable = db => collection => validator => obj => ({
   ...obj,
-  updateOneByProperty: ({ findByProperty, match }) => async ({ propertyToUpdate, newValue }) => {
+  updateOneByProperty: async ({
+    findByProperty, match, propertyToUpdate, newValue,
+  }) => {
     const validationResult = await validator.validateObject({ [propertyToUpdate]: newValue });
     if (!validationResult || !validationResult.isValid) {
       return Promise.reject(validationResult.message);
@@ -57,6 +59,23 @@ const updatable = db => collection => validator => obj => ({
       return Promise.reject(ex);
     }
   },
+});
+
+const deletable = db => collection => obj => ({
+  ...obj,
+  deleteOne: async ({ findByProperty, match }) => {
+    try {
+      const dbResponse = await db.collection(collection)
+        .updateOne({ [findByProperty]: match }, {
+          $set: { deleted: true },
+        });
+
+      return dbResponse;
+    } catch (ex) {
+      return Promise.reject(ex);
+    }
+  },
+  restore: async () => {},
 });
 
 const createUniqueFields = db => collection => (uniqueFields) => {

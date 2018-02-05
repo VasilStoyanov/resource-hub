@@ -12,11 +12,16 @@ const createSchema = ({
     Object.freeze(schema);
 
     return {
-      getRule: ruleName => Object.assign(Object.create(null), schema[ruleName]),
-      getAllRules: () => {
-        const schemaCpy = Object.freeze(Object.assign(Object.create(null), schema, { callerName }));
-        return schemaCpy;
-      },
+      getRule: ruleName => Object.freeze(Object.assign(
+        Object.create(null),
+        { [ruleName]: schema[ruleName] },
+        { callerName },
+      )),
+      getAllRules: () => Object.freeze(Object.assign(
+        Object.create(null),
+        schema,
+        { callerName },
+      )),
       getFields: () => Object.keys(schema),
       extendWithRule: (rule) => {
         if (typeof rule !== 'object') {
