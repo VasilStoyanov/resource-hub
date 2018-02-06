@@ -1,4 +1,4 @@
-/* eslint-disable valid-typeof */
+/* eslint-disable valid-typeof, no-continue, no-restricted-globals */
 
 const {
   INVALID_ARGUMENT,
@@ -51,12 +51,17 @@ const validate = obj => ({
     for (let i = 0; i < schemaKeys.length; i += 1) {
       const propName = schemaKeys[i];
       const currentRule = validationSchema[propName];
+      const hasValue = property(propName).in(obj).exists;
 
-      if (currentRule.required && !property(propName).in(obj).exists) {
+      if (currentRule.required && !hasValue) {
         return failedValidation(REQUIRED({
           objName,
           propName,
         }));
+      }
+
+      if (!currentRule.required && !hasValue) {
+        continue;
       }
 
       if (currentRule.type && !property(propName).in(obj).isOfType(currentRule.type)) {

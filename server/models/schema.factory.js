@@ -9,32 +9,30 @@ const createSchema = ({
     const callerName = modelName;
 
     objKeys.forEach((key) => { schema[key] = validationRules[key]; });
-
     Object.freeze(schema);
 
     return {
-      get: () => {
-        const schemaCpy = Object.freeze(Object.assign(Object.create(null), schema, { callerName }));
-
-        return schemaCpy;
-      },
-
-      getRule: ruleName => Object.assign(Object.create(null), schema[ruleName]),
-
+      getRule: ruleName => Object.freeze(Object.assign(
+        Object.create(null),
+        { [ruleName]: schema[ruleName] },
+        { callerName },
+      )),
+      getAllRules: () => Object.freeze(Object.assign(
+        Object.create(null),
+        schema,
+        { callerName },
+      )),
       getFields: () => Object.keys(schema),
-
       extendWithRule: (rule) => {
         if (typeof rule !== 'object') {
           throw new Error('New rule must be an object');
         }
 
         const extendedSchema = Object.freeze(Object.assign(Object.create(null), schema, rule));
-
         return extendedSchema;
       },
     };
   },
 });
-
 
 module.exports = createSchema;

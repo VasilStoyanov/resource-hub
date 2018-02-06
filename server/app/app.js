@@ -4,8 +4,12 @@ const routers = require('./routers');
 const auth = require('./auth');
 const path = require('path');
 
+const PATH_TO_INDEX_HTML = path.join(
+  __dirname,
+  '../../client/dist/index.html',
+);
 
-const init = (data) => {
+const init = async (data) => {
   const app = express();
 
   appConfig.applyTo(app);
@@ -13,10 +17,10 @@ const init = (data) => {
   routers.attachTo(app, data);
 
   app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+    res.sendFile(PATH_TO_INDEX_HTML);
   });
 
-  return Promise.resolve(app);
+  return app;
 };
 
 module.exports = { init };
