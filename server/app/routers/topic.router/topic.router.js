@@ -2,15 +2,20 @@ const topicController = require('./topic.controller');
 const { Router } = require('express');
 const { getStatusCode } = require('./../../../utils');
 const { requireAuthentication } = require('./../../authentication/authentication');
-const { roleAuthorization } = require('./../../authorization/authorization');
+const { allowForRoles } = require('./../../authorization/authorization');
 
 const createdStatusCode = getStatusCode('created');
 const okStatusCode = getStatusCode('ok');
 const notFoundStatusCode = getStatusCode('notFound');
 const badRequestStatusCode = getStatusCode('badRequest');
 
-const DB_ERROR_MESSAGE =
+const DEFAULT_ERROR_MESSAGE =
   'There was a problem processing your request. Please check all fields and retry.';
+
+const topicCreationAuthorization = [
+  requireAuthentication(),
+  allowForRoles('supervisor', 'admin', 'moderator'),
+];
 
 const attachTo = (app, data) => {
   const router = new Router();
@@ -36,18 +41,14 @@ const attachTo = (app, data) => {
       });
   });
 
-
-  router.post('/topic', [
-    requireAuthentication(),
-    roleAuthorization.requireRoles('admin', 'moderator'),
-  ], async (req, res) => {
+  router.post('/topic', topicCreationAuthorization, async (req, res) => {
     const topic = req.body;
     try {
       const createdTopic = await controller.create(topic);
       res.status(createdStatusCode).json(createdTopic);
     } catch ({
       statusCode = badRequestStatusCode,
-      errorMessage = DB_ERROR_MESSAGE,
+      errorMessage = DEFAULT_ERROR_MESSAGE,
     }) {
       res.status(statusCode).json({ message: errorMessage });
     }

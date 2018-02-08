@@ -9,7 +9,7 @@ const createUniqueFields = db => collection => (uniqueFields) => {
   const promiseCollection = [];
 
   uniqueFields.forEach(field => (
-    promiseCollection.push(db.collection(collection).ensureIndex({
+    promiseCollection.push(db.collection(collection).createIndex({
       [field]: 1,
     }, {
       unique: true,

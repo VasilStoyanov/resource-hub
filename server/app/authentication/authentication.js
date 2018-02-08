@@ -12,6 +12,7 @@ const applyTo = (app, data) => {
     data.users.getByUserId(payload.id)
       .then(user => (user ? done(null, {
         id: user.userId,
+        userRoles: user.roles ? user.roles : [],
       }) : done()));
   });
 
