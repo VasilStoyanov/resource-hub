@@ -10,15 +10,9 @@ const params = {
 const applyTo = (app, data) => {
   const strategy = new Strategy(params, (payload, done) => {
     data.users.getByUserId(payload.id)
-      .then((user) => {
-        if (user) {
-          return done(null, {
-            id: user.userId,
-          });
-        }
-
-        return done();
-      });
+      .then(user => (user ? done(null, {
+        id: user.userId,
+      }) : done()));
   });
 
   passport.use(strategy);

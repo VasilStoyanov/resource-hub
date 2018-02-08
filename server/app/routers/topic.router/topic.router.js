@@ -1,7 +1,8 @@
 const topicController = require('./topic.controller');
 const { Router } = require('express');
 const { getStatusCode } = require('./../../../utils');
-const { requireAuthentication } = require('./../../auth/auth');
+const { requireAuthentication } = require('./../../authentication/authentication');
+const { roleAuthorization } = require('./../../authorization/authorization');
 
 const createdStatusCode = getStatusCode('created');
 const okStatusCode = getStatusCode('ok');
@@ -35,9 +36,12 @@ const attachTo = (app, data) => {
       });
   });
 
-  router.post('/topic', requireAuthentication(), async (req, res) => {
-    const topic = req.body;
 
+  router.post('/topic', [
+    requireAuthentication(),
+    roleAuthorization.requireRoles('admin', 'moderator'),
+  ], async (req, res) => {
+    const topic = req.body;
     try {
       const createdTopic = await controller.create(topic);
       res.status(createdStatusCode).json(createdTopic);
