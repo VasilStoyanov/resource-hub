@@ -1,6 +1,6 @@
 const colourLib = require('colour');
 
-const NOT_A_FUNCTION_ERROR_MESSAGE = (method) =>
+const NOT_A_FUNCTION_ERROR_MESSAGE = method =>
   `Logger: printer.${method} is not a function!`;
 
 const colourThemes = {
@@ -13,14 +13,14 @@ const colourThemes = {
   help: 'cyan',
   warn: ['yellow', 'underline'],
   debug: 'blue',
-  error: 'red bold'
+  error: 'red bold',
 };
 
 const colourThemeKeys = Object.keys(colourThemes);
 
 colourLib.setTheme(colourThemes);
 
-const logger = (config) => (message) => {
+const logger = config => (message) => {
   if (typeof message !== 'string') {
     console.warn('Logger does not support printing objects');
     console.log(message);
@@ -45,25 +45,25 @@ const logger = (config) => (message) => {
 const logMessage = logger({
   printer: console,
   method: 'info',
-  colourKey: 'info'
+  colourKey: 'info',
 });
 
 const logWarnMessage = logger({
   printer: console,
   method: 'warn',
-  colourKey: 'warn'
+  colourKey: 'warn',
 });
 
 const logErrorMessage = logger({
   printer: console,
   method: 'error',
-  colourKey: 'error'
+  colourKey: 'error',
 });
 
 const debug = logger({
   printer: console,
   method: 'log',
-  colourKey: 'help'
+  colourKey: 'help',
 });
 
 module.exports = {
@@ -71,5 +71,5 @@ module.exports = {
   logger,
   logMessage,
   logWarnMessage,
-  logErrorMessage
+  logErrorMessage,
 };

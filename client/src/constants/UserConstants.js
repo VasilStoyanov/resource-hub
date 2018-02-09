@@ -23,5 +23,7 @@ export const UserActions = {
 export const URLS = {
     REGISTER: '/register',
     LOGIN: '/auth/login',
-    LOGOUT: '/auth/logout'
+    LOGOUT: '/auth/logout',
+    CHANGE_EMAIL: '/users/profile/changeemail',
+    CHANGE_PASSWORD: '/users/profile/changepassword'
 };

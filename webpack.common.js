@@ -4,11 +4,12 @@ module.exports = {
   entry: [
     'babel-polyfill',
     'react-hot-loader/patch',
-    './client/src/index.js'
+    './client/src/index.js',
   ],
   output: {
     filename: 'app.js',
-    path: `${__dirname}/client/dist`
+    path: `${__dirname}/client/dist`,
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -19,26 +20,26 @@ module.exports = {
         loader: 'eslint-loader',
         options: {
           emitError: false,
-          emitWarning: true
-        }
+          emitWarning: true,
+        },
       }, {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader'
-    }, {
+        loader: 'babel-loader',
+      }, {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-    }, {
+        use: ['style-loader', 'css-loader'],
+      }, {
         test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
         loader: 'url-loader',
         options: {
-          limit: 10000
-        }
-    }],
+          limit: 10000,
+        },
+      }],
   },
   plugins: [
     new HtmlPlugin({
-      template: './client/public/index.html'
-    })
-  ]
+      template: './client/public/index.html',
+    }),
+  ],
 };

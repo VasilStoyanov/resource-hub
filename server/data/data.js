@@ -11,7 +11,7 @@ const init = async (db) => {
     return Promise.resolve({
       users,
       topics,
-      thematics
+      thematics,
     });
   } catch (exeption) {
     return Promise.reject(exeption);

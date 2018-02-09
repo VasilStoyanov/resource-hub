@@ -12,6 +12,9 @@ const Router = () => (
         <Switch>
             <Route exact path='/' component={HomePage} />
             <Route exact path='/resources/manage' component={ResourcesManagementPage} />
+            <Route exact path='/users/profile' component={ProfilePage} />
+            <Route exact path='/users/profile/changeemail' component={ChangeEmail} />
+            <Route exact path='/users/profile/changepassword' component={ChangePassword} />
             <AuthPage>
                 <Route path='/users/login' component={LoginForm} />
                 <Route path='/users/register' component={RegisterForm} />

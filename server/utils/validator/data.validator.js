@@ -1,20 +1,23 @@
+/* eslint-disable valid-typeof, no-continue, no-restricted-globals */
+
 const {
   INVALID_ARGUMENT,
   INVALID_MAX_LENGTH,
   INVALID_MIN_LENGTH,
   REQUIRED,
-  VALUE_CANNOT_BE_NAN
+  VALUE_CANNOT_BE_NAN,
 } = require('./data.validator.err.messages');
 
 const passedValidation = () => ({ isValid: true });
-const failedValidation = (message) => ({ isValid: false, message });
+const failedValidation = message => ({ isValid: false, message });
 
-const property = (prop) => ({ in: (obj) => ({
+const property = prop => ({
+  in: obj => ({
     exists: !!obj[prop],
-    isOfType: (type) =>
+    isOfType: type =>
       ((type === 'array') ? Array.isArray(obj[prop]) :
-        (typeof obj[prop] === type))
-  })
+        (typeof obj[prop] === type)),
+  }),
 });
 
 const isArray = (potentialArray) => {
@@ -22,63 +25,68 @@ const isArray = (potentialArray) => {
 
   result.value = (potentialArray && Array.isArray(potentialArray));
 
-  result.withLengthBiggerThan = (minLength) => (
+  result.withLengthBiggerThan = minLength => (
     result.value && potentialArray.length > minLength
   );
 
-  result.withLengthLessThan = (maxLength) => (
+  result.withLengthLessThan = maxLength => (
     result.value && potentialArray.length < maxLength
   );
 
   return result;
 };
 
-const is = (value) => ({
-  lessThan: (secondValue) => (value < secondValue),
-  lessOrEqualThan: (secondValue) => (value <= secondValue),
-  greaterThan: (secondValue) => (value > secondValue),
-  greaterOrEqualThan: (secondValue) => (value >= secondValue)
+const is = value => ({
+  lessThan: secondValue => (value < secondValue),
+  lessOrEqualThan: secondValue => (value <= secondValue),
+  greaterThan: secondValue => (value > secondValue),
+  greaterOrEqualThan: secondValue => (value >= secondValue),
 });
 
-const validate = (obj) => ({
+const validate = obj => ({
   usingSchema: (validationSchema) => {
     const schemaKeys = Object.keys(validationSchema);
     const objName = validationSchema.callerName;
 
-    for (let i = 0; i < schemaKeys.length; i++) {
+    for (let i = 0; i < schemaKeys.length; i += 1) {
       const propName = schemaKeys[i];
       const currentRule = validationSchema[propName];
+      const hasValue = property(propName).in(obj).exists;
 
-      if (currentRule.required && !property(propName).in(obj).exists) {
+      if (currentRule.required && !hasValue) {
         return failedValidation(REQUIRED({
           objName,
-          propName
+          propName,
         }));
+      }
+
+      if (!currentRule.required && !hasValue) {
+        continue;
       }
 
       if (currentRule.type && !property(propName).in(obj).isOfType(currentRule.type)) {
         if (currentRule.type === 'number' && isNaN(obj[propName])) {
           return failedValidation(VALUE_CANNOT_BE_NAN({
             objName,
-            propName
+            propName,
           }));
         }
 
         return failedValidation(INVALID_ARGUMENT({
           objName,
           propName,
-          desiredType: currentRule.type
+          desiredType: currentRule.type,
         }));
       }
 
-      const minLength = currentRule.minLength;
-      const maxLength = currentRule.maxLength;
+      const { minLength } = currentRule;
+      const { maxLength } = currentRule;
 
       if (minLength && is(obj[propName].length).lessThan(minLength)) {
         return failedValidation(INVALID_MIN_LENGTH({
           objName,
           propName,
-          desiredMinLength: minLength
+          desiredMinLength: minLength,
         }));
       }
 
@@ -86,7 +94,7 @@ const validate = (obj) => ({
         return failedValidation(INVALID_MAX_LENGTH({
           objName,
           propName,
-          desiredMaxLength: maxLength
+          desiredMaxLength: maxLength,
         }));
       }
 
@@ -100,15 +108,15 @@ const validate = (obj) => ({
     }
 
     return passedValidation();
-  }
+  },
 });
 
 const validator = Object.create(null);
 
-validator.validate = (obj) => ({
+validator.validate = obj => ({
   using: (validationSchema) => {
     if (isArray(obj).value) {
-      for (let i = 0; i < obj.length; i++) {
+      for (let i = 0; i < obj.length; i += 1) {
         if (typeof obj[i] !== 'object') {
           return failedValidation(INVALID_ARGUMENT('object'));
         }
@@ -123,7 +131,7 @@ validator.validate = (obj) => ({
     }
 
     return validate(obj).usingSchema(validationSchema);
-  }
+  },
 });
 
 module.exports = {
@@ -132,5 +140,5 @@ module.exports = {
   isArray,
   passedValidation,
   property,
-  validator
+  validator,
 };

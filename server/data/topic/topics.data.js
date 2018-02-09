@@ -3,19 +3,19 @@ const TOPIC_COLLECTION_NAME = 'topics';
 const { pipe } = require('./../../utils');
 const {
   topicModelValidator,
-  topicUniqueFields
+  topicUniqueFields,
 } = require('./../../models/topic.model/topic.model');
 
-const { CRUD, createUniqueFields, exists } = require('./../data.factory');
+const { CRUD, createUniqueFields, exists } = require('./../factories/data.factory');
 
-const findTopicById = (obj) => ({
+const findTopicById = obj => ({
   ...obj,
-  getByTopicId: (id) => obj.getOneByProperty('topicId')(id)
+  getByTopicId: id => obj.getOneByProperty('topicId')(id),
 });
 
-const findTopicByName = (obj) => ({
+const findTopicByName = obj => ({
   ...obj,
-  getByName: (topicName) => obj.getOneByProperty('name')(topicName)
+  getByName: topicName => obj.getOneByProperty('name')(topicName),
 });
 
 const topicsData = async (db) => {
@@ -31,7 +31,7 @@ const topicsData = async (db) => {
     CRUD(db)(TOPIC_COLLECTION_NAME)(topicModelValidator),
     findTopicById,
     findTopicByName,
-    exists
+    exists,
   )(Object.create(null)));
 };
 

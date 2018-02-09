@@ -7,8 +7,8 @@ const express = require('express');
 const jwt = {
   secret: 'J4V4$CR1PTD4B3$T',
   session: {
-    session: false
-  }
+    session: false,
+  },
 };
 
 const applyTo = (app) => {
@@ -23,5 +23,5 @@ const applyTo = (app) => {
 
 module.exports = {
   applyTo,
-  jwt
+  jwt,
 };

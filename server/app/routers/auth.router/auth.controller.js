@@ -1,3 +1,5 @@
+/* eslint-disable prefer-promise-reject-errors, consistent-return */
+
 const jwt = require('jwt-simple');
 const jwtConfig = require('./../../config').jwt;
 const { getStatusCode } = require('./../../../utils');
@@ -5,7 +7,7 @@ const { getStatusCode } = require('./../../../utils');
 const unauthorizedStatusCode = getStatusCode('unauthorized');
 const badRequestStatusCode = getStatusCode('badRequest');
 
-const USERNAME_NOT_FOUND = (username) => `Username ${username} does not exist`;
+const USERNAME_NOT_FOUND = username => `Username ${username} does not exist`;
 const INCORRECT_PASSWORD = 'Incorrect password';
 const USERNAME_IS_REQUIRED_ERROR_MESSAGE = 'Username is required';
 const PASSWORD_IS_REQUIRED_ERROR_MESSAGE = 'Password is required';
@@ -15,8 +17,8 @@ const createAuthResponse = ({ token, user }) => ({
   token,
   user: {
     id: user.userId,
-    username: user.username
-  }
+    username: user.username,
+  },
 });
 
 const init = (app, data) => {
@@ -26,30 +28,30 @@ const init = (app, data) => {
     if (!username || typeof username !== 'string') {
       return reject({
         statusCode: badRequestStatusCode,
-        errorMessage: USERNAME_IS_REQUIRED_ERROR_MESSAGE
+        errorMessage: USERNAME_IS_REQUIRED_ERROR_MESSAGE,
       });
     } else if (!password || typeof password !== 'string') {
       return reject({
         statusCode: badRequestStatusCode,
-        errorMessage: PASSWORD_IS_REQUIRED_ERROR_MESSAGE
+        errorMessage: PASSWORD_IS_REQUIRED_ERROR_MESSAGE,
       });
     }
 
     data.users.getByUsername(username)
-      .then(user => {
+      .then((user) => {
         if (user) {
           return data.users.checkPassword({ username, password });
         }
 
         return reject({
           statusCode: unauthorizedStatusCode,
-          errorMessage: USERNAME_NOT_FOUND(username)
+          errorMessage: USERNAME_NOT_FOUND(username),
         });
       })
       .then(({ user, validPassword }) => {
         if (validPassword) {
           const payload = {
-            id: user.userId
+            id: user.userId,
           };
 
           const token = jwt.encode(payload, jwtConfig.secret);
@@ -59,12 +61,12 @@ const init = (app, data) => {
 
         return reject({
           statusCode: unauthorizedStatusCode,
-          errorMessage: INCORRECT_PASSWORD
+          errorMessage: INCORRECT_PASSWORD,
         });
       })
       .catch(dbErrorMsg => reject({
         statusCode: badRequestStatusCode,
-        errorMessage: dbErrorMsg
+        errorMessage: dbErrorMsg,
       }));
   });
 

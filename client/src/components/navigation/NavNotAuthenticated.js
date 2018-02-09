@@ -15,6 +15,9 @@ class NavNotAuthenticated extends Component {
                 <NavItem componentClass={Link} eventKey={2} href='/users/login' to='/users/login'>
                     Authentication
                 </NavItem>
+                <NavItem componentClass={Link} eventKey={3} href='/users/profile' to='/users/profile'>
+                    Profile
+                </NavItem>
             </Nav>
         );
     }

@@ -1,6 +1,6 @@
 {
-  "extends": "rallycoding",
+  "extends": "airbnb",
   "rules": {
-    "react/require-extension": "off"
+    "linebreak-style": "off"
   }
 }
