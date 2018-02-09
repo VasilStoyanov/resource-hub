@@ -11,9 +11,11 @@
 
 body
 {
-    color: black;
+    /* color: black;
     background: no-repeat url('http://www.ultrahdfreewallpapers.com/uploads/large/3d-and-abstract/abstract-hd-wallpaper-488.jpg');
-    background-size: cover;
+    background-size: cover; */
+    /* background: -webkit-linear-gradient(#fff,#5c2e91);   */
+    /* height: 1000px; */
 }
 
 .mdl-layout__header,

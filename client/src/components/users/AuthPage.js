@@ -12,7 +12,7 @@ class AuthPage extends Component {
                                 <div className="panel-heading">
                                     <AuthNavbar location={this.props.location} />
                                 </div>
-                                <Row className="panel-body">
+                                <Row className="auth-panel-body">
                                     <Col lg={12}>
                                             {this.props.children}
                                     </Col>

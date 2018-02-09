@@ -5,14 +5,20 @@
 	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
 	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 .panel-login>.panel-heading {
-	background: rgb(234, 235, 239);
+	background: #5c2e91;
 	border-color: #fff;
 	text-align:center;
 	padding-top: 0%;
 	padding-bottom: 0%;
 }
+
+.auth-panel-body.row { 
+	padding: 20px 20px 10px !important;
+}
+
 .panel-login>.panel-heading a{
 	text-decoration: none;
 	color: #cfc9c9;
@@ -23,6 +29,10 @@
 	transition: all 0.1s linear;
 }
 .panel-heading > div > a > div{
+	color: white;
+}
+
+.panel-heading > div > a > .link-is-active{
 	color: black;
 }
 
@@ -36,10 +46,6 @@
 	clear: both;
 	border: 0;
 	height: 1px;
-	background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
-	background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-	background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-	background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
 }
 .panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
 	height: 45px;
@@ -59,9 +65,9 @@
 }
 
 .btn-register, .btn-login  {
-    background: rgb(234, 235, 239);
+    background: #5c2e91;
 	outline: none !important;
-	color: #000;
+	color: #fff;
 	font-size: 14px;
 	height: auto;
 	font-weight: bold;
@@ -74,10 +80,8 @@
 	outline: none;
 }
 .btn-register:hover {
-	/* color: #fff; */
-	/* background-color: rgb(64, 8, 7); */
-	border-color: black;
-	/* border-color: #00d8ff; */
+	color: white;
+	text-decoration: underline;
 }
 .auth-page-container{
 	margin-top: 10%
@@ -87,10 +91,10 @@
 	background: white !important;
 } 
 
-#auth-form-group{
+#login-form-group, #register-form-group{
 	background-color: transparent;
-    border-color: transparent transparent;
-    border-bottom-color: black;
+	border-bottom-color: black;
+	border-radius: 0;
 }
 
 .error-block{
@@ -105,9 +109,18 @@
 }
 
 .auth-form > div > span > .input-group-addon{
-    /* background: transparent !important; */
-	border-color: #eee !important;
+    border-color: transparent !important;
+    border-bottom-color: black !important;
+	background: #8383c3  !important;
+	color: white;
 	/* border-bottom-color: black !important; */
+}
+.auth-form > div > .error-block {
+	color: #9a0c81;
+}
+
+.auth-form > div > .glyphicon-remove{
+	color: #9a0c81;
 }
 .panel-heading > div > a > div{
 	padding: 2% 0;
