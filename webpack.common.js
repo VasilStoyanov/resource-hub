@@ -19,7 +19,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'eslint-loader',
         options: {
-          emitError: false,
+          emitError: true,
           emitWarning: true,
         },
       }, {
