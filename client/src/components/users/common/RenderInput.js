@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormGroup, FormControl, HelpBlock, Glyphicon, InputGroup } from 'react-bootstrap';
 
-export const RenderInput = ({ input, meta, placeholder, type, glyph }) => (
-    <FormGroup controlId="auth-form-group" validationState={meta.error && meta.touched ? 'error' : null}>
+export const RenderInput = ({ input, meta, placeholder, type, glyph, id = "auth-form-group"}) => (
+    <FormGroup controlId={id} validationState={meta.error && meta.touched ? 'error' : null}>
        <InputGroup>
             <InputGroup.Addon>
                 <Glyphicon glyph={glyph} />
