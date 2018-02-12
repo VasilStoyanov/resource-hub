@@ -2,7 +2,8 @@
   "scripts": {
     "start": "set NODE_ENV=production && webpack --config webpack.prod.js && node ./server/cluster.js",
     "dev": "concurrently \"set NODE_ENV=development\" \"webpack --config webpack.watcher.js\" \"webpack-dev-server --open --config webpack.dev.js\" \"nodemon server/server.js\"",
-    "debug": "set NODE_ENV=development && node --inspect-brk ./server/server.js"
+    "debug": "set NODE_ENV=development && node --inspect-brk ./server/server.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "name": "ResourceHub",
   "version": "0.0.3",

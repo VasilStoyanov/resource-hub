@@ -21,19 +21,32 @@ const property = prop => ({
 });
 
 const isArray = (potentialArray) => {
-  const result = Object.create(null);
+  const obj = Object.create(null);
 
-  result.value = (potentialArray && Array.isArray(potentialArray));
+  obj.value = (potentialArray && Array.isArray(potentialArray));
 
-  result.withLengthBiggerThan = minLength => (
-    result.value && potentialArray.length > minLength
+  obj.withLengthBiggerThan = minLength => (
+    obj.value && potentialArray.length > minLength
   );
 
-  result.withLengthLessThan = maxLength => (
-    result.value && potentialArray.length < maxLength
+  obj.withLengthLessThan = maxLength => (
+    obj.value && potentialArray.length < maxLength
   );
 
-  return result;
+  obj.andContainsOnlyItemsOfType = (type) => {
+    if (!obj.value) {
+      return false;
+    }
+
+    const containsInvalidItem = potentialArray.some(element => typeof element !== type);
+    if (containsInvalidItem) {
+      return false;
+    }
+
+    return true;
+  };
+
+  return obj;
 };
 
 const is = value => ({

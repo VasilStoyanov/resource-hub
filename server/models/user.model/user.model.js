@@ -1,5 +1,6 @@
-const { createModelValidator } = require('./../model.validator.factory.js');
+const { createModelValidator } = require('./../model.validator.factory');
 const createSchema = require('./../schema.factory');
+const { isArray, passedValidation, failedValidation } = require('./../../utils/validator/data.validator');
 
 const {
   USERNAME_MAX_LENGTH,
@@ -47,6 +48,15 @@ const userModelValidationRules = {
   },
   banned: {
     type: 'object',
+  },
+  roles: {
+    validationPredicate: (roles) => {
+      if (!isArray(roles).andContainsOnlyItemsOfType('string')) {
+        return failedValidation('Invalid roles');
+      }
+
+      return passedValidation();
+    },
   },
 };
 
