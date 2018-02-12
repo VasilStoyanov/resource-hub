@@ -17,6 +17,7 @@ const SERVER_INITIALIZATION_MESSAGE = ({ initialized, port = config.PORT }) => (
 
 const startServerAsync = () => Promise.resolve();
 
+
 startServerAsync()
   .then(() => databaseLayer.init({
     connectionString: config.connectionString,
