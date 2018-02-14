@@ -5,6 +5,9 @@ import AuthPage from '../components/users/AuthPage';
 import RegisterForm from '../components/users/RegisterForm';
 import LoginForm from '../components/users/LoginForm';
 import ResourcesManagementPage from '../components/management/ResourcesManagementPage';
+import ChangePassword from '../components/users/Profile/ChangePassword'
+import ChangeEmail from '../components/users/Profile/ChangeEmail'
+import ProfilePage from '../components/users/Profile/ProfilePage'
 
 
 const Router = () => (

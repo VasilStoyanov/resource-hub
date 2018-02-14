@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import { RenderInput } from '../common/RenderInput';
 import { AuthButton } from './common/AuthButton';
-import { loginValidation } from '../../utilities/validators/authenticationValidator';
+import { loginValidation } from '../../utilities/validators/validationSchemas/authenticationValidator';
 import { loginUser } from '../../actions/users/';
 
 class LoginPage extends Component {

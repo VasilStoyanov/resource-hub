@@ -11,19 +11,54 @@ button {
 }
 
 .management-button {
-    background: #7b5c9e;
+    background: #7b5c9e !important;
 	outline: none !important;
-	color: white;
+	color: white !important;
 	font-size: 14px;
 	height: auto;
-	/* font-weight: bold; */
 	padding: 8px 30px;
-	/* text-transform: uppercase; */
 	border: 1px black;
-	/* box-shadow: 0 0 5px rgb(109, 1, 7); */
 }
 
-.management-button:hover {
-	background: #5c2e91;
-	color: white;
+.management-button:focus,
+.management-button:active,
+.management-button:hover  {
+	background: #5c2e91 !important;
+	color: white !important;
+}
+
+.create-topic-from {
+	margin-top: 5%;
+	padding-bottom: 5%;
+	border-color: #ccc;
+	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.create-topic-from {
+	padding-left: 0px;
+	padding-right: 0px;
+	padding: 0px;
+}
+.create-topic-from > h2 {
+	 margin: 0;
+	 margin-bottom: 3%;
+	 padding-bottom: 1%;
+	 padding-top: 1%;
+	 text-align: center;
+	 font-family: sans-serif;
+	 background: #4f2a79;
+	 color: white;
+}
+
+.create-topic-from > form {
+	padding: 2%;
+}
+
+.add-topic-button-container {
+	text-align: center;
+}
+.add-topic-button-container > button {
+    width: 33%;
 }

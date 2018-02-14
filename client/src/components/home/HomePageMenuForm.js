@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { reduxForm } from 'redux-form';
-import { validate } from '../../utilities/validators/searchValidatior';
+import { validate } from '../../utilities/validators/validationSchemas/searchValidatior';
 import { searchResources } from '../../actions/resources/';
 import SelectTopicInput from './SelectTopicInput';
 import SelectThematicInput from './SelectThematicInput';

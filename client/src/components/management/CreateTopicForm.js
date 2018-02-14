@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { reduxForm, Field, FieldArray } from 'redux-form';
 import RenderThematicInputs from './RenderThematicInputs';
-import Glyphicon from '../common/GlyphInput';
-import { Button } from 'react-bootstrap';
-import { validate } from '../../utilities/validators/topicCreationValidator';
+import { RenderInput } from '../common/RenderInput.js';
+import { Button, Glyphicon } from 'react-bootstrap';
+import { validate } from '../../utilities/validators/validationSchemas/topicCreationValidator';
 
 class CreateTopicForm extends Component {
   constructor() {
@@ -21,10 +21,13 @@ class CreateTopicForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-        <form onSubmit={handleSubmit(this.submit.bind(this))}>    
-            <Field name='name' placeholder='Topic name' glyph='asterisk' component={Glyphicon} />
-            <FieldArray name='thematics' component={RenderThematicInputs} />
-            <Button type='submit' className='management-button'>Add Topic</Button>
+        <form onSubmit={handleSubmit(this.submit.bind(this))}>  
+            <Field name='topic' placeholder='Topic name' glyph='asterisk' component={RenderInput} />
+            <FieldArray name='thematics' valid={this.props.valid} component={RenderThematicInputs} />
+           
+            <div className='add-topic-button-container'>
+              <Button type='submit' className='management-button'>Add</Button>
+            </div>
         </form>
     );
   }

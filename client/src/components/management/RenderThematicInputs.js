@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Field } from 'redux-form';
-import { Button } from 'react-bootstrap';
-import GlyphInput from '../common/GlyphInput';
+import { Button, Glyphicon } from 'react-bootstrap';
 import { RenderInput } from '../common/RenderInput.js';
+import { validate } from '../../utilities/validators/validationSchemas/topicCreationValidator';
 
 class RenderThematicsInput extends Component {
     componentDidMount() {
@@ -10,8 +10,14 @@ class RenderThematicsInput extends Component {
     }
 
     addThematic() {
-        if (!this.props.fields.getAll().some(n => !n || !n[Object.keys(n)[0]] || n[Object.keys(n)[0]].length < 3)) {
+        if(this.props.valid && !this.props.fields.getAll().some(n => !n || !n.thematic || n.thematic.length < 0)){
             this.props.fields.push();
+        }
+    }
+
+    removeThematic(index){
+        if(this.props.fields.length > 1){
+            this.props.fields.remove(index)
         }
     }
 
@@ -21,22 +27,23 @@ class RenderThematicsInput extends Component {
                  <div className='row'>
                     <div className='col-lg-10'>
                         <Field
-                            name={`${thematic}.thematic-${index}`}
+                            name={`${thematic}.thematic`}
                             type="text"
                             component={RenderInput}
-                            handleClick={() => this.props.fields.remove(index)} 
+                            handleClick={this.removeThematic.bind(this, index)} 
+                            tooltip='remove'
                             glyph='remove'
                             placeholder={`thematic #${index + 1}`}
                         />
                     </div>
                     {index === this.props.fields.length - 1 && 
-                        <Button 
-                            type="button" 
-                            className='management-button' 
-                            onClick={this.addThematic.bind(this)}
-                        >
-                            Add Thematic
-                        </Button>
+                    <Button 
+                        type="button" 
+                        className='management-button' 
+                        onClick={this.addThematic.bind(this)}
+                    >
+                        <Glyphicon glyph="plus" /> 
+                    </Button>
                     }
                  </div>
             </li>    
