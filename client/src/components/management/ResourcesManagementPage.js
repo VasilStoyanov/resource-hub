@@ -5,13 +5,15 @@ import CreateTopicForm from './CreateTopicForm';
 
 const ResourcesManagementPage = () =>
   (
-       <Grid>
-          <Row>
-              <Col lg={10} lgOffset={1} className='create-topic-from'>
-                  <h2>Create new Topic</h2>
-                  <CreateTopicForm />
-              </Col>
-          </Row>
+        <Grid>
+             <Row>
+                <Col lg={10} lgOffset={1} className='basic-card create-topic-from'>
+                    <div className="basic-heading">
+                        <h3>Create new Topic</h3>
+                    </div>
+                    <CreateTopicForm />
+                 </Col>
+            </Row>
         </Grid>
   );
 

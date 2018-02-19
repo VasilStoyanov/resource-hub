@@ -64,9 +64,6 @@ class Validator {
         const errors = [];
         const {unique, ...validationModel} = this.validationModel[key];
         const validator = new Validator(validationModel);
-        if(unique * isUnique(array, unique)) {
-            
-        }
 
         if(unique){
             const tmpArr = [];

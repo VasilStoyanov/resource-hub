@@ -39,7 +39,7 @@ class RenderThematicsInput extends Component {
                     {index === this.props.fields.length - 1 && 
                     <Button 
                         type="button" 
-                        className='management-button' 
+                        className='basic-button' 
                         onClick={this.addThematic.bind(this)}
                     >
                         <Glyphicon glyph="plus" /> 

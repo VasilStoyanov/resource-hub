@@ -13,10 +13,23 @@ class LoginPage extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-        <form className='auth-form' onSubmit={handleSubmit(this.submit.bind(this))}>
-              <Field placeholder='Username' controlId='login-form-group' name='username' glyph='user' component={RenderInput} />
-              <Field type='password' placeholder='Password' controlId='login-form-group' name='password' glyph='lock' component={RenderInput} />
-              <AuthButton value='Login' className={'form-control btn btn-register'} />
+        <form className='auth-form basic-form-input' onSubmit={handleSubmit(this.submit.bind(this))}>
+               <Field 
+                controlId='login-username'
+                name='username' 
+                placeholder='Username' 
+                glyph='user'
+                component={RenderInput} 
+              />
+              <Field 
+                controlId='login-password' 
+                name='password' 
+                placeholder='Password' 
+                glyph='lock' 
+                type='password' 
+                component={RenderInput} 
+              />
+              <AuthButton value='Login'/>
         </form>
     );
   }

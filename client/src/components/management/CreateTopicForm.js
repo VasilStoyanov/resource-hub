@@ -21,12 +21,21 @@ class CreateTopicForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-        <form onSubmit={handleSubmit(this.submit.bind(this))}>  
-            <Field name='topic' placeholder='Topic name' glyph='asterisk' component={RenderInput} />
-            <FieldArray name='thematics' valid={this.props.valid} component={RenderThematicInputs} />
+        <form className='basic-form-input' onSubmit={handleSubmit(this.submit.bind(this))}>  
+            <Field 
+              name='topic' 
+              placeholder='Topic name'
+              glyph='asterisk' 
+              component={RenderInput} 
+             />
+            <FieldArray 
+              name='thematics' 
+              valid={this.props.valid} 
+              component={RenderThematicInputs} 
+            />
            
             <div className='add-topic-button-container'>
-              <Button type='submit' className='management-button'>Add</Button>
+              <Button type='submit' className='basic-button'>Add</Button>
             </div>
         </form>
     );

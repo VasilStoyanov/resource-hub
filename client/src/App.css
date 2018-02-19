@@ -1,5 +1,6 @@
 @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 @import '../../node_modules/bootstrap/dist/css/bootstrap-theme.css';
+@import './css/basic-form.css';
 @import './css/authentication.css';
 @import './css/homepage.css';
 @import './css/searchbar.css';
@@ -8,15 +9,7 @@
 @import './css/card.css';
 @import './css/pagination.css';
 @import './css/management-page.css';
-
-body
-{
-    /* color: black;
-    background: no-repeat url('http://www.ultrahdfreewallpapers.com/uploads/large/3d-and-abstract/abstract-hd-wallpaper-488.jpg');
-    background-size: cover; */
-    /* background: -webkit-linear-gradient(#fff,#5c2e91);   */
-    /* height: 1000px; */
-}
+@import './css/profile-page.css';
 
 .mdl-layout__header,
 .mdl-layout__drawer-button,
@@ -30,14 +23,14 @@ body
     background-color: white;
 }
 
-.glyph-button-input-group > span
+.basic-form-input .glyph-button-input-group > span
 {
     padding: 0;
 }
 
-.glyph-button-input-group > span > button,
-.glyph-button-input-group > span > button:hover,
-.glyph-button-input-group > span > button:focus
+.basic-form-input .glyph-button-input-group > span > button,
+.basic-form-input .glyph-button-input-group > span > button:hover,
+.basic-form-input .glyph-button-input-group > span > button:focus
 {
     padding: 0;
 
@@ -45,12 +38,12 @@ body
     background: transparent;
 }
 
-.glyph-button-input-group > span > button > span
+.basic-form-input .glyph-button-input-group > span > button > span
 {
     width: 50px;
 }
 
-.glyph-button-input-group > span > span
+.basic-form-input .glyph-button-input-group > span > span
 {
     width: 50px;
 }
