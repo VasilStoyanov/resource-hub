@@ -5,17 +5,17 @@ import { selectTopic } from '../../actions/topics/';
 import SearchBar from '../common/SearchBar';
 
 export default ({ topics, dispatch }) => (
-    <Col md={4}>
-        <Field
-            name='selectedTopic' 
-            placeholder='Select topic...'
-            options={topics.map(n => n.name)} 
-            component={SearchBar}
-            handleChange={query => {
+  <Col md={4}>
+    <Field
+      name="selectedTopic"
+      placeholder="Select topic..."
+      options={topics.map(n => n.name)}
+      component={SearchBar}
+      handleChange={(query) => {
                 const topic = topics.find(n => n.name === query);
-                dispatch(selectTopic(topic));  
+                dispatch(selectTopic(topic));
             }}
-        />
-    </Col>
-    );
-    
+    />
+  </Col>
+);
+

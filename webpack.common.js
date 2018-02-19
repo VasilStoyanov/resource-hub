@@ -4,7 +4,7 @@ module.exports = {
   entry: [
     'babel-polyfill',
     'react-hot-loader/patch',
-    './client/src/index.js',
+    './client/src/index.jsx',
   ],
   output: {
     filename: 'app.js',
@@ -15,15 +15,15 @@ module.exports = {
     rules: [
       {
         enforce: 'pre',
-        test: /\.js$/,
+        test: /\.js$|.jsx/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
         options: {
-          emitError: false,
+          emitError: true,
           emitWarning: true,
         },
       }, {
-        test: /\.js$/,
+        test: /\.js|.jsx$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       }, {
@@ -36,6 +36,9 @@ module.exports = {
           limit: 10000,
         },
       }],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx']
   },
   plugins: [
     new HtmlPlugin({

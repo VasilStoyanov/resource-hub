@@ -6,8 +6,8 @@ import formReducers from './formReducers';
 import resourcesReducer from './resourcesReducer';
 
 export default combineReducers({
-    form: formReducers,
-    authReducer,
-    topicsReducer,
-    resourcesReducer
+  form: formReducers,
+  authReducer,
+  topicsReducer,
+  resourcesReducer,
 });

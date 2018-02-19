@@ -7,18 +7,18 @@ import ResourceList from '../resources/ResourceList';
 
 class HomePage extends Component {
   componentDidMount() {
-      this.props.dispatch(getTopics());
+    this.props.dispatch(getTopics());
   }
 
   render() {
     return (
       <Grid fluid>
-        <Row className='home-page-menu'>
+        <Row className="home-page-menu">
           <Col lg={6} lgOffset={6}>
             <HomePageMenuForm {...this.props} />
           </Col>
         </Row>
-        <Row className='home-page-resources-list'>
+        <Row className="home-page-resources-list">
           <Col sm={12} md={4}>
             Top Resources
           </Col>

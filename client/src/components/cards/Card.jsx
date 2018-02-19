@@ -9,22 +9,22 @@ export default class Card extends Component {
     const description = 'Some quick example text to build on the card title and make up the bulk of the cards content.';
     const href = 'somewhere';
     return (
-        <Link to={href} className="zoom">
-            <div className="card card-appearance card-appearance-4" style={{ width: '100%' }}>
-                <div className="panel panel-default card-round-top">
-                    <div className="panel-body">
-                        <div className="zoom">
-                            <Image width='100%' height='200px' src={url} rounded />
-                            <span className="overlay" />
-                        </div>
-                    </div>
-                </div>
-                <div className="card-block" style={{ textAlign: 'center' }}>
-                    <h4 className="card-title">{title}</h4>
-                    <p className="card-text">{description}</p>
-                </div>
+      <Link to={href} className="zoom">
+        <div className="card card-appearance card-appearance-4" style={{ width: '100%' }}>
+          <div className="panel panel-default card-round-top">
+            <div className="panel-body">
+              <div className="zoom">
+                <Image width="100%" height="200px" src={url} rounded />
+                <span className="overlay" />
+              </div>
             </div>
-        </Link>
+          </div>
+          <div className="card-block" style={{ textAlign: 'center' }}>
+            <h4 className="card-title">{title}</h4>
+            <p className="card-text">{description}</p>
+          </div>
+        </div>
+      </Link>
     );
   }
 }

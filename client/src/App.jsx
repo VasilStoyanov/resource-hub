@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
-import Navigation from './components/navigation/Navbar.js';
+import Navigation from './components/navigation/Navbar';
 import Router from './routes/Router';
 
 class App extends Component {
@@ -16,10 +16,10 @@ class App extends Component {
           closeOnClick
           pauseOnHover
         />
-         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-         <Navigation />
-         <Router />
-       </div>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <Navigation />
+        <Router />
+      </div>
     );
   }
 }

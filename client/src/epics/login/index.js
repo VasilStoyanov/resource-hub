@@ -9,6 +9,5 @@ export const loginUserEpic = action$ =>
     .mergeMap(action =>
       ajax.post(`${URLS.LOGIN}`, action.payload)
         .map(response => loginUserFulfilled(response))
-        .catch(error => Observable.of(loginUserRejected(error)))
-    );
+        .catch(error => Observable.of(loginUserRejected(error))));
 

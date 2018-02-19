@@ -7,20 +7,20 @@ export class ProfilePage extends Component {
     return (
       <div>
         <RenderProfilePage
-            handleChangeEmail={this.props.changeEmail}
-            username={this.props.username}   
-            email={this.props.email}
-            changepassurl='/users/profile/changepassword'
-            changeemailurl='/users/profile/changeemail'
+          handleChangeEmail={this.props.changeEmail}
+          username={this.props.username}
+          email={this.props.email}
+          changepassurl="/users/profile/changepassword"
+          changeemailurl="/users/profile/changeemail"
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   username: state.authReducer.currentUser.username,
-  email: state.authReducer.currentUser.email
+  email: state.authReducer.currentUser.email,
 });
 
 export default connect(mapStateToProps)(ProfilePage);

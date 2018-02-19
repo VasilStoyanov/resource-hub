@@ -8,16 +8,15 @@ import { Provider } from 'react-redux';
 import App from './App';
 import './index.css';
 import store from './store';
-import registerServiceWorker from './registerServiceWorker';
 
-const render = Component => {
+const render = (Component) => {
   ReactDOM.render(
     <AppContainer>
       <BrowserRouter>
-            <Provider store={store}>
-                <Component />
-            </Provider>
-        </BrowserRouter>
+        <Provider store={store}>
+          <Component />
+        </Provider>
+      </BrowserRouter>
     </AppContainer>,
     document.getElementById('root'),
   );
@@ -30,5 +29,3 @@ if (module.hot) {
     render(App);
   });
 }
-
-registerServiceWorker();

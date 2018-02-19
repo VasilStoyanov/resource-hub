@@ -7,17 +7,23 @@ import loginUser from '../../actions/users/loginUser';
 
 class LoginPage extends Component {
   submit(results) {
-      this.props.dispatch(loginUser(results));
+    this.props.dispatch(loginUser(results));
   }
 
   render() {
     const { handleSubmit } = this.props;
     return (
-        <form className='auth-form' onSubmit={handleSubmit(this.submit.bind(this))}>
-              <Field placeholder='Username' name='username' glyph='user' component={RenderInput} />
-              <Field type='password' placeholder='Password' name='password' glyph='lock' component={RenderInput} />
-              <AuthButton value='Login' />
-        </form>
+      <form className="auth-form" onSubmit={handleSubmit(this.submit.bind(this))}>
+        <Field placeholder="Username" name="username" glyph="user" component={RenderInput} />
+        <Field
+          type="password"
+          placeholder="Password"
+          name="password"
+          glyph="lock"
+          component={RenderInput}
+        />
+        <AuthButton value="Login" />
+      </form>
     );
   }
 }
