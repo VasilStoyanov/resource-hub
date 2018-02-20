@@ -10,6 +10,10 @@
     "react/jsx-closing-tag-location": "off",
     "react/no-string-refs": "off",
     "react/no-array-index-key": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "guard-for-in": "off",
+    "no-restricted-syntax": "off",
+    "consistent-return": "off",
+    "class-methods-use-this": "off"
   }
 }

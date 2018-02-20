@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import RenderProfilePage from './RenderProfilePage';
 
-export class ProfilePage extends Component {
+class ProfilePage extends Component {
   render() {
     return (
       <div>

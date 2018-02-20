@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { toast } from 'react-toastify';
 import { reduxForm } from 'redux-form';
+import { validate } from '../../utilities/validators/validationSchemas/searchValidatior';
 import { searchResources } from '../../actions/resources/';
 import SelectTopicInput from './SelectTopicInput';
 import SelectThematicInput from './SelectThematicInput';
@@ -10,8 +11,7 @@ import UserInput from './UserInput';
 class HomePageMenuForm extends Component {
   submit(result) {
     const { selectedTopic, selectedThematic } = this.props;
-    // const errors = validate(result);
-    const errors = {};
+    const errors = validate(result);
 
     if (Object.keys(errors).length > 0) {
       const keys = Object.keys(errors);
@@ -26,7 +26,12 @@ class HomePageMenuForm extends Component {
 
   render() {
     const {
-      topics, handleSubmit, selectedTopic, dispatch, filteredResourcesNames, resourcesNames,
+      topics,
+      handleSubmit,
+      selectedTopic,
+      dispatch,
+      filteredResourcesNames,
+      resourcesNames,
     } = this.props;
 
     return (

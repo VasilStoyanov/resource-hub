@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { RenderInput } from './common/RenderInput';
+import { RenderInput } from '../common/RenderInput';
 import { AuthButton } from './common/AuthButton';
-import { registerValidation as validate } from '../../utilities/validators/authenticationValidator';
-import registerUser from '../../actions/users/registerUser';
+import { registerValidation as validate } from '../../utilities/validators/validationSchemas/authenticationValidator';
+import { registerUser } from '../../actions/users';
 
 class RegisterForm extends Component {
   submit(results) {
@@ -13,24 +13,38 @@ class RegisterForm extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <form className="auth-form" onSubmit={handleSubmit(this.submit.bind(this))}>
-        <Field placeholder="Username" name="username" glyph="user" component={RenderInput} />
-        <Field placeholder="Email address" name="email" glyph="envelope" component={RenderInput} />
+      <form className="auth-form basic-form-input" onSubmit={handleSubmit(this.submit.bind(this))}>
         <Field
-          type="password"
+          controlId="register-username"
+          name="username"
+          placeholder="Username"
+          glyph="user"
+          component={RenderInput}
+        />
+        <Field
+          controlId="register-email"
+          name="email"
+          placeholder="Email address"
+          glyph="envelope"
+          component={RenderInput}
+        />
+        <Field
+          controlId="register-password"
+          name="password"
           placeholder="Password"
           glyph="lock"
-          name="password"
+          type="password"
           component={RenderInput}
         />
         <Field
-          type="password"
+          controlId="register-confirm-password"
+          name="confirmPassword"
           placeholder="Confirm Password"
           glyph="lock"
-          name="confirmPassword"
+          type="password"
           component={RenderInput}
         />
-        <AuthButton value="Register" />
+        <AuthButton value="Register" className="form-control btn btn-register" />
       </form>
     );
   }

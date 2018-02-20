@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { RenderInput } from './common/RenderInput';
+import { RenderInput } from '../common/RenderInput';
 import { AuthButton } from './common/AuthButton';
-import { loginValidation } from '../../utilities/validators/authenticationValidator';
-import loginUser from '../../actions/users/loginUser';
+import { loginValidation } from '../../utilities/validators/validationSchemas/authenticationValidator';
+import { loginUser } from '../../actions/users/';
 
 class LoginPage extends Component {
   submit(results) {
@@ -13,13 +13,20 @@ class LoginPage extends Component {
   render() {
     const { handleSubmit } = this.props;
     return (
-      <form className="auth-form" onSubmit={handleSubmit(this.submit.bind(this))}>
-        <Field placeholder="Username" name="username" glyph="user" component={RenderInput} />
+      <form className="auth-form basic-form-input" onSubmit={handleSubmit(this.submit.bind(this))}>
         <Field
-          type="password"
-          placeholder="Password"
+          controlId="login-username"
+          name="username"
+          placeholder="Username"
+          glyph="user"
+          component={RenderInput}
+        />
+        <Field
+          controlId="login-password"
           name="password"
+          placeholder="Password"
           glyph="lock"
+          type="password"
           component={RenderInput}
         />
         <AuthButton value="Login" />

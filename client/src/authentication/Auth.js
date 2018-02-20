@@ -9,7 +9,7 @@ class Auth {
   static getAuthenticatedUser() {
     const userJson = localStorage.getItem('user');
 
-    return userJson ? JSON.parse(userJson) : {};
+    return userJson && userJson !== 'undefined' ? JSON.parse(userJson) : {};
   }
 
   static isUserAuthenticated() {

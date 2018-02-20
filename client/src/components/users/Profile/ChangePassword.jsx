@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
 import { AuthButton } from '../common/AuthButton';
-import { RenderInput } from '../common/RenderInput';
+import { RenderInput } from '../../common/RenderInput';
 import { changePassword } from '../../../actions/users/changePassword';
 
 
@@ -19,23 +18,14 @@ class ChangePassword extends Component {
       <Grid className="auth-page-container">
         <Row>
           <Col sm={6} smOffset={3}>
-            <div className="panel panel-login">
-              <div className="panel-heading">
-                <Row>
-                  <Link
-                    className="login-header"
-                    to="/users/profile/changepassword"
-                  >
-                    <Col>
-                        Change your password
-                    </Col>
-                  </Link>
-                </Row>
+            <div className="change-password-card basic-card">
+              <div className="basic-heading">
+                <h3>Change Password</h3>
               </div>
               <Row className="panel-body">
                 <Col lg={12}>
                   <form
-                    className="change-password-form"
+                    className="basic-form-input"
                     onSubmit={handleSubmit(this.submit.bind(this))}
                   >
                     <Field

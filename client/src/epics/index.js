@@ -1,5 +1,5 @@
 import { combineEpics } from 'redux-observable';
-import { loginUserEpic } from './login/';
+import { loginUserEpic, registerUserEpic } from './users/';
 import { getTopicsEpic } from './topics';
 import { changeEmailEpic } from './changeEmail';
 import { changePasswordEpic } from './changePassword';
@@ -7,6 +7,7 @@ import { searchResourceEpic, getResourcesNames, searchInputChange } from './reso
 
 export const rootEpic = combineEpics(
   loginUserEpic,
+  registerUserEpic,
   getTopicsEpic,
   searchResourceEpic,
   getResourcesNames,
