@@ -27,16 +27,14 @@ const init = async (db) => {
     return Promise.reject(ex);
   }
 
-  const topicsData = pipe(
+  const topics = pipe(
     CRUD(db)(TOPIC_COLLECTION_NAME)(topicModelValidator),
     findTopicById,
     findTopicByName,
     exists,
   )(Object.create(null));
 
-  return {
-    topics: topicsData,
-  };
+  return Object.freeze({ topics });
 };
 
 module.exports = { init };

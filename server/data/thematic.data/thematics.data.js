@@ -33,7 +33,7 @@ const init = async (db) => {
     exists,
   )(Object.create(null));
 
-  return Object.freeze(thematics);
+  return Object.freeze({ thematics });
 };
 
 module.exports = { init };
