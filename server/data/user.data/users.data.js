@@ -51,11 +51,11 @@ const init = async (db) => {
 
   try {
     await createdUniqueUserFields(userUniqueFields);
-  } catch (ex) {
-    return ex;
+  } catch (exception) {
+    return Promise.reject(exception);
   }
 
-  const usersData = pipe(
+  const users = pipe(
     CRUD(db)(USERS_COLLECTION_NAME)(userModelValidator),
     fetchUserData,
     modifyUserData,
@@ -63,9 +63,7 @@ const init = async (db) => {
     exists,
   )(Object.create(null));
 
-  return Promise.resolve({
-    users: usersData,
-  });
+  return Object.freeze({ users });
 };
 
 module.exports = { init };

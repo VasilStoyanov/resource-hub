@@ -11,7 +11,7 @@ const PATH_TO_INDEX_HTML = path.join(
 
 const init = async (data) => {
   const app = express();
-
+  console.log(data);
   appConfig.applyTo(app);
   authentication.applyTo(app, data);
   routers.attachTo(app, data);

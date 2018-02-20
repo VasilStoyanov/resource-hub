@@ -26,16 +26,14 @@ const init = async (db) => {
     return Promise.reject(ex);
   }
 
-  const thematicsData = pipe(
+  const thematics = pipe(
     CRUD(db)(THEMATIC_COLLECTION_NAME)(thematicModelValidator),
     findThematicById,
     findThematicByName,
     exists,
   )(Object.create(null));
 
-  return Promise.resolve({
-    thematics: thematicsData,
-  });
+  return Object.freeze(thematics);
 };
 
 module.exports = { init };

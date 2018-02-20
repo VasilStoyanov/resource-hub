@@ -26,6 +26,9 @@ coverage
 # Bower dependency directory (https://bower.io/)
 bower_components
 
+# Webstorm
+.idea
+
 # node-waf configuration
 .lock-wscript
 
