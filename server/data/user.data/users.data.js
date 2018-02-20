@@ -46,7 +46,7 @@ const checkUserPassword = obj => ({
   },
 });
 
-const userData = async (db) => {
+const init = async (db) => {
   const createdUniqueUserFields = createUniqueFields(db)(USERS_COLLECTION_NAME);
 
   try {
@@ -55,13 +55,17 @@ const userData = async (db) => {
     return ex;
   }
 
-  return pipe(
+  const usersData = pipe(
     CRUD(db)(USERS_COLLECTION_NAME)(userModelValidator),
     fetchUserData,
     modifyUserData,
     checkUserPassword,
     exists,
   )(Object.create(null));
+
+  return Promise.resolve({
+    users: usersData,
+  });
 };
 
-module.exports = userData;
+module.exports = { init };

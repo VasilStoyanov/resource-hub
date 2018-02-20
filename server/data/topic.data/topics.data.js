@@ -18,7 +18,7 @@ const findTopicByName = obj => ({
   getByName: topicName => obj.getOneByProperty('name')(topicName),
 });
 
-const topicsData = async (db) => {
+const init = async (db) => {
   const createdUniqueTopicFields = createUniqueFields(db)(TOPIC_COLLECTION_NAME);
 
   try {
@@ -27,12 +27,16 @@ const topicsData = async (db) => {
     return Promise.reject(ex);
   }
 
-  return Promise.resolve(pipe(
+  const topicsData = pipe(
     CRUD(db)(TOPIC_COLLECTION_NAME)(topicModelValidator),
     findTopicById,
     findTopicByName,
     exists,
-  )(Object.create(null)));
+  )(Object.create(null));
+
+  return {
+    topics: topicsData,
+  };
 };
 
-module.exports = topicsData;
+module.exports = { init };

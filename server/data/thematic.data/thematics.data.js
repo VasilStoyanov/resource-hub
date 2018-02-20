@@ -17,7 +17,7 @@ const findThematicByName = obj => ({
   getByName: thematicName => obj.getOneByProperty('name')(thematicName),
 });
 
-const thematicData = async (db) => {
+const init = async (db) => {
   const createUniqueThematicFields = createUniqueFields(db)(THEMATIC_COLLECTION_NAME);
 
   try {
@@ -26,12 +26,16 @@ const thematicData = async (db) => {
     return Promise.reject(ex);
   }
 
-  return Promise.resolve(pipe(
+  const thematicsData = pipe(
     CRUD(db)(THEMATIC_COLLECTION_NAME)(thematicModelValidator),
     findThematicById,
     findThematicByName,
     exists,
-  )(Object.create(null)));
+  )(Object.create(null));
+
+  return Promise.resolve({
+    thematics: thematicsData,
+  });
 };
 
-module.exports = thematicData;
+module.exports = { init };
