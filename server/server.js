@@ -15,23 +15,24 @@ const SERVER_INITIALIZATION_MESSAGE = ({ initialized, port = config.PORT }) => (
     '(!) Server initialization aborted'
 );
 
-const startServerAsync = () => Promise.resolve();
+(async () => {
+  try {
+    const db = await databaseLayer.init({
+      connectionString: config.connectionString,
+      dataSource: config.dataSources('resourceHub'),
+    });
 
-startServerAsync()
-  .then(() => databaseLayer.init({
-    connectionString: config.connectionString,
-    dataSource: config.dataSources('resourceHub'),
-  }))
-  .then(db => dataLayer.init(db))
-  .then(data => applicationLayer.init(data))
-  .then(app => app.listen(config.PORT, () => {
-    logMessage(SERVER_INITIALIZATION_MESSAGE({
-      initialized: true,
-      port: config.PORT,
-    }));
-  }))
-  .catch((errorMessage) => {
+    const data = await dataLayer.init(db);
+    const app = await applicationLayer.init(data);
+
+    app.listen(config.PORT, () => {
+      logMessage(SERVER_INITIALIZATION_MESSAGE({
+        initialized: true,
+      }));
+    });
+  } catch (errorMessage) {
     logErrorMessage(`${errorMessage}`);
     logWarnMessage(SERVER_INITIALIZATION_MESSAGE({ initialized: false }));
     process.exit();
-  });
+  }
+})();
