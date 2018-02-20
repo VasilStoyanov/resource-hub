@@ -9,7 +9,9 @@ const loggerMiddleware = createLogger();
 
 const epicMiddleware = createEpicMiddleware(rootEpic);
 
-const store = createStore(rootReducer,
-    composeWithDevTools(applyMiddleware(epicMiddleware, loggerMiddleware)));
+const store = createStore(
+  rootReducer,
+  composeWithDevTools(applyMiddleware(epicMiddleware, loggerMiddleware)),
+);
 
 export default store;

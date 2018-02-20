@@ -1,0 +1,22 @@
+.create-topic-from {
+	margin-top: 5%;
+	padding: 0px;
+	border-color: #ccc;
+}
+
+.basic-heading h3{
+	padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.create-topic-from > form {
+	padding: 2%;
+}
+
+.add-topic-button-container {
+	text-align: center;
+}
+
+.add-topic-button-container > button {
+    width: 33%;
+}

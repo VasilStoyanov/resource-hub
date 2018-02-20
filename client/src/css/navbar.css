@@ -2,22 +2,23 @@
     margin-bottom: 0px;
 }
 
-.navbar-inverse .container-fluid{
-  background: rgb(195, 187, 187);
+.navbar.navbar-default{
+  background: #5c2e91;
     
 }
 
 div.navbar-header a {
-    color: #543030 !important;
+    color: white !important;
     font-weight: bold;
   }
-  .navbar-inverse .navbar-nav > li > a{
+  .navbar-default .navbar-nav > li > a{
     color: white;
   }
-  .navbar-inverse .navbar-nav > li > a:hover,
-  .navbar-inverse .navbar-nav > li > a:focus {
-    color: #00d8ff;
-    background-color: transparent;
+  .navbar-default .navbar-nav > li > a:hover,
+  .navbar-default .navbar-nav > li > a:focus {
+    color: white;
+    background-color: #441c71;
+    text-decoration: underline;
   }
   .navbar-logo-image{
     padding: 12%;

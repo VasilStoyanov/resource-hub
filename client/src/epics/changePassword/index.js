@@ -9,6 +9,5 @@ export const changePasswordEpic = action$ =>
     .mergeMap(action =>
       ajax.post(`${URLS.CHANGE_PASSWORD}`, action.payload)
         .map(response => changePasswordFulfilled(response))
-        .catch(error => Observable.of(changePasswordRejected(error)))
-  );
+        .catch(error => Observable.of(changePasswordRejected(error))));
 

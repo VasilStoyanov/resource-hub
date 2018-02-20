@@ -1,6 +1,6 @@
-const loginUserRejected = (payload) => ({
-    type: 'LOGIN_REJECTED',
-    payload
+const loginUserRejected = payload => ({
+  type: 'LOGIN_REJECTED',
+  payload,
 });
 
 export default loginUserRejected;

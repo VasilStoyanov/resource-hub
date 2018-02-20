@@ -1,0 +1,134 @@
+{
+    "imposters": [{
+        "port": 3031,
+        "protocol": "http",
+        "stubs": [{
+            "predicates": [{
+              "and": [{
+                "equals": {
+                  "path": "/SecretManager/operatorinfo",
+                  "method": "GET"
+                }
+              }]
+            }],
+            "responses": [{
+              "is": {
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "body": {
+                  "SecretKey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1Ni9.eyJDdXN0b21lcklkIjoiMTIzIiwiQ3VzdG9tZXJOYW1lIjoicGVzaG8iLCJFeHBpcmF0aW9uVGltZSI6IjIwMTgtMDEtMjVUMDg6MzI6NDUuNzkwOTA4MloifQ.bkjmu3RPZr7ob_ZhsUVu8L97gVYhmAxueWUGFYjFM5A",
+                  "Iss": "TestTestTest",
+                  "OperatorUrl": "http://localhost:3032/SeamlessClient/VerifyToken",
+                  "OperatorId": 7
+                }
+              }
+            }]
+          },
+          {
+            "predicates": [{
+              "and": [{
+                "equals": {
+                  "path": "/SecretManager/operator/info/bydomainid",
+                  "method": "GET"
+                }
+              }]
+            }],
+            "responses": [{
+              "is": {
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "body": {
+                  "SecretKey": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1Ni9.eyJDdXN0b21lcklkIjoiMTIzIiwiQ3VzdG9tZXJOYW1lIjoicGVzaG8iLCJFeHBpcmF0aW9uVGltZSI6IjIwMTgtMDEtMjVUMDg6MzI6NDUuNzkwOTA4MloifQ.bkjmu3RPZr7ob_ZhsUVu8L97gVYhmAxueWUGFYjFM5A",
+                  "Iss": "TestTestTest",
+                  "OperatorUrl": "http://localhost:3032/SeamlessClient/VerifyToken",
+                  "OperatorId": 7,
+                  "RenewSecretKey": "RenewedKey"
+                }
+              }
+            }]
+          },
+          {
+            "predicates": [{
+              "and": [{
+                "equals": {
+                  "path": "/SecretManager/decrypt/domainId",
+                  "method": "GET"
+                }
+              }]
+            }],
+            "responses": [{
+              "is": {
+                "headers": {
+                  "Content-Type": "application/json"
+                },
+                "body": {
+                  "domainId": 7
+                }
+              }
+            }]
+          }
+        ]
+      },
+      {
+        "port": 3030,
+        "protocol": "http",
+        "stubs": [{
+          "responses": [{
+            "is": {
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": {
+                "Success": true,
+                "Message": null
+  
+              }
+            }
+          }],
+          "predicates": [{
+            "and": [{
+              "equals": {
+                "path": "/SeamlessRegistrationMicroservice/RegisterUser",
+                "method": "POST",
+                "headers": {
+                  "Content-Type": "application/json"
+                }
+              }
+            }]
+          }]
+        }]
+      },
+      {
+        "protocol": "http",
+        "port": 3032,
+        "stubs": [{
+          "responses": [{
+            "is": {
+              "headers": {
+                "Content-Type": "application/json"
+              },
+              "body": {
+                "error_code": 0,
+                "cust_id": 15,
+                "cust_login": "RandomUserName",
+                "city": "Plovdiv",
+                "country": "Bulgaria",
+                "currency_code": "idk",
+                "data": "<div>XML!<div>"
+              }
+            }
+          }],
+          "predicates": [{
+            "and": [{
+              "equals": {
+                "path": "/SeamlessClient/VerifyToken",
+                "method": "GET"
+              }
+            }]
+          }]
+        }]
+      }
+    ]
+  }

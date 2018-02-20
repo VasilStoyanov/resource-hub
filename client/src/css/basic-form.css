@@ -1,0 +1,98 @@
+.basic-card {
+    border-color: #ccc;
+	-webkit-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.2);
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.basic-button {
+    background: #7b5c9e !important;
+	outline: none !important;
+	color: #fff;
+	font-size: 14px;
+	height: auto;
+	padding: 10px 30px;
+	border: 1px black;
+}
+
+.basic-form-input {
+	padding: 2%;
+}
+
+.link-is-active{
+	background: white !important;
+} 
+
+.basic-form-input ul {
+    list-style: none;
+}
+
+.basic-form-input .error-block{
+	font-size: initial;
+    text-align: center;
+    border-color: black;
+}
+
+.basic-form-input .input-group-addon{
+    border-color: transparent !important;
+	background: #8383c3  !important;
+	color: white !important;
+}
+
+.basic-form-input .error-block {
+	color: #9a0c81;
+}
+
+.basic-form-input .has-error .form-control { 
+    border-color: #ccc !important;
+}
+
+.basic-form-input input {
+	height: 45px;
+	border: 1px solid #ddd;
+	font-size: 16px;
+}
+
+.basic-button:focus,
+.basic-button:active,
+.basic-button:hover  {
+    background: #5c2e91 !important;
+	color: white !important;
+}
+
+.basic-heading h3 {
+    margin: 0;
+    color: white !important;
+    padding-top: 4%;
+    padding-bottom: 4%;
+    background-color: #5c2e91;
+    text-align:center;
+	font-weight: bold;
+	font-size: large;
+}
+
+.basic-heading .link-is-active h3{
+    color: #505050  !important;
+    background-color: #fff;
+}
+
+.basic-form-input input:hover,
+.basic-form-input input:focus {
+	outline:none !important;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border-color: #ccc;
+}
+
+.basic-header div {
+    background-color: black;
+}
+.basic-header {
+	font-size: large !important;
+}
+
+.basic-heading > div > a > div{
+	padding: 0;
+}
