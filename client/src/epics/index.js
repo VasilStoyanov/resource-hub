@@ -6,15 +6,15 @@ import { changePasswordEpic } from './changePassword';
 import { searchResourceEpic, getResourcesNames, searchInputChange } from './resources';
 
 export const rootEpic = combineEpics(
-    loginUserEpic,
-    registerUserEpic,
-    getTopicsEpic,
-    searchResourceEpic,
-    getResourcesNames,
-    searchInputChange,
-    changeEmailEpic,
-    changePasswordEpic
-  );
+  loginUserEpic,
+  registerUserEpic,
+  getTopicsEpic,
+  searchResourceEpic,
+  getResourcesNames,
+  searchInputChange,
+  changeEmailEpic,
+  changePasswordEpic,
+);
 
 export default rootEpic;
 

@@ -1,3 +1,3 @@
 export const errors = {
-    DEFAULT: 'Something went wrong!'
+  DEFAULT: 'Something went wrong!',
 };

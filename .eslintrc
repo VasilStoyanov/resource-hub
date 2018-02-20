@@ -1,2 +1,19 @@
 {
+  "extends": "airbnb",
+  "rules": {
+    "linebreak-style": "off",
+    "react/prop-types": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "import/prefer-default-export": "off",
+    "react/prefer-stateless-function": "off",
+    "react/jsx-no-bind": "off",
+    "react/jsx-closing-tag-location": "off",
+    "react/no-string-refs": "off",
+    "react/no-array-index-key": "off",
+    "import/extensions": "off",
+    "guard-for-in": "off",
+    "no-restricted-syntax": "off",
+    "consistent-return": "off",
+    "class-methods-use-this": "off"
+  }
 }

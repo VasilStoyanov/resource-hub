@@ -1,28 +1,29 @@
+/* globals localStorage */
+
 class Auth {
-    /* eslint-disable */
-    static authenticateUser({ token, user }) {
-        localStorage.setItem('user', JSON.stringify(user));
-        localStorage.setItem('token', token);
-    }
+  static authenticateUser({ token, user }) {
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', token);
+  }
 
-    static getAuthenticatedUser() {
-        const userJson = localStorage.getItem('user');
+  static getAuthenticatedUser() {
+    const userJson = localStorage.getItem('user');
 
-        return userJson && userJson !== 'undefined' ? JSON.parse(userJson) : {};
-    }
+    return userJson && userJson !== 'undefined' ? JSON.parse(userJson) : {};
+  }
 
-    static isUserAuthenticated() {
-        return !!localStorage.getItem('token');
-    }
+  static isUserAuthenticated() {
+    return !!localStorage.getItem('token');
+  }
 
-    static deauthenticateUser() {
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-    }
+  static deauthenticateUser() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
 
-    static getToken() {
-        return localStorage.getItem('token');
-    }
+  static getToken() {
+    return localStorage.getItem('token');
+  }
 }
 
 export default Auth;

@@ -1,18 +1,21 @@
-const userData = require('./user/users.data');
-const topicsData = require('./topic/topics.data');
-const thematicsData = require('./thematic/thematics.data');
+const userData = require('./user');
+const topicsData = require('./topic');
+const thematicsData = require('./thematic');
+const rolesData = require('./role');
 
 const init = async (db) => {
   try {
     const users = await userData(db);
     const topics = await topicsData(db);
     const thematics = await thematicsData(db);
+    const roles = await rolesData(db);
 
-    return Promise.resolve({
+    return {
       users,
       topics,
       thematics,
-    });
+      roles,
+    };
   } catch (exeption) {
     return Promise.reject(exeption);
   }

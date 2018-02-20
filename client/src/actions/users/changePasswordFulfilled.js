@@ -1,6 +1,6 @@
-const changePasswordFulfilled = (payload) => ({
-    type: 'CHANGE_PASSWORD_FULFILLED',
-    payload
+const changePasswordFulfilled = payload => ({
+  type: 'CHANGE_PASSWORD_FULFILLED',
+  payload,
 });
 
 export default changePasswordFulfilled;

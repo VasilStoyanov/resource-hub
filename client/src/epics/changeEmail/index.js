@@ -9,6 +9,5 @@ export const changeEmailEpic = action$ =>
     .mergeMap(action =>
       ajax.post(`${URLS.CHANGE_EMAIL}`, action.payload)
         .map(response => changeEmailFulfilled(response))
-        .catch(error => Observable.of(changeEmailRejected(error)))
-  );
+        .catch(error => Observable.of(changeEmailRejected(error))));
 
