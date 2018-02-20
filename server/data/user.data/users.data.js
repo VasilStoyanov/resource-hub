@@ -1,9 +1,8 @@
-const USERS_COLLECTION_NAME = 'users';
-const USERS_USERNAME_COLUMN_NAME = 'username';
-
 const { pipe, hash } = require('./../../utils');
-const { userModelValidator, userUniqueFields } = require('./../../models/user.model/user.model');
 const { CRUD, createUniqueFields, exists } = require('./../factories/data.factory');
+const {
+  userModelValidator, userUniqueFields, USERS_COLLECTION_NAME, USERS_USERNAME_COLUMN_NAME,
+} = require('./../../models/user.model/user.model');
 
 const fetchUserData = obj => ({
   ...obj,
