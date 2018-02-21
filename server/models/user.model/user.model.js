@@ -3,6 +3,8 @@ const createSchema = require('./../schema.factory');
 const { isArray, passedValidation, failedValidation } = require('./../../utils/validator/data.validator');
 
 const {
+  USERS_COLLECTION_NAME,
+  USERS_USERNAME_COLUMN_NAME,
   USERNAME_MAX_LENGTH,
   USERNAME_MIN_LENGTH,
   SALT_MAX_LENGTH,
@@ -60,11 +62,13 @@ const userModelValidationRules = {
   },
 };
 
-const userValidationSchema = createSchema.forModel('user')(userModelValidationRules);
+const userValidationSchema = createSchema.forModel(USERS_COLLECTION_NAME)(userModelValidationRules);
 const userModelValidator = createModelValidator(userValidationSchema);
 
 module.exports = {
   userModelValidator,
   userValidationSchema,
   userUniqueFields,
+  USERS_COLLECTION_NAME,
+  USERS_USERNAME_COLUMN_NAME,
 };

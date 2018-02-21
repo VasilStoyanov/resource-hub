@@ -1,9 +1,8 @@
-const USERS_COLLECTION_NAME = 'users';
-const USERS_USERNAME_COLUMN_NAME = 'username';
-
 const { pipe, hash } = require('./../../utils');
-const { userModelValidator, userUniqueFields } = require('./../../models/user.model/user.model');
 const { CRUD, createUniqueFields, exists } = require('./../factories/data.factory');
+const {
+  userModelValidator, userUniqueFields, USERS_COLLECTION_NAME, USERS_USERNAME_COLUMN_NAME,
+} = require('./../../models/user.model/user.model');
 
 const fetchUserData = obj => ({
   ...obj,
@@ -46,22 +45,24 @@ const checkUserPassword = obj => ({
   },
 });
 
-const userData = async (db) => {
+const init = async (db) => {
   const createdUniqueUserFields = createUniqueFields(db)(USERS_COLLECTION_NAME);
 
   try {
     await createdUniqueUserFields(userUniqueFields);
-  } catch (ex) {
-    return ex;
+  } catch (exception) {
+    return Promise.reject(exception);
   }
 
-  return pipe(
+  const users = pipe(
     CRUD(db)(USERS_COLLECTION_NAME)(userModelValidator),
     fetchUserData,
     modifyUserData,
     checkUserPassword,
     exists,
   )(Object.create(null));
+
+  return Object.freeze({ users });
 };
 
-module.exports = userData;
+module.exports = { init };

@@ -15,7 +15,7 @@ module.exports = {
     rules: [
       {
         enforce: 'pre',
-        test: /\.js$|.jsx/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
         options: {
@@ -23,7 +23,7 @@ module.exports = {
           emitWarning: true,
         },
       }, {
-        test: /\.js|.jsx$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       }, {
@@ -38,7 +38,7 @@ module.exports = {
       }],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
+    extensions: ['.js', '.jsx'],
   },
   plugins: [
     new HtmlPlugin({

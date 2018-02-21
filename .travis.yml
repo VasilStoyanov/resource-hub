@@ -1,8 +1,12 @@
 language: node_js
 sudo: false
 node_js:
-  - "8.9.4"
+- 8.9.4
 install:
-  - npm install
+- npm install
 script:
-  - npm run build
+- npm run build
+notifications:
+  slack:
+    rooms:
+      secure: tnb1a2X0DvwU9xt8T5w1aO4TQOwmgyd+4GjuvaQs8SxIkeTIRej3Kjaw6pFovYGEvusetW3fUoWgFhLPbhXcKZ8r3uwQH2PU4rqkj8PgJSPDiOVTHOrTUkLyq9Gh3y8wl1JiJ2EYb9ZfN5ZftmvndOouRCen/UJ3/A9dze/qCA6m9OAEqsxI8hOKGA2uT7uwGvz4uiCbuSjPRme+k1N6GizkeTCqnq1pWgDuq8HzimFOIaAs6CJMBHPyEk9OO2FZhfue7kSGNN/zTOCdtrndllu6lPGS9B/xsZxrVvPvp95vtU7YM3Myv8BAlk2qEtYVoh7IVzforEeOHsXd54OQkLPDfg/DKpGao1k4GLGgSGisrq90r86FtFtY0oYButo4ZqsBKQi00tbnBtL9FljFaqK87EosthG7l7beirzpFZThdUwmPLeoOKl1YUS9v8K2Nymwb3KKraFZinLDwLCYlqIlhIW85g/uKnVxXPsjCSbmXluWP27YDWa1Q2Y3twI10rk2xSFxbrpbBqgCmJEZiiuKcNBY1Np06eroAcIl4k79TDAXm+n5PTB3sEwgpnr/7q7alkaT1GbTOj0aDNIReEwlqbOBeksazy76DoyWmr6qGLk+4fpR5U5aO8RyxbSh5pO5AryF3fhaO7Lj08CsA5FwQnNhZnXfSF8wdOXcZtg=
