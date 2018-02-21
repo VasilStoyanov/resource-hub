@@ -4,7 +4,7 @@ const dataLayer = require('./data');
 const applicationLayer = require('./app');
 const { logMessage, logWarnMessage, logErrorMessage } = require('./utils');
 
-const SERVER_INITIALIZATION_MESSAGE = ({ initialized, port = config.PORT }) => (
+const SERVER_INITIALIZATION_MESSAGE = ({ initialized, port = 3000 }) => (
   initialized ?
     `> Server running on localhost:${port}` :
     '(!) Server initialization aborted'
@@ -21,7 +21,7 @@ const SERVER_INITIALIZATION_MESSAGE = ({ initialized, port = config.PORT }) => (
     const app = await applicationLayer.init(data);
 
     app.listen(config.PORT, () => {
-      logMessage(SERVER_INITIALIZATION_MESSAGE({ initialized: true }));
+      logMessage(SERVER_INITIALIZATION_MESSAGE({ initialized: true, port: config.PORT }));
     });
   } catch (errorMessage) {
     logErrorMessage(`${errorMessage}`);
