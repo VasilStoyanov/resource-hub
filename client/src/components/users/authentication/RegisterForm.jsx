@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
-import { RenderInput } from '../common/RenderInput';
-import { AuthButton } from './common/AuthButton';
-import { registerValidation as validate } from '../../utilities/validators/validationSchemas/authenticationValidator';
-import { registerUser } from '../../actions/users';
+import { RenderInput } from '../../common/RenderInput';
+import { AuthButton } from '../common/AuthButton';
+import { registerValidation as validate } from '../../../utilities/validators/validationSchemas/authenticationValidator';
+import { registerUser } from '../../../actions/users';
 
 class RegisterForm extends Component {
   submit(results) {

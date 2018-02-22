@@ -1,4 +1,7 @@
 
+export const PENDING_TOPICS_PAGE_LENGTH = 12;
+export const PENDING_TOPICS_PAGINATION_DELTA = 2;
+
 export const MESSAGES = {
   GET_ALL_FAILED: 'Get all topics failed!',
   ADD_FAILED: 'Failed to add topic!',
@@ -18,11 +21,14 @@ export const TOPICS_ACTIONS = {
   SELECT: 'SELECT_TOPIC',
   SELECT_FULFILLED: 'SELECT_TOPIC_FULFILLED',
   SELECT_REJECTED: 'SELECT_TOPIC_REJECTED',
-
+  GET_TOPIC_REQUESTS: 'GET_TOPIC_REQUESTS',
+  GET_TOPIC_REQUESTS_FULFILLED: 'GET_TOPIC_REQUESTS_FULFILLED',
+  GET_TOPIC_REQUESTS_REJECTED: 'GET_TOPIC_REQUESTS_REJECTED',
 };
 
 export const URLS = {
   GET_ALL: '/api/topics',
+  GET_PENDING: '/api/pendingtopics',
   ADD: '/api/topics',
 };
 

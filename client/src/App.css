@@ -10,6 +10,7 @@
 @import './css/pagination.css';
 @import './css/management-page.css';
 @import './css/profile-page.css';
+@import './css/pending-requests.css';
 
 .mdl-layout__header,
 .mdl-layout__drawer-button,

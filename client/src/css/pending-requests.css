@@ -1,0 +1,17 @@
+.pending-requests-page{
+    /* margin-top: 2%; */
+}
+
+.pending-requests-page > div h1{
+    margin-bottom: 2% !important;
+}
+.pending-requests-page > .row{
+    margin-bottom: 1%;
+}
+
+.pagination {
+    width: 31%;
+    margin: auto;
+    margin-top: 2%;
+    display: block;
+}

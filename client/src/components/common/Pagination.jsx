@@ -5,12 +5,12 @@ import { Pagination } from 'react-bootstrap';
 class Pages extends Component {
   onClick(pageNumber, event) {
     event.preventDefault();
-    if (pageNumber > this.props.pagesCount || pageNumber < 0) {
+    if (pageNumber >= this.props.pagesCount || pageNumber < 0) {
       return;
     }
 
-    const { dispatch, switchPage } = this.props;
-    dispatch(switchPage(pageNumber));
+    const { dispatch, switchPage, itemsName } = this.props;
+    dispatch(switchPage({ name: itemsName, pageNumber }));
   }
 
   createPageItems({ pagesCount, pageNumber, delta }) {
@@ -27,7 +27,7 @@ class Pages extends Component {
       {1}
     </Pagination.Item>);
 
-    if (right > 6) {
+    if (right > 5) {
       items.push(<Pagination.Ellipsis
         key={key += 1}
         onClick={this.onClick.bind(this, pageNumber - 3)}
@@ -72,7 +72,7 @@ class Pages extends Component {
         <Pagination.Prev onClick={this.onClick.bind(this, pageNumber - 1)} />
         {items}
         <Pagination.Next onClick={this.onClick.bind(this, pageNumber + 1)} />
-        <Pagination.Last onClick={this.onClick.bind(this, pagesCount)} />
+        <Pagination.Last onClick={this.onClick.bind(this, pagesCount - 1)} />
       </Pagination>
     );
   }
