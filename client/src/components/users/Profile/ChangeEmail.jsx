@@ -21,13 +21,10 @@ class ChangeEmail extends Component {
             <div className="panel panel-login basic-card">
               <div className="panel-heading">
                 <Row>
-                  <Link
-                    className="login-header"
-                    to="/users/profile/changeemail"
-                  >
+                  <Link to="/users/profile/changeemail">
                     <Col>
-                                                Change your email
-                                            </Col>
+                      Change your email
+                    </Col>
                   </Link>
                 </Row>
               </div>

@@ -25,21 +25,38 @@ class RenderThematicsInput extends Component {
     const inputs = this.props.fields.map((thematic, index) =>
       (<li key={index}>
         <div className="row">
-          <div className="col-lg-10">
+          <div className="col-lg-1">
+            <Button
+              type="button"
+              className="basic-button btn-sm"
+              onClick={this.addThematic.bind(this)}
+            >
+              <Glyphicon glyph="remove" />
+            </Button>
+          </div>
+          <div className="col-lg-5">
             <Field
               name={`${thematic}.thematic`}
               type="text"
               component={RenderInput}
               handleClick={this.removeThematic.bind(this, index)}
-              tooltip="remove"
-              glyph="remove"
+              glyph="font"
+              placeholder={`thematic #${index + 1}`}
+            />
+          </div>
+          <div className="col-lg-5">
+            <Field
+              name={`${thematic}.thematic`}
+              type="text"
+              glyph="picture"
+              component={RenderInput}
               placeholder={`thematic #${index + 1}`}
             />
           </div>
           {index === this.props.fields.length - 1 &&
           <Button
             type="button"
-            className="basic-button"
+            className="basic-button btn-sm"
             onClick={this.addThematic.bind(this)}
           >
             <Glyphicon glyph="plus" />
