@@ -1,24 +1,16 @@
-const userData = require('./user');
-const topicsData = require('./topic');
-const thematicsData = require('./thematic');
-const rolesData = require('./role');
+/* eslint-disable global-require, import/no-dynamic-require */
 
-const init = async (db) => {
-  try {
-    const users = await userData(db);
-    const topics = await topicsData(db);
-    const thematics = await thematicsData(db);
-    const roles = await rolesData(db);
+const path = require('path');
+const fs = require('fs');
 
-    return {
-      users,
-      topics,
-      thematics,
-      roles,
-    };
-  } catch (exeption) {
-    return Promise.reject(exeption);
-  }
-};
+const init = async db => fs.readdirSync(__dirname)
+  .filter(file => file.includes('.data'))
+  .reduce(async (acc, file) => {
+    const modulePath = path.join(__dirname, file);
+    const currentDataModule = require(modulePath);
+    const accumulator = await acc;
+    const initializedModule = await currentDataModule.init(db);
+    return { ...accumulator, ...initializedModule };
+  }, Promise.resolve({}));
 
 module.exports = { init };
