@@ -33,9 +33,6 @@ class RequestsPage extends Component {
     return (
       <Grid fluid className="pending-requests-page">
         <Row>
-          <Col>
-            <h1 className="basic-header">Topics Requests</h1>
-          </Col>
           <RequestsFiltration
             handleSearch={this.handleSearch.bind(this)}
             handleStatusChange={this.handleStatusChange.bind(this)}
