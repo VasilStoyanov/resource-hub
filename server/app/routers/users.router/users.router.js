@@ -1,6 +1,8 @@
 const usersController = require('./users.controller');
 const { getStatusCode } = require('./../../../utils');
 const { Router } = require('express');
+const { BAD_REQUEST_ERROR_MESSAGE } = require('./users.constants');
+const { requireAuthentication } = require('./../../authentication');
 
 const usersRouter = new Router();
 
@@ -18,7 +20,7 @@ const attachTo = (app, data) => {
     try {
       const createdUser = await controller.createNewUser(user);
       res.status(createdStatusCode).json(createdUser);
-    } catch ({ statusCode = badRequestStatusCode, errorMessage }) {
+    } catch ({ statusCode = badRequestStatusCode, errorMessage = BAD_REQUEST_ERROR_MESSAGE }) {
       res.status(statusCode).json({ errorMessage });
     }
   });
@@ -28,8 +30,23 @@ const attachTo = (app, data) => {
     try {
       const token = await controller.loginExistingUser({ username, password });
       res.status(okStatusCode).json(token);
-    } catch ({ statusCode, errorMessage }) {
-      res.status(statusCode).json({ message: errorMessage });
+    } catch ({ statusCode = badRequestStatusCode, errorMessage = BAD_REQUEST_ERROR_MESSAGE }) {
+      res.status(statusCode).json({ errorMessage });
+    }
+  });
+
+  usersRouter.put('/changepassword', requireAuthentication(), async (req, res) => {
+    const userId = req.user.id;
+    const { oldPassword, newPassword } = req.body;
+
+    try {
+      await controller.changeExistingUsersPassword({
+        userId, oldPassword, newPassword,
+      });
+
+      res.sendStatus(okStatusCode);
+    } catch ({ statusCode = badRequestStatusCode, errorMessage = BAD_REQUEST_ERROR_MESSAGE }) {
+      res.status(statusCode).json({ errorMessage });
     }
   });
 

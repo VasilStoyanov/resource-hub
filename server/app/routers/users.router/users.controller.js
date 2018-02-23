@@ -1,10 +1,20 @@
 const jwt = require('jwt-simple');
 const jwtConfig = require('./../../config').jwt;
 
+const {
+  createAuthResponse, createUserEntity, userToViewModel, hashPassword,
+} = require('./users.helpers');
+
+const {
+  PROPERTY_ALREADY_IN_USE,
+  USERNAME_NOT_FOUND,
+  INCORRECT_PASSWORD,
+  DEFAULT_SALT_LENGTH,
+} = require('./users.constants');
+
 const { getStatusCode } = require('../../../utils');
 const { validateUser } = require('./users.validation');
-const { createAuthResponse, createUserEntity, userToViewModel } = require('./users.helpers');
-const { PROPERTY_ALREADY_IN_USE, USERNAME_NOT_FOUND, INCORRECT_PASSWORD } = require('./users.constants');
+
 
 const conflictStatusCode = getStatusCode('conflict');
 const unauthorizedStatusCode = getStatusCode('unauthorized');
@@ -94,6 +104,41 @@ const init = (data) => {
         statusCode: badRequestStatusCode,
         errorMessage: exception,
       });
+    }
+  };
+
+  usersController.changeExistingUsersPassword = async ({
+    userId, oldPassword, newPassword,
+  }) => {
+    try {
+      const { validPassword } = await data.users.checkPassword({ userId, password: oldPassword });
+      if (!validPassword) {
+        return Promise.reject({ errorMessage: 'Wrong current password' });
+      }
+    } catch (exception) {
+      return Promise.reject({ errorMessage: exception });
+    }
+
+    const { hashingResult, salt } = hashPassword(DEFAULT_SALT_LENGTH)(newPassword);
+
+    try {
+      await data.users.updateOneByProperty({
+        selector: 'userId',
+        match: userId,
+        propertyToUpdate: 'hashedPwd',
+        newValue: hashingResult,
+      });
+
+      await data.users.updateOneByProperty({
+        selector: 'userId',
+        match: userId,
+        propertyToUpdate: 'salt',
+        newValue: salt,
+      });
+
+      return Promise.resolve();
+    } catch (exception) {
+      return Promise.reject({ errorMessage: exception });
     }
   };
 

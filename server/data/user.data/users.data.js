@@ -17,7 +17,7 @@ const modifyUserData = obj => ({
   updateUsername: async ({ userId, newUsername }) => {
     try {
       const { result } = await obj.updateOneByProperty({
-        findByProperty: 'userId',
+        selector: 'userId',
         match: userId,
         propertyToUpdate: USERS_USERNAME_COLUMN_NAME,
         newValue: newUsername,
@@ -32,8 +32,17 @@ const modifyUserData = obj => ({
 
 const checkUserPassword = obj => ({
   ...obj,
-  checkPassword: async ({ username, password }) => {
-    const user = await obj.getByUsername(username);
+  checkPassword: async ({ userId, username, password }) => {
+    if (!userId && !username) {
+      return Promise.reject('Provide userId or username selector');
+    } else if (!password) {
+      return Promise.reject('Provide password');
+    }
+
+    const user = userId ?
+      await obj.getByUserId(userId) :
+      await obj.getByUsername(username);
+
     const hashPassword = hash(password);
     const { hashingResult } = hashPassword(user.salt);
     const validPassword = hashingResult === user.hashedPwd;
