@@ -59,13 +59,17 @@ class Validator {
           if (obj && tmpArr.indexOf(obj[prop]) < 0) {
             tmpArr.push(obj[prop]);
           } else {
-            errors.push({ thematic: 'Thematic has to be unique.' });
+            errors[i] = { name: 'Thematic has to be unique.' };
           }
         }
       }
       const error = validator.validate(obj || {});
-      if (error) {
-        errors.push(error);
+      if (error && Object.keys(error).length > 0) {
+        if (errors[i]) {
+          errors[i] = { ...errors[i], ...error };
+        } else {
+          errors[i] = error;
+        }
       }
     }
     return errors;

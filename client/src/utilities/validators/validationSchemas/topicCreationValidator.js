@@ -9,7 +9,7 @@ const TopicCreationValidationModel = {
     matchRegex: /^(ftp|http|https):\/\/[^ "]+$/,
   },
   thematics: {
-    unique: ['name', 'image'],
+    unique: ['name'],
     name: {
       required: true,
       minLength: 3,
