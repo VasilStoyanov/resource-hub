@@ -16,6 +16,12 @@ class CreateTopicForm extends Component {
     const { handleSubmit } = this.props;
     return (
       <form className="basic-form-input" onSubmit={handleSubmit(this.submit.bind(this))}>
+       <Field
+          name="image"
+          placeholder="Image Url"
+          glyph='picture'
+          component={RenderInput}
+        />
         <Field
           name="topic"
           placeholder="Topic name"

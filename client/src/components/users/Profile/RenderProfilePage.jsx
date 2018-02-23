@@ -1,7 +1,7 @@
 import React from 'react';
 import { Row, Col, Grid } from 'react-bootstrap';
 import { RenderInput } from '../../common/RenderInput';
-import { NavigationButton } from '../common/NavigationButton';
+import { NavigationButton } from '../../common/NavigationButton';
 
 export default ({
   changepassurl = '', changeemailurl = '',
@@ -34,13 +34,13 @@ export default ({
             />
             <div className="profile-page-buttons">
               <NavigationButton
-                className="basic-button"
+                className="basic-button basic-button-lg"
                 value="Change password"
                 url={changepassurl}
               />
               <div className="profile-buttons-divider" />
               <NavigationButton
-                className="basic-button"
+                className="basic-button basic-button-lg"
                 value="Change email"
                 url={changeemailurl}
               />

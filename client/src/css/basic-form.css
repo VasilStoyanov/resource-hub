@@ -12,8 +12,11 @@
 	color: #fff;
 	font-size: 14px;
 	height: auto;
-	padding: 10px 30px;
 	border: 1px black;
+}
+
+.basic-button-lg {
+	padding: 10px 30px;
 }
 
 .basic-form-input {
@@ -86,13 +89,39 @@
 	border-color: #ccc;
 }
 
-.basic-header div {
+.basic-header{
+	text-align: center;
+}
+
+.basic-form-header div {
     background-color: black;
 }
-.basic-header {
+
+.basic-form-header {
 	font-size: large !important;
 }
 
 .basic-heading > div > a > div{
 	padding: 0;
+}
+
+.glyph-btn {
+	background: transparent;
+	border-color: transparent;
+}
+
+.glyph-btn > span {
+	cursor: pointer;
+}
+
+.glyph-btn-green {
+	color: #35da35;
+}
+
+.glyph-btn-red {
+	color: #883c3c;
+}
+
+.glyph-btn-orange {
+	color: #cc7419;
 }

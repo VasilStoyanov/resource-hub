@@ -2,12 +2,23 @@ import React from 'react';
 import { FormGroup, FormControl, InputGroup, ControlLabel, Glyphicon, HelpBlock } from 'react-bootstrap';
 
 export const RenderInput = ({
-  input, meta, controlId, glyph, handleClick, options, placeholder, type, right, label, disabled,
+  input,
+  meta,
+  controlId,
+  glyph,
+  handleClick,
+  handleChange,
+  options,
+  placeholder,
+  type,
+  right,
+  label,
+  disabled,
 }) => {
   const control = !options
-    ? (<FormControl {...input} placeholder={placeholder} type={type || 'text'} disabled={disabled} />)
+    ? (<FormControl {...input} onChange={handleChange} placeholder={placeholder} type={type || 'text'} disabled={disabled} />)
     : (
-      <FormControl componentClass="select" placeholder="select">
+      <FormControl componentClass="select" placeholder="select" onChange={handleChange}>
         {options.map((option, index) => {
                             const { value, displayValue, selected } = option;
                             return (<option

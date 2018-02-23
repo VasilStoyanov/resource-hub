@@ -19,3 +19,23 @@ export const selectTopic = topic => ({
   type: TOPICS_ACTIONS.SELECT,
   payload: topic,
 });
+
+export const getTopicRequests = () => ({
+  type: TOPICS_ACTIONS.GET_TOPIC_REQUESTS,
+  payload: {},
+});
+
+export const getTopicRequestsFulfilled = data => ({
+  type: TOPICS_ACTIONS.GET_TOPIC_REQUESTS_FULFILLED,
+  payload: data,
+});
+
+export const getTopicRequestsRejected = data => ({
+  type: TOPICS_ACTIONS.GET_TOPIC_REQUESTS_REJECTED,
+  payload: data,
+});
+
+export const switchPage = data => ({
+  type: TOPICS_ACTIONS.SWITCH_PAGE,
+  payload: data,
+});

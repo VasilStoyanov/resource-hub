@@ -3,7 +3,8 @@ import Auth from '../authentication/Auth';
 import { UserActions, Messages } from '../constants/UserConstants';
 
 const initialState = {
-  authenticated: Auth.isUserAuthenticated(),
+  authenticated: true,
+  // authenticated: Auth.isUserAuthenticated(),
   currentUser: Auth.getAuthenticatedUser(),
   token: Auth.getToken(),
 };
