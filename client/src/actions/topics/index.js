@@ -35,7 +35,17 @@ export const getTopicRequestsRejected = data => ({
   payload: data,
 });
 
-export const switchPage = data => ({
-  type: TOPICS_ACTIONS.SWITCH_PAGE,
+export const confirmRequestAction = data => ({
+  type: TOPICS_ACTIONS.CONFIRM_ACTION,
+  payload: data,
+});
+
+export const confirmRequestActionSuccess = data => ({
+  type: TOPICS_ACTIONS.CONFIRM_ACTION_SUCCESS,
+  payload: data,
+});
+
+export const confirmRequestActionFailure = data => ({
+  type: TOPICS_ACTIONS.CONFIRM_ACTION_FAILURE,
   payload: data,
 });
