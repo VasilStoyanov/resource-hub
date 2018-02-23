@@ -17,5 +17,6 @@
     "class-methods-use-this": "off",
     "prefer-promise-reject-errors": "off",
     "no-await-in-loop": "off",
+    "no-console": "off",
   }
 }
