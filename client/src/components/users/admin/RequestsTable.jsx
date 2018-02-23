@@ -2,7 +2,7 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import RequestsActions from './RequestsActions';
 
-export default ({ requests, history }) => {
+export default ({ requests, history, selectedStatus, handleAction }) => {
   const requestRows = requests.map((request) => {
     const { id, topic, username, creationDate } = request;
     return (
@@ -11,13 +11,18 @@ export default ({ requests, history }) => {
         <td>{topic}</td>
         <td>{username}</td>
         <td>{creationDate}</td>
-        <RequestsActions id={id} history={history} />
+        <RequestsActions
+          request={request}
+          selectedStatus={selectedStatus}
+          handleAction={handleAction}
+          history={history}
+        />
       </tr>
     );
   });
   return (
     <Table responsive striped bordered hover condensed>
-      <thead>
+      <thead className="basic-thead">
         <tr>
           <th>Id</th>
           <th>Topic</th>

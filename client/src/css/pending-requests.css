@@ -1,14 +1,17 @@
-.pending-requests-page{
+.requests-page{
     margin-top: 4%;
 }
 
-.pending-requests-page > div h1{
+.requests-page > div h1{
     margin-bottom: 2% !important;
 }
-.pending-requests-page > .row{
+
+.requests-page > .row{
     margin-bottom: 1%;
 }
-
+.requests-page label{
+    color: #655a71
+}
 .pagination {
     width: 31%;
     margin: auto;

@@ -50,35 +50,24 @@ class Validator {
     const { unique, ...validationModel } = this.validationModel[key];
     const validator = new Validator(validationModel);
 
-    if (unique) {
-      const tmpArr = [];
-      for (const i in array) {
-        const obj = array[i];
+    const tmpArr = [];
+    for (const i in array) {
+      const obj = array[i];
+      for (const j in unique) {
         if (obj) {
-          for (const j in unique) {
-            const prop = unique[j];
-            if (tmpArr.indexOf(obj[prop]) < 0) {
-              tmpArr.push(obj[prop]);
-
-              const error = validator.validate(obj);
-              if (error) {
-                errors.push(error);
-              }
-            } else {
-              errors.push({ thematic: 'Thematic has to be unique.' });
-            }
+          const prop = unique[j];
+          if (obj && tmpArr.indexOf(obj[prop]) < 0) {
+            tmpArr.push(obj[prop]);
+          } else {
+            errors.push({ thematic: 'Thematic has to be unique.' });
           }
         }
       }
-    } else {
-      for (const key2 in array) {
-        const error = validator.validate(array[key2] || {});
-        if (error) {
-          errors.push(error);
-        }
+      const error = validator.validate(obj || {});
+      if (error) {
+        errors.push(error);
       }
     }
-
     return errors;
   }
 

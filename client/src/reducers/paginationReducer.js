@@ -10,7 +10,7 @@ const initialState = {
     pagesCount: 0,
     paginationDelta: PENDING_TOPICS_PAGINATION_DELTA,
     pageSize: PENDING_TOPICS_PAGE_LENGTH,
-    selectedStatus: 1,
+    selectedStatus: 2,
     searchQuery: '',
     filterBy: '',
   },
@@ -96,6 +96,7 @@ export default (state = initialState, { type, payload }) => {
           pagesCount,
           filteredByStatusItems: searchedItems,
           searchedItems,
+          selectedStatus: status,
         },
       };
     }

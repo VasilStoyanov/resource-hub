@@ -20,3 +20,15 @@
 .add-topic-button-container > button {
     width: 33%;
 }
+
+.remove-thematic-button-col {
+	padding: 0;
+}
+
+.create-topic-from ul {
+	padding: 0;
+
+}
+.create-topic-from ul .row > div {
+	padding-left: 3%;
+}

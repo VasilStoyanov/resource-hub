@@ -5,11 +5,18 @@ const TopicCreationValidationModel = {
     required: true,
     minLength: 3,
   },
+  image: {
+    matchRegex: /^(ftp|http|https):\/\/[^ "]+$/,
+  },
   thematics: {
-    unique: ['thematic'],
-    thematic: {
+    unique: ['name', 'image'],
+    name: {
       required: true,
       minLength: 3,
+      maxLength: 15,
+    },
+    image: {
+      matchRegex: /^(ftp|http|https):\/\/[^ "]+$/,
     },
   },
 };

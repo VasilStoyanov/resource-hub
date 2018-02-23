@@ -25,8 +25,8 @@
 .pagination > .active > span {
     z-index: 2;
     color: #ffffff !important;
-    background-color: #5c2e91;
-    border-color: #5c2e91;
+    background-color: #8383c3;
+    border-color: #8383c3;
 }
 
 .mdl-layout__header,

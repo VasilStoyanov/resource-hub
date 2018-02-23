@@ -1,22 +1,31 @@
 import React from 'react';
 import Glyphicon from '../../common/Glyphicon';
 
-const RequestsActions = ({ handleApprove, handleDelete, id, history }) => (
+const RequestsActions = ({ selectedStatus, handleAction, request }) => (
   <td>
-    <Glyphicon
+    {selectedStatus !== 1 && <Glyphicon
       glyph="ok"
-      className="glyph-btn glyph-btn-green"
-      handleClick={handleApprove}
-    />
+      className="glyph-btn glyph-icon-btn-green"
+      tooltipText="approve"
+      handleClick={e => handleAction(e, request, 'approve')}
+    />}
+    {selectedStatus !== 3 && <Glyphicon
+      glyph="remove"
+      className="glyph-btn glyph-icon-btn-red"
+      tooltipText="dissaprove"
+      handleClick={e => handleAction(e, request, 'dissaprove')}
+    />}
     <Glyphicon
       glyph="trash"
-      className="glyph-btn glyph-btn-red"
-      handleClick={handleDelete}
+      className="glyph-btn glyph-icon-btn-red"
+      tooltipText="delete"
+      handleClick={e => handleAction(e, request, 'delete')}
     />
     <Glyphicon
       glyph="zoom-in"
-      className="glyph-btn glyph-btn-orange"
-      handleClick={() => history.push(`/resources/details/${id}`)}
+      className="glyph-btn glyph-icon-btn-orange"
+      tooltipText="details"
+      handleClick={e => handleAction(e, request, 'details')}
     />
   </td>
 );
