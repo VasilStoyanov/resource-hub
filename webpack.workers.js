@@ -4,7 +4,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const { logger } = require('./server/utils/logger/logger');
 
 const WEB_WORKERS_PROCESS_STARTED_MESSAGE = '> Started processing web workers...';
-const env = process.env.NODE_ENV.trim();
+const env = (process.env.NODE_ENV).trim();
 const logMessage = logger({
   printer: console,
   method: 'info',
