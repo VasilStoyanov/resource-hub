@@ -20,8 +20,11 @@ const applyTo = (app) => {
   app.use(bodyParser.urlencoded({ extended: true }));
   app.use(ddos.express);
 
-  const staticsPath = path.join(__dirname, './../../../client/dist/');
-  app.use('/', express.static(staticsPath));
+  const distPath = path.join(__dirname, './../../../client/dist/');
+  const distWorkersPath = path.join(__dirname, './../../../client/dist_workers/');
+
+  app.use('/', express.static(distPath));
+  app.use('/utils/webworkers/', express.static(distWorkersPath));
 };
 
 module.exports = {

@@ -1,4 +1,15 @@
 const HtmlPlugin = require('html-webpack-plugin');
+const { logger } = require('./server/utils/logger/logger');
+
+const WEBPACK_BUILD_PROCESS_STARTED_MESSAGE = '> Started application build...';
+
+const logMessage = logger({
+  printer: console,
+  method: 'info',
+  colourKey: 'help',
+});
+
+logMessage(WEBPACK_BUILD_PROCESS_STARTED_MESSAGE);
 
 module.exports = {
   entry: [
@@ -8,7 +19,7 @@ module.exports = {
   ],
   output: {
     filename: 'app.js',
-    path: `${__dirname}/client/dist`,
+    path: `${__dirname}/client/dist/`,
     publicPath: '/',
   },
   module: {
