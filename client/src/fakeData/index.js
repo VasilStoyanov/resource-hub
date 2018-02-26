@@ -61,7 +61,7 @@ function performRequest(method, url) {
     data = fillData(resourcesNamesSchema, resourcesNamesCount);
   } else if (method === 'GET' && url.split('/').slice(-1).pop() === 'resources') {
     data = fillData(resourcesSchema, resourcesCount);
-  } else if (method === 'GET' && url.split('/').slice(-1).pop() === 'pendingtopics') {
+  } else if (method === 'GET' && url.split('/').slice(-1).pop() === 'requests') {
     data = fillData(pendingRequestsSchema, pendingRequestsCount);
   }
 
