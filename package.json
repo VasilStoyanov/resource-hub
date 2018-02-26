@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "start": "set NODE_ENV=production && webpack --config webpack.prod.js && node ./server/cluster.js",
-    "dev": "concurrently \"set NODE_ENV=development\" \"webpack --config webpack.watcher.js\" \"webpack-dev-server --open --config webpack.dev.js\" \"nodemon server/server.js\"",
+    "start": "concurrently \"set NODE_ENV=production & webpack --config webpack.workers.js & webpack --config webpack.prod.js\" \"node ./server/cluster.js\"",
+    "dev": "concurrently \"set NODE_ENV=development & webpack --config webpack.workers.js & webpack --config webpack.watcher.js\" \"webpack-dev-server --open --config webpack.dev.js\" \"nodemon server/server.js\"",
     "debug": "set NODE_ENV=development && node --inspect-brk ./server/server.js",
-    "build": "webpack --config webpack.prod.js"
+    "build": "set NODE_ENV=production & webpack --config webpack.workers.js & webpack --config webpack.prod.js"
   },
   "name": "ResourceHub",
   "version": "0.0.3",
@@ -76,7 +76,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
     "eslint": "^4.9.0",
-    "nodemon": "1.12.1",
+    "nodemon": "^1.15.1",
     "svg-inline-loader": "^0.8.0",
     "url-loader": "^0.6.2"
   }
