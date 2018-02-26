@@ -10,7 +10,7 @@ export const loginUserEpic = action$ =>
   action$.ofType('LOGIN')
     .mergeMap(action =>
       post(`${URLS.LOGIN}`, action.payload)
-        .map(response => loginUserFulfilled(response))
+        .map(ajaxObj => loginUserFulfilled(ajaxObj.response))
         .catch(error => Observable.of(loginUserRejected(error))));
 
 export const registerUserEpic = action$ =>
@@ -19,4 +19,3 @@ export const registerUserEpic = action$ =>
       post(`${URLS.REGISTER}`, action.payload)
         .map(response => registerUserFulfilled(response))
         .catch(error => Observable.of(registerUserRejected(error))));
-

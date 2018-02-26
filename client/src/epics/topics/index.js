@@ -20,7 +20,7 @@ export const getTopicsEpic = action$ =>
   action$.ofType(TOPICS_ACTIONS.GET_ALL)
     .mergeMap(action =>
       get(`${URLS.GET_ALL}`, action.payload)
-        .do(response => getTopicsFulfilled(response))
+        .map(response => getTopicsFulfilled(response))
         .catch(error => Observable.of(getTopicsRejected(error))));
 
 export const getTopicRequestsEpic = action$ =>

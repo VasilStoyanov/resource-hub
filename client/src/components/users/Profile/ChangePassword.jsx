@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
 import { AuthButton } from '../common/AuthButton';
 import { RenderInput } from '../../common/RenderInput';
 import { changePassword } from '../../../actions/users/changePassword';
@@ -8,7 +9,9 @@ import { changePassword } from '../../../actions/users/changePassword';
 
 class ChangePassword extends Component {
   submit(results) {
-    this.props.dispatch(changePassword(results));
+    this.props.dispatch(changePassword({ oldPassword: results.oldPassword,
+      newPassword: results.newPassword,
+      token: this.props.token }));
   }
 
   render() {
@@ -64,4 +67,10 @@ class ChangePassword extends Component {
   }
 }
 
-export default reduxForm({ form: 'my-form2' })(ChangePassword);
+const mapStateToProps = state => ({
+  token: state.authReducer.token,
+});
+
+const ChangePasswordC = connect(mapStateToProps)(ChangePassword);
+
+export default reduxForm({ form: 'my-form2' })(ChangePasswordC);
