@@ -6,4 +6,4 @@ gulp.task('lint', () => gulp.src(['**/*.js', '!node_modules/**', '!client/dist/*
   .pipe(eslint.format())
   .pipe(eslint.failAfterError()));
 
-gulp.task('default', ['lint']);
+gulp.task('default', gulp.series('lint'));
