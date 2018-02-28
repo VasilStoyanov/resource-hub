@@ -1,9 +1,10 @@
 import { combineEpics } from 'redux-observable';
-import { loginUserEpic, registerUserEpic } from './users/';
+import { loginUserEpic, registerUserEpic, getUsersEpic, changeSuggestedUsernameEpic } from './users/';
 import { getTopicsEpic, getTopicRequestsEpic, approveTopicRequest } from './topics';
 import { changeEmailEpic } from './changeEmail';
 import { changePasswordEpic } from './changePassword';
 import { searchResourceEpic, getResourcesNames, searchInputChange } from './resources';
+import { addUsersRoleEpic, removeUsersRoleEpic } from './roles';
 
 export const rootEpic = combineEpics(
   loginUserEpic,
@@ -14,6 +15,10 @@ export const rootEpic = combineEpics(
   searchInputChange,
   changeEmailEpic,
   changePasswordEpic,
+  getUsersEpic,
+  addUsersRoleEpic,
+  removeUsersRoleEpic,
+  changeSuggestedUsernameEpic,
   getTopicRequestsEpic,
   approveTopicRequest,
 );
