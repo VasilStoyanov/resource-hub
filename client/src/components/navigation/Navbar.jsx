@@ -11,7 +11,7 @@ class Navigation extends Component {
       : <NavNotAuthenticated location={this.props.location} />;
 
     return (
-      <Navbar collapseOnSelect fluid>
+      <Navbar collapseOnSelect fluid fixedTop>
         <Navbar.Header>
           <Navbar.Brand>
             <a>ResourceHub</a>

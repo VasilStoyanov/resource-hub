@@ -6,6 +6,9 @@ class NavNotAuthenticated extends Component {
   render() {
     return (
       <Nav>
+        <NavItem componentClass={Link} eventKey={4} href="/users" to="/users">
+                    Users
+                </NavItem>
         <NavItem componentClass={Link} eventKey={2} href="/resources/manage" to="/resources/manage">
                     Manage Resources
                 </NavItem>

@@ -1,0 +1,17 @@
+
+#users-permissions-table tbody tr:nth-child(odd) {
+    background-color: #a19fca
+}
+
+#users-permissions-table tbody tr:nth-child(odd) td div {
+    color: white
+}
+
+#m-users-permissions-table .m-admin-table-row {
+    border: solid 1px;
+    text-align: center;
+    border-radius: 10px;
+    background: #d3d0d8;
+    margin-top: 20px;
+    border-color: #d3d0d8;
+}

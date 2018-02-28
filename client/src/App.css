@@ -10,6 +10,9 @@
 @import './css/pagination.css';
 @import './css/management-page.css';
 @import './css/profile-page.css';
+@import './css/footer.css';
+@import './css/button.css';
+@import './css/adminTable.css';
 
 .mdl-layout__header,
 .mdl-layout__drawer-button,
