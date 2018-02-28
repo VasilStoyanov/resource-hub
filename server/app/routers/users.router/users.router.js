@@ -14,6 +14,12 @@ const attachTo = (app, data) => {
   const controller = usersController.init(data);
   const routerPrefix = '/users';
 
+  usersRouter.get('/', async (req, res) => {
+    const users = await data.users.getAll();
+    console.log('hanananana');
+    res.status(okStatusCode).json(users);
+  });
+
   usersRouter.post('/register', async (req, res) => {
     const user = req.body;
 

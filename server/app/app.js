@@ -1,7 +1,7 @@
 const express = require('express');
 const appConfig = require('./config');
 const routers = require('./routers');
-const staticRouter = require('./routers/statics.router');
+const staticRouter = require('./statics/');
 const authentication = require('./authentication/authentication');
 
 const init = async (data) => {
