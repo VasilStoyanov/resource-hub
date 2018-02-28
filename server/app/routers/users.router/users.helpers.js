@@ -1,6 +1,7 @@
 const uuidv1 = require('uuid/v1');
 const { userValidationSchema } = require('./../../../models/user.model/user.model');
 const { hash, generateSalt } = require('../../../utils');
+const { SALT_LENGTH } = require('./users.constants');
 
 const userModelFields = userValidationSchema.getFields();
 
@@ -12,10 +13,13 @@ const createAuthResponse = ({ token, user }) => ({
   },
 });
 
+const hashPassword = saltLength => (password) => {
+  const salt = generateSalt({ length: saltLength });
+  return hash(password)(salt);
+};
+
 const createUserEntity = (user) => {
-  const userSalt = generateSalt({ length: 16 });
-  const hashPassword = hash(user.password);
-  const { hashingResult, salt } = hashPassword(userSalt);
+  const { hashingResult, salt } = hashPassword(SALT_LENGTH)(user.password);
 
   const userId = uuidv1();
   const creationDateTimestamp = Date.now();
@@ -50,4 +54,5 @@ module.exports = {
   createAuthResponse,
   createUserEntity,
   userToViewModel,
+  hashPassword,
 };

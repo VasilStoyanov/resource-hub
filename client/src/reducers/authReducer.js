@@ -3,7 +3,8 @@ import Auth from '../authentication/Auth';
 import { UserActions, Messages } from '../constants/UserConstants';
 
 const initialState = {
-  authenticated: Auth.isUserAuthenticated(),
+  authenticated: true,
+  // authenticated: Auth.isUserAuthenticated(),
   currentUser: Auth.getAuthenticatedUser(),
   token: Auth.getToken(),
 };
@@ -13,7 +14,7 @@ export default (state = initialState, action) => {
     case UserActions.LOGIN.FULFILLED: {
       toast(Messages.SUCCESSFULLY_LOGIN, { className: 'green-toast' });
 
-      Auth.authenticateUser(action.payload.token, action.payload.user);
+      Auth.authenticateUser(action.payload);
 
       return {
         authenticated: true,

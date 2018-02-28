@@ -5,9 +5,17 @@ import NavAuthenticated from './NavAuthenticated';
 import NavNotAuthenticated from './NavNotAuthenticated';
 
 class Navigation extends Component {
+  logoutUser() {
+
+  }
+
   render() {
     const elements = this.props.authenticated
-      ? <NavAuthenticated onClick={this.logoutUser.bind(this)} username={this.props.username} />
+      ? (<NavAuthenticated
+        onClick={this.logoutUser.bind(this)}
+        isAdmin={this.props.isAdmin}
+        username={this.props.username}
+      />)
       : <NavNotAuthenticated location={this.props.location} />;
 
     return (
@@ -28,4 +36,10 @@ class Navigation extends Component {
   }
 }
 
-export default connect()(Navigation);
+const mapStateToProps = state => ({
+  authenticated: state.authReducer.authenticated,
+  username: 'threat',
+  isAdmin: true,
+});
+
+export default connect(mapStateToProps)(Navigation);

@@ -1,6 +1,15 @@
 import faker from 'faker';
 import { Observable } from 'rxjs';
 
+const pendingRequestsCount = 500;
+const pendingRequestsSchema = () => ({
+  id: faker.random.uuid(),
+  username: faker.name.title(),
+  topic: faker.name.title(),
+  creationDate: '10/9/2018',
+  status: faker.random.number() % 4,
+});
+
 const resourcesCount = 200;
 const resourcesSchema = () => ({
   id: faker.random.uuid(),
@@ -65,6 +74,8 @@ function performRequest(method, url, queryData) {
     data = fillData(resourcesNamesSchema, resourcesNamesCount);
   } else if (method === 'GET' && url.split('/').slice(-1).pop() === 'resources') {
     data = fillData(resourcesSchema, resourcesCount);
+  } else if (method === 'GET' && url.split('/').slice(-1).pop() === 'requests') {
+    data = fillData(pendingRequestsSchema, pendingRequestsCount);
   } else if (method === 'GET' && url.split('/').slice(-1).pop() === 'users') {
     const us = fillData(usersSchema, usersCount).slice(queryData.from, queryData.to);
 

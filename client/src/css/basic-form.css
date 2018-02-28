@@ -12,8 +12,11 @@
 	color: #fff;
 	font-size: 14px;
 	height: auto;
+	border: 1px #000;
+}
+
+.basic-button-lg {
 	padding: 10px 30px;
-	border: 1px black;
 }
 
 .basic-form-input {
@@ -31,13 +34,13 @@
 .basic-form-input .error-block{
 	font-size: initial;
     text-align: center;
-    border-color: black;
+    border-color: #000;
 }
 
 .basic-form-input .input-group-addon{
     border-color: transparent !important;
 	background: #8383c3  !important;
-	color: white !important;
+	color: #fff !important;
 }
 
 .basic-form-input .error-block {
@@ -63,7 +66,7 @@
 
 .basic-heading h3 {
     margin: 0;
-    color: white !important;
+    color: #fff !important;
     padding-top: 4%;
     padding-bottom: 4%;
     background-color: #5c2e91;
@@ -86,13 +89,49 @@
 	border-color: #ccc;
 }
 
-.basic-header div {
-    background-color: black;
+.basic-header{
+	text-align: center;
 }
-.basic-header {
+
+.basic-form-header div {
+    background-color: #000;
+}
+
+.basic-form-header {
 	font-size: large !important;
 }
 
 .basic-heading > div > a > div{
 	padding: 0;
+}
+
+.glyph-btn {
+	background: transparent;
+	border-color: transparent;
+}
+
+.glyph-btn > span {
+	cursor: pointer;
+}
+
+.glyph-icon-btn-green {
+	color: #35da35;
+}
+
+.glyph-icon-btn-red {
+	color: #883c3c;
+}
+
+.glyph-icon-btn-orange {
+	color: #cc7419;
+}
+
+.glyph-btn-light-purple {
+	color: #fff;
+	background: #655a71;
+}
+
+.basic-thead {
+	background: #8383c3 !important;
+    color: #fff;
 }

@@ -13,6 +13,24 @@
 @import './css/footer.css';
 @import './css/button.css';
 @import './css/adminTable.css';
+@import './css/pending-requests.css';
+
+.pagination > li > a{
+    color: black !important;
+}
+
+.pagination > li > a:hover{
+    background-color: #d4d4d4 ;
+    color: black !important;
+}
+
+.pagination > .active > span:hover, 
+.pagination > .active > span {
+    z-index: 2;
+    color: #ffffff !important;
+    background-color: #8383c3;
+    border-color: #8383c3;
+}
 
 .mdl-layout__header,
 .mdl-layout__drawer-button,

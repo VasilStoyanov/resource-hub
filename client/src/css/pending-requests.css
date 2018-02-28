@@ -1,0 +1,20 @@
+.requests-page{
+    margin-top: 4%;
+}
+
+.requests-page > div h1{
+    margin-bottom: 2% !important;
+}
+
+.requests-page > .row{
+    margin-bottom: 1%;
+}
+.requests-page label{
+    color: #655a71
+}
+.pagination {
+    width: 31%;
+    margin: auto;
+    margin-top: 2%;
+    display: block;
+}

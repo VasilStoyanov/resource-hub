@@ -1,13 +1,37 @@
 import React from 'react';
-import { FormGroup, FormControl, InputGroup, ControlLabel, Glyphicon, HelpBlock } from 'react-bootstrap';
+import { FormGroup, FormControl, InputGroup, ControlLabel, HelpBlock } from 'react-bootstrap';
+import Glyphicon from './Glyphicon';
 
 export const RenderInput = ({
-  input, meta, controlId, glyph, handleClick, options, placeholder, type, right, label, disabled,
+  input,
+  meta,
+  controlId,
+  glyph,
+  glyphClass,
+  handleClick,
+  handleChange,
+  options,
+  placeholder,
+  type,
+  right,
+  label,
+  disabled,
 }) => {
   const control = !options
-    ? (<FormControl {...input} placeholder={placeholder} type={type || 'text'} disabled={disabled} />)
+    ? (<FormControl
+      {...input}
+      onChange={(e) => {
+          input.onChange(e);
+          if (handleChange) {
+            handleChange(e);
+          }
+        }}
+      placeholder={placeholder}
+      type={type || 'text'}
+      disabled={disabled}
+    />)
     : (
-      <FormControl componentClass="select" placeholder="select">
+      <FormControl componentClass="select" placeholder="select" onChange={handleChange}>
         {options.map((option, index) => {
                             const { value, displayValue, selected } = option;
                             return (<option
@@ -15,7 +39,7 @@ export const RenderInput = ({
                               value={value}
                               selected={selected}
                             >{displayValue || value}</option>);
-                        })}
+                            })}
       </FormControl>
     );
 
@@ -23,9 +47,7 @@ export const RenderInput = ({
     ? (
       <InputGroup>
         {right && control }
-        <InputGroup.Addon onClick={handleClick}>
-          <Glyphicon glyph={glyph} />
-        </InputGroup.Addon>
+        <Glyphicon glyph={glyph} handleClick={handleClick} className={glyphClass} />
         {!right && control }
       </InputGroup>)
     : (control);

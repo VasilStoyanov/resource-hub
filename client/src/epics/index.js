@@ -1,6 +1,6 @@
 import { combineEpics } from 'redux-observable';
 import { loginUserEpic, registerUserEpic, getUsersEpic, changeSuggestedUsernameEpic } from './users/';
-import { getTopicsEpic } from './topics';
+import { getTopicsEpic, getTopicRequestsEpic, approveTopicRequest } from './topics';
 import { changeEmailEpic } from './changeEmail';
 import { changePasswordEpic } from './changePassword';
 import { searchResourceEpic, getResourcesNames, searchInputChange } from './resources';
@@ -19,6 +19,8 @@ export const rootEpic = combineEpics(
   addUsersRoleEpic,
   removeUsersRoleEpic,
   changeSuggestedUsernameEpic,
+  getTopicRequestsEpic,
+  approveTopicRequest,
 );
 
 export default rootEpic;

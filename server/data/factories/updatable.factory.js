@@ -1,7 +1,7 @@
 const updatable = db => collection => validator => obj => ({
   ...obj,
   updateOneByProperty: async ({
-    findByProperty, match, propertyToUpdate, newValue,
+    selector, match, propertyToUpdate, newValue,
   }) => {
     const validationResult = await validator.validateObject({ [propertyToUpdate]: newValue });
     if (!validationResult || !validationResult.isValid) {
@@ -10,13 +10,13 @@ const updatable = db => collection => validator => obj => ({
 
     try {
       const dbResponse = await db.collection(collection)
-        .updateOne({ [findByProperty]: match }, {
+        .updateOne({ [selector]: match }, {
           $set: { [propertyToUpdate]: newValue },
         });
 
       return dbResponse;
-    } catch (ex) {
-      return Promise.reject(ex);
+    } catch (dbException) {
+      return Promise.reject(dbException);
     }
   },
 });

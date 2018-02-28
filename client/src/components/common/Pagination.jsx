@@ -1,9 +1,7 @@
 import React from 'react';
 import { Pagination } from 'react-bootstrap';
 
-const Pages = ({
-  pagesCount, pageNumber, delta, switchPage,
-}) => {
+const Pages = ({ pagesCount, pageNumber, delta, switchPage }) => {
   const items = [];
   const left = pageNumber <= delta ? 1 : pageNumber - delta;
   const right = pageNumber + delta + 1 >= pagesCount ? pagesCount - 2 : pageNumber + delta;

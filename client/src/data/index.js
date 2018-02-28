@@ -24,7 +24,7 @@ function addQueryStringParameters(url, parameters) {
 
 function performRequest(method, url, data, locators, parameters, headers) {
   let modifiedUrl = locators ? applyLocators(url, locators) : url;
-  // debugger
+
   if (parameters) {
     modifiedUrl = addQueryStringParameters(modifiedUrl, parameters);
   }
@@ -48,5 +48,5 @@ export const post = (url, data, locators, parameters, headers) =>
 export const put = (url, data, locators, parameters, headers) =>
   performRequest('PUT', url, data, locators, headers);
 
-export const del = (url, data, locators, parameters, headers) =>
-  performRequest('DELETE', url, data, locators, parameters, headers);
+export const del = (url, headers, locators, parameters) =>
+  performRequest('DELETE', url, headers, locators, parameters);
