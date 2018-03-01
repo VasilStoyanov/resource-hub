@@ -65,11 +65,7 @@ class Validator {
       }
       const error = validator.validate(obj || {});
       if (error && Object.keys(error).length > 0) {
-        if (errors[i]) {
-          errors[i] = { ...errors[i], ...error };
-        } else {
-          errors[i] = error;
-        }
+        errors[i] = { ...errors[i], ...error };
       }
     }
     return errors;
