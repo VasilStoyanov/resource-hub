@@ -21,9 +21,9 @@ export const UserActions = {
 };
 
 export const URLS = {
-  REGISTER: '/register',
-  LOGIN: '/auth/login',
+  REGISTER: '/users/register',
+  LOGIN: '/users/login',
   LOGOUT: '/auth/logout',
   CHANGE_EMAIL: '/users/profile/changeemail',
-  CHANGE_PASSWORD: '/users/profile/changepassword',
+  CHANGE_PASSWORD: '/users/changepassword',
 };

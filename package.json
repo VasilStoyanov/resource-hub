@@ -1,12 +1,18 @@
 {
   "scripts": {
-    "start": "set NODE_ENV=production && webpack --config webpack.prod.js && node ./server/cluster.js",
-    "dev": "concurrently \"set NODE_ENV=development\" \"webpack --config webpack.watcher.js\" \"webpack-dev-server --open --config webpack.dev.js\" \"nodemon server/server.js\"",
+    "start": "concurrently \"set NODE_ENV=production & webpack --config webpack.workers.js & webpack --config webpack.prod.js\" \"node ./server/cluster.js\" --kill-others-on-fail ",
+    "dev": "concurrently \"set NODE_ENV=development & webpack --config webpack.workers.js & webpack --config webpack.watcher.js\" \"webpack-dev-server --open --config webpack.dev.js\" \"nodemon server/server.js\" --kill-others-on-fail ",
     "debug": "set NODE_ENV=development && node --inspect-brk ./server/server.js",
-    "build": "webpack --config webpack.prod.js"
+    "build": "set NODE_ENV=production & webpack --config webpack.workers.js & webpack --config webpack.prod.js",
+    "test": "gulp"
   },
   "name": "ResourceHub",
   "version": "0.0.3",
+  "nodemonConfig": {
+    "ignore": [
+      "client/*"
+    ]
+  },
   "dependencies": {
     "@babel/core": "^7.0.0-beta.38",
     "@babel/preset-env": "^7.0.0-beta.38",
@@ -22,6 +28,8 @@
     "express": "^4.16.2",
     "faker": "4.1.0",
     "glob": "^7.1.2",
+    "gulp": "^4.0.0",
+    "gulp-eslint": "^4.0.2",
     "helmet": "^3.9.0",
     "html-webpack-plugin": "^2.30.1",
     "jquery": "^3.2.1",
@@ -76,7 +84,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
     "eslint": "^4.9.0",
-    "nodemon": "1.12.1",
+    "nodemon": "^1.15.1",
     "svg-inline-loader": "^0.8.0",
     "url-loader": "^0.6.2"
   }

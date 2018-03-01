@@ -7,7 +7,12 @@ import changePasswordRejected from '../../actions/users/changePasswordRejected';
 export const changePasswordEpic = action$ =>
   action$.ofType('CHANGE_PASSWORD')
     .mergeMap(action =>
-      ajax.post(`${URLS.CHANGE_PASSWORD}`, action.payload)
+      ajax.put(
+        `${URLS.CHANGE_PASSWORD}`, {
+          oldPassword: action.payload.oldPassword,
+          newPassword: action.payload.newPassword,
+        },
+        { Authorization: `Bearer ${action.payload.token}` },
+      )
         .map(response => changePasswordFulfilled(response))
         .catch(error => Observable.of(changePasswordRejected(error))));
-

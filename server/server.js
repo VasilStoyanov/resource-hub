@@ -26,6 +26,6 @@ const SERVER_INITIALIZATION_MESSAGE = ({ initialized, port = 3000 }) => (
   } catch (errorMessage) {
     logErrorMessage(`${errorMessage}`);
     logWarnMessage(SERVER_INITIALIZATION_MESSAGE({ initialized: false }));
-    process.exit();
+    process.exit(1);
   }
 })();

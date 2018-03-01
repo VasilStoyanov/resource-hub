@@ -7,7 +7,6 @@ import changeEmailRejected from '../../actions/users/changeEmailRejected';
 export const changeEmailEpic = action$ =>
   action$.ofType('CHANGE_EMAIL')
     .mergeMap(action =>
-      ajax.post(`${URLS.CHANGE_EMAIL}`, action.payload)
+      ajax.post(`${URLS.CHANGE_EMAIL}`, action.payload, { Authorization: `Bearer ${action.payload.token}` })
         .map(response => changeEmailFulfilled(response))
         .catch(error => Observable.of(changeEmailRejected(error))));
-

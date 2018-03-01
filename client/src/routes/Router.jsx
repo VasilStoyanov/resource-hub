@@ -8,12 +8,15 @@ import ResourcesManagementPage from '../components/management/ResourcesManagemen
 import ChangePassword from '../components/users/Profile/ChangePassword';
 import ChangeEmail from '../components/users/Profile/ChangeEmail';
 import ProfilePage from '../components/users/Profile/ProfilePage';
+import UsersPermissionsPage from '../components/admins/UsersPermissionsPage';
 import RequestsPage from '../components/users/admin/RequestsPage';
 
 
 const Router = () => (
   <main>
     <Switch>
+      <Route exact path="/" component={HomePage} />
+      <Route exact path="/users" component={UsersPermissionsPage} />
       <Route exact path="/home" component={HomePage} />
       <Route exact path="/resources/manage" component={ResourcesManagementPage} />
       <Route exact path="/users/profile" component={ProfilePage} />

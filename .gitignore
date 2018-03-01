@@ -41,6 +41,7 @@ jspm_packages/
 
 # Distribution files
 client/dist/
+client/dist_workers/
 
 # Typescript v1 declaration files
 typings/

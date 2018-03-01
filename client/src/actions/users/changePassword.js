@@ -1,6 +1,6 @@
-export const changePassword = ({ oldPassword, newPassword }) => ({
+export const changePassword = payload => ({
   type: 'CHANGE_PASSWORD',
-  payload: { oldPassword, newPassword },
+  payload,
 });
 
 export default changePassword;

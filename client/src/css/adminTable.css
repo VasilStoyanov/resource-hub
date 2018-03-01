@@ -1,0 +1,43 @@
+#users-permissions-table tr.tableRow td
+{
+    border: solid #ddd 1px;
+}
+
+#users-permissions-table th
+{
+    border: solid 1px;
+}
+
+#users-permissions-table tr,
+th
+{
+    text-align: center;
+}
+
+#users-permissions-table thead
+{
+    color: white;
+    background-color: #8383c3;
+}
+
+#users-permissions-table tbody tr:nth-child(odd)
+{
+    background-color: #f5f5f5;
+}
+
+#m-users-permissions-table .m-admin-table-row
+{
+    margin-top: 20px;
+
+    text-align: center;
+
+    border: solid 1px;
+    border-color: #d3d0d8;
+    border-radius: 10px;
+    background: #d3d0d8;
+}
+
+input[type='checkbox']:hover:enabled
+{
+    cursor: pointer;
+}

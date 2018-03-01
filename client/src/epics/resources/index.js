@@ -19,7 +19,7 @@ export const getResourcesNames = action$ =>
   action$.ofType(RESOURCES_ACTIONS.GET_NAMES)
     .flatMap(action =>
       get(`${URLS.GET_NAMES}`, {}, action.payload))
-    .flatMap(response => Observable.fromPromise(createWorkerPromise('/suggestionWorker.js', response)))
+    .flatMap(response => Observable.fromPromise(createWorkerPromise('/utils/webworkers/suggestionWorker.js', response)))
     .map(processedData => getResourcesNamesFulfilled(processedData))
     .catch(error =>
       Observable.of(getResourcesNamesRejected(error)));
@@ -37,7 +37,7 @@ export const searchInputChange = action$ =>
                     && resources
                     && Array.isArray(resources[userInput[0]]))
     .switchMap(({ topCount, userInput, resources }) =>
-      Observable.fromPromise(createWorkerPromise('/topSuggestionWorker.js', {
+      Observable.fromPromise(createWorkerPromise('/utils/webworkers/topSuggestionWorker.js', {
         topCount,
         userInput,
         data: resources[userInput[0]],

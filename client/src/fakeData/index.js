@@ -38,6 +38,19 @@ const topicSchema = () => ({
   thematics: [],
 });
 
+const usersCount = 50;
+const usersSchema = () => {
+  const randomNumber = faker.random.number() % 4;
+  const roles = ['Moderator', 'Admin', 'Supervisor'].slice(0, randomNumber);
+
+  return {
+    userId: faker.random.uuid(),
+    ip: faker.random.uuid(),
+    username: faker.name.title(),
+    roles,
+  };
+};
+
 function fillData(schema, count) {
   const data = [];
 
@@ -48,7 +61,7 @@ function fillData(schema, count) {
   return data;
 }
 
-function performRequest(method, url) {
+function performRequest(method, url, queryData) {
   let data;
 
   if (method === 'GET' && url.split('/').slice(-1).pop() === 'topics') {
@@ -63,10 +76,25 @@ function performRequest(method, url) {
     data = fillData(resourcesSchema, resourcesCount);
   } else if (method === 'GET' && url.split('/').slice(-1).pop() === 'requests') {
     data = fillData(pendingRequestsSchema, pendingRequestsCount);
+  } else if (method === 'GET' && url.split('/').slice(-1).pop() === 'users') {
+    const us = fillData(usersSchema, usersCount).slice(queryData.from, queryData.to);
+
+    data = {
+      users: us,
+      totalCount: 50,
+      suggestedUsername: queryData.suggestedUsername,
+      from: queryData.from,
+      to: queryData.to,
+    };
+  } else {
+    data = { status: 'OK' };
   }
 
-  return Observable.fromPromise(new Promise((resolve) => {
-    setTimeout(() => resolve(data), 1000);
+  return Observable.fromPromise(new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (data) { return resolve(data); }
+      return reject('Failed !!!');
+    }, 1000);
   }));
 }
 

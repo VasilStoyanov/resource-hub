@@ -14,7 +14,7 @@ export default (state = initialState, action) => {
     case UserActions.LOGIN.FULFILLED: {
       toast(Messages.SUCCESSFULLY_LOGIN, { className: 'green-toast' });
 
-      Auth.authenticateUser(action.payload.token, action.payload.user);
+      Auth.authenticateUser(action.payload);
 
       return {
         authenticated: true,
