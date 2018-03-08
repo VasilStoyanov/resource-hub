@@ -19,5 +19,7 @@
     "prefer-promise-reject-errors": "off",
     "no-await-in-loop": "off",
     "no-console": "off",
+    "no-throw-literal": "off",
+    "max-len": "off"
   }
 }

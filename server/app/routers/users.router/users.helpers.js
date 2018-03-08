@@ -49,10 +49,16 @@ const userToViewModel = user => ({
   id: user.userId,
   username: user.username,
 });
-
+const validateUserBm = validationFunc => (userBm) => {
+  const validationResult = validationFunc(userBm);
+  if (!validationResult.isValid) {
+    throw { errorMessage: validationResult.message };
+  }
+};
 module.exports = {
   createAuthResponse,
   createUserEntity,
   userToViewModel,
   hashPassword,
+  validateUserBm,
 };
