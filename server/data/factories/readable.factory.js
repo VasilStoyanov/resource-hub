@@ -4,6 +4,15 @@ const readable = db => collection => obj => ({
   ...obj,
   getAll: async () => {
     try {
+      if (getByFieldName && typeof getByFieldName === 'string') {
+        // TODO: Query Object
+        const dbResult = await db.collection(collection).find(
+          [getByFieldName]:
+        )
+        .toArray();
+
+        return dbResult;
+      }
       const dbResult = await db.collection(collection).find().toArray();
       return dbResult;
     } catch (dbExeption) {

@@ -1,5 +1,9 @@
 const jwt = require('jwt-simple');
 const jwtConfig = require('./../../config').jwt;
+const { tap, map, flatMap, last } = require('rxjs/operators');
+const { of } = require('rxjs/observable/of');
+const { from } = require('rxjs/observable/from');
+const { fromPromise } = require('rxjs/observable/fromPromise');
 
 const {
   createAuthResponse, createUserEntity, userToViewModel, hashPassword,
@@ -24,6 +28,8 @@ const checkForUniqueFields = ['username', 'email'];
 
 const init = (data) => {
   const usersController = Object.create(null);
+
+  usersController.getUsers = ({ username, from, to }) => fromPromise();
 
   usersController.createNewUser = async (user) => {
     const validationResult = validateUser(user);

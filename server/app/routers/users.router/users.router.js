@@ -3,6 +3,7 @@ const { getStatusCode } = require('./../../../utils');
 const { Router } = require('express');
 const { BAD_REQUEST_ERROR_MESSAGE } = require('./users.constants');
 const { requireAuthentication } = require('./../../authentication');
+const { allowForRoles } = require('./../../authorization/authorization');
 
 const usersRouter = new Router();
 
@@ -10,14 +11,23 @@ const createdStatusCode = getStatusCode('created');
 const badRequestStatusCode = getStatusCode('badRequest');
 const okStatusCode = getStatusCode('ok');
 
+const userFetchingAuthorizationMiddleware = [
+  requireAuthentication(),
+  allowForRoles('supervisor', 'admin'),
+];
+
 const attachTo = (app, data) => {
   const controller = usersController.init(data);
   const routerPrefix = '/users';
 
-  usersRouter.get('/', async (req, res) => {
-    const users = await data.users.getAll();
-    console.log('hanananana');
-    res.status(okStatusCode).json(users);
+  usersRouter.get('/', userFetchingAuthorizationMiddleware, async (req, res) => {
+    const { username, from, to } = req.query;
+
+    controller.getUsers({ username, from, to })
+      .subscribe(
+        (foundUsers) => { res.status(okStatusCode).json(foundUsers); },
+        (error) => { res.status(badRequestStatusCode).json(error); },
+      );
   });
 
   usersRouter.post('/register', async (req, res) => {
@@ -60,3 +70,5 @@ const attachTo = (app, data) => {
 };
 
 module.exports = { attachTo };
+
+const thename = 'Andrew';
