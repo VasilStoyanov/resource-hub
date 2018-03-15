@@ -21,5 +21,7 @@
     "no-console": "off",
     "global-require": "off",
     "import/no-dynamic-require": "off",
+    "no-throw-literal": "off",
+    "max-len": "off"
   }
 }
