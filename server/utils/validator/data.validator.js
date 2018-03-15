@@ -11,13 +11,12 @@ const {
 const passedValidation = () => ({ isValid: true });
 const failedValidation = message => ({ isValid: false, message });
 
-const property = prop => ({
-  in: obj => ({
-    exists: !!obj[prop],
-    isOfType: type =>
-      ((type === 'array') ? Array.isArray(obj[prop]) :
-        (typeof obj[prop] === type)),
-  }),
+const property = prop => ({ in: obj => ({
+  exists: !!obj[prop],
+  isOfType: type =>
+    ((type === 'array') ? Array.isArray(obj[prop]) :
+      (typeof obj[prop] === type)),
+}),
 });
 
 const isArray = (potentialArray) => {
@@ -63,22 +62,22 @@ const validate = obj => ({
 
     for (let i = 0; i < schemaKeys.length; i += 1) {
       const propName = schemaKeys[i];
-      const currentRule = validationSchema[propName];
+      const currentRules = validationSchema[propName];
       const hasValue = property(propName).in(obj).exists;
 
-      if (currentRule.required && !hasValue) {
+      if (currentRules.required && !hasValue) {
         return failedValidation(REQUIRED({
           objName,
           propName,
         }));
       }
 
-      if (!currentRule.required && !hasValue) {
+      if (!currentRules.required && !hasValue) {
         continue;
       }
 
-      if (currentRule.type && !property(propName).in(obj).isOfType(currentRule.type)) {
-        if (currentRule.type === 'number' && isNaN(obj[propName])) {
+      if (currentRules.type && !property(propName).in(obj).isOfType(currentRules.type)) {
+        if (currentRules.type === 'number' && isNaN(obj[propName])) {
           return failedValidation(VALUE_CANNOT_BE_NAN({
             objName,
             propName,
@@ -88,12 +87,12 @@ const validate = obj => ({
         return failedValidation(INVALID_ARGUMENT({
           objName,
           propName,
-          desiredType: currentRule.type,
+          desiredType: currentRules.type,
         }));
       }
 
-      const { minLength } = currentRule;
-      const { maxLength } = currentRule;
+      const { minLength } = currentRules;
+      const { maxLength } = currentRules;
 
       if (minLength && is(obj[propName].length).lessThan(minLength)) {
         return failedValidation(INVALID_MIN_LENGTH({
@@ -111,11 +110,14 @@ const validate = obj => ({
         }));
       }
 
-      if (currentRule.validationPredicate &&
-        typeof currentRule.validationPredicate === 'function') {
-        const validationResult = currentRule.validationPredicate(obj[propName]);
-        if (!validationResult.isValid) {
-          return failedValidation(validationResult.message);
+      const currentRulesKeys = Object.keys(currentRules);
+      for (let j = 0; j < currentRulesKeys.length; j += 1) {
+        const currentRule = currentRulesKeys[j];
+        if (typeof currentRules[currentRule] === 'function') {
+          const validationResult = currentRules[currentRule](obj[propName]);
+          if (!validationResult.isValid) {
+            return failedValidation(validationResult.message);
+          }
         }
       }
     }
