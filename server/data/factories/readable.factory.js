@@ -4,16 +4,10 @@ const readable = db => collection => obj => ({
   ...obj,
   getAll: async () => {
     try {
-      if (getByFieldName && typeof getByFieldName === 'string') {
-        // TODO: Query Object
-        const dbResult = await db.collection(collection).find(
-          [getByFieldName]:
-        )
+      const dbResult = await db.collection(collection)
+        .find()
         .toArray();
 
-        return dbResult;
-      }
-      const dbResult = await db.collection(collection).find().toArray();
       return dbResult;
     } catch (dbExeption) {
       return Promise.reject(dbExeption);
@@ -22,21 +16,9 @@ const readable = db => collection => obj => ({
 
   getByObjectId: async (id) => {
     try {
-      const dbResult = await db.collection(collection).findOne({
-        _id: new ObjectID(id),
-      });
-
-      return dbResult;
-    } catch (dbExeption) {
-      return Promise.reject(dbExeption);
-    }
-  },
-
-  getOneByProperty: property => async (value) => {
-    try {
-      const dbResult = db.collection(collection)
+      const dbResult = await db.collection(collection)
         .findOne({
-          [property]: value,
+          _id: new ObjectID(id),
         });
 
       return dbResult;
@@ -45,9 +27,22 @@ const readable = db => collection => obj => ({
     }
   },
 
-  getAllByProperty: property => value => db.collection(collection)
+  getOneByFieldName: fieldName => async (value) => {
+    try {
+      const dbResult = db.collection(collection)
+        .findOne({
+          [fieldName]: value,
+        });
+
+      return dbResult;
+    } catch (dbExeption) {
+      return Promise.reject(dbExeption);
+    }
+  },
+
+  getAllByFieldName: fieldName => value => db.collection(collection)
     .find({
-      [property]: value,
+      [fieldName]: value,
     })
     .toArray(),
 });

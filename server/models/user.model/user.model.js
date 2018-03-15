@@ -1,6 +1,6 @@
 const { createModelValidator } = require('./../model.validator.factory');
 const createSchema = require('./../schema.factory');
-const { isArray, passedValidation, failedValidation } = require('./../../utils/validator/data.validator');
+const { validateUserRoles } = require('./user.model.validation.helpers.js');
 
 const {
   USERS_COLLECTION_NAME,
@@ -11,7 +11,7 @@ const {
   SALT_MIN_LENGTH,
   USER_EMAIL_MAX_LENGTH,
   USER_EMAIL_MIN_LENGTH,
-} = require('./user.model.constants');
+} = require('./user.model.constants').constants;
 
 const userUniqueFields = ['userId', 'username', 'email'];
 const userModelValidationRules = {
@@ -52,13 +52,7 @@ const userModelValidationRules = {
     type: 'object',
   },
   roles: {
-    validationPredicate: (roles) => {
-      if (!isArray(roles).andContainsOnlyItemsOfType('string')) {
-        return failedValidation('Invalid roles');
-      }
-
-      return passedValidation();
-    },
+    validateUserRoles,
   },
 };
 

@@ -1,12 +1,15 @@
 const jwt = require('jwt-simple');
 const jwtConfig = require('./../../config').jwt;
-const { tap, map, flatMap, last } = require('rxjs/operators');
+const { tap, map, flatMap, last, take, skip, reduce, startWith } = require('rxjs/operators');
 const { of } = require('rxjs/observable/of');
 const { from } = require('rxjs/observable/from');
 const { fromPromise } = require('rxjs/observable/fromPromise');
 
 const {
-  createAuthResponse, createUserEntity, userToViewModel, hashPassword,
+  createAuthResponse,
+  createUserEntity,
+  userToViewModel,
+  hashPassword,
 } = require('./users.helpers');
 
 const {
@@ -19,7 +22,6 @@ const {
 const { getStatusCode } = require('../../../utils');
 const { validateUser } = require('./users.validation');
 
-
 const conflictStatusCode = getStatusCode('conflict');
 const unauthorizedStatusCode = getStatusCode('unauthorized');
 const badRequestStatusCode = getStatusCode('badRequest');
@@ -29,7 +31,25 @@ const checkForUniqueFields = ['username', 'email'];
 const init = (data) => {
   const usersController = Object.create(null);
 
-  usersController.getUsers = ({ username, from, to }) => fromPromise();
+  usersController.getUsers = ({ username, usersToSkipCount = 0, usersToTakeCount = 1 }) => (
+    fromPromise(data.users.aggregationPipeline({
+      $match: {
+        username: {
+          $regex: `(.*${username}.*)`,
+          $options: 'i',
+        },
+      },
+    })
+      .toArray())
+      .pipe(
+        flatMap(dbResult => from(dbResult)),
+        skip(usersToSkipCount),
+        take(usersToTakeCount),
+        map(userToViewModel),
+        startWith([]),
+        reduce((acc, curr) => { acc.push(curr); return acc; }),
+      )
+  );
 
   usersController.createNewUser = async (user) => {
     const validationResult = validateUser(user);
@@ -42,7 +62,7 @@ const init = (data) => {
 
       try {
         const exists = await data.users.exists({
-          property: uniqueFieldName,
+          fieldName: uniqueFieldName,
           value: user[uniqueFieldName],
         });
 
@@ -114,7 +134,9 @@ const init = (data) => {
   };
 
   usersController.changeExistingUsersPassword = async ({
-    userId, oldPassword, newPassword,
+    userId,
+    oldPassword,
+    newPassword,
   }) => {
     try {
       const { validPassword } = await data.users.checkPassword({ userId, password: oldPassword });

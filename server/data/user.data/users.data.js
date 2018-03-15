@@ -1,15 +1,18 @@
 const { pipe, hash } = require('./../../utils');
-const { CRUD, createUniqueFields, exists } = require('./../factories/data.factory');
+const { CRUD, createUniqueFields, exists, aggregation } = require('./../factories/data.factory');
 const {
-  userModelValidator, userUniqueFields, USERS_COLLECTION_NAME, USERS_USERNAME_COLUMN_NAME,
+  userModelValidator,
+  userUniqueFields,
+  USERS_COLLECTION_NAME,
+  USERS_USERNAME_COLUMN_NAME,
 } = require('./../../models/user.model/user.model');
 
 const fetchUserData = obj => ({
   ...obj,
   getByUsername: username => (
-    obj.getOneByProperty(USERS_USERNAME_COLUMN_NAME)(username)
+    obj.getOneByFieldName(USERS_USERNAME_COLUMN_NAME)(username)
   ),
-  getByUserId: id => obj.getOneByProperty('userId')(id),
+  getByUserId: id => obj.getOneByFieldName('userId')(id),
 });
 
 const modifyUserData = obj => ({
@@ -65,6 +68,7 @@ const init = async (db) => {
 
   const users = pipe(
     CRUD(db)(USERS_COLLECTION_NAME)(userModelValidator),
+    aggregation(db)(USERS_COLLECTION_NAME),
     fetchUserData,
     modifyUserData,
     checkUserPassword,

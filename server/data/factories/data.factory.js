@@ -21,11 +21,16 @@ const createUniqueFields = db => collection => (uniqueFields) => {
 
 const exists = obj => ({
   ...obj,
-  exists: ({ property, value }) => new Promise((resolve, reject) => {
-    obj.getOneByProperty(property)(value)
+  exists: ({ fieldName, value }) => new Promise((resolve, reject) => {
+    obj.getOneByFieldName(fieldName)(value)
       .then(object => (object ? resolve(true) : resolve(false)))
       .catch(dbError => reject(dbError));
   }),
+});
+
+const aggregation = db => collection => obj => ({
+  ...obj,
+  aggregationPipeline: (...operators) => db.collection(collection).aggregate(operators),
 });
 
 const CRUD = db => collection => validator => obj => pipe(
@@ -43,4 +48,5 @@ module.exports = {
   exists,
   createUniqueFields,
   CRUD,
+  aggregation,
 };

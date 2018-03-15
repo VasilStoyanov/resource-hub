@@ -21,12 +21,17 @@ const attachTo = (app, data) => {
   const routerPrefix = '/users';
 
   usersRouter.get('/', userFetchingAuthorizationMiddleware, async (req, res) => {
-    const { username, from, to } = req.query;
+    const { username } = req.query;
+    const usersToSkipCount = +req.query.from;
+    const usersToTakeCount = +req.query.to;
 
-    controller.getUsers({ username, from, to })
+    controller.getUsers({ username, usersToSkipCount, usersToTakeCount })
       .subscribe(
         (foundUsers) => { res.status(okStatusCode).json(foundUsers); },
-        (error) => { res.status(badRequestStatusCode).json(error); },
+        (error) => {
+          console.error(error);
+          res.status(badRequestStatusCode).json(BAD_REQUEST_ERROR_MESSAGE);
+        },
       );
   });
 
@@ -57,7 +62,9 @@ const attachTo = (app, data) => {
 
     try {
       await controller.changeExistingUsersPassword({
-        userId, oldPassword, newPassword,
+        userId,
+        oldPassword,
+        newPassword,
       });
 
       res.sendStatus(okStatusCode);
@@ -70,5 +77,3 @@ const attachTo = (app, data) => {
 };
 
 module.exports = { attachTo };
-
-const thename = 'Andrew';
