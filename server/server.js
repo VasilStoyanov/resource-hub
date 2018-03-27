@@ -7,8 +7,8 @@
 
   const SERVER_INITIALIZATION_MESSAGE = ({ initialized, port = 3000 }) => (
     initialized ?
-      `> Server running on localhost:${port}` :
-      '(!) Server initialization aborted'
+    `> Server running on localhost:${port}` :
+    '(!) Server initialization aborted'
   );
 
   try {
