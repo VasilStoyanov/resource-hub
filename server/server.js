@@ -5,6 +5,11 @@
   const applicationLayer = require('./app');
   const { logMessage, logWarnMessage, logErrorMessage } = require('./utils');
 
+  const databaseConnectionSettings = {
+    connectionString: config.connectionString,
+    dataSource: config.operatingDataSourceName,
+  };
+
   const SERVER_INITIALIZATION_MESSAGE = ({ initialized, port = 3000 }) => (
     initialized ?
       `> Server running on localhost:${port}` :
@@ -12,11 +17,7 @@
   );
 
   try {
-    const db = await databaseLayer.init({
-      connectionString: config.connectionString,
-      dataSource: config.operatingDataSourceName,
-    });
-
+    const db = await databaseLayer.init(databaseConnectionSettings);
     const data = await dataLayer.init(db);
     const app = await applicationLayer.init(data);
 

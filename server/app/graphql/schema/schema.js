@@ -51,18 +51,17 @@ const createGraphQLSchema = ({ app, data }) => {
         type: UserType,
         description: 'Registers a new user',
         args: {
-          username: { type: new GraphQLNonNull(GraphQLString) },
-          email: { type: new GraphQLNonNull(GraphQLString) },
-          password: { type: new GraphQLNonNull(GraphQLString) },
+          user: {
+            name: 'user',
+            type: {
+              username
+            },
+          },
         },
-        resolve: async (root, args) => {
-          if (args.password.length < 6) {
-            throw new Error('User password cannot be less than 6 characters!');
-          }
-
-          const userEntity = createUserEntity(args);
-          const user = await data.users.create(userEntity);
-          return user;
+        resolve: async (root, user) => {
+          const userEntity = createUserEntity(user);
+          const createdUser = await data.users.create(userEntity);
+          return createdUser;
         },
       },
     },

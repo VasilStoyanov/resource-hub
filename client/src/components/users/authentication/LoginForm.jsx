@@ -35,6 +35,13 @@ class LoginPage extends Component {
   }
 }
 
-const validate = loginValidation;
+const validate = (values) => {
+  const errors = {};
+  if (!values.username) {
+    errors.username = 'Required';
+  }
+
+  return errors;
+};
 
 export default reduxForm({ form: 'login-form', validate })(LoginPage);
