@@ -4,7 +4,9 @@
     "dev": "concurrently \"set NODE_ENV=development & webpack --config webpack.workers.js & webpack --config webpack.watcher.js\" \"webpack-dev-server --open --config webpack.dev.js\" \"nodemon server/server.js\" --kill-others-on-fail ",
     "debug": "set NODE_ENV=development && node --inspect-brk ./server/server.js",
     "build": "set NODE_ENV=production & webpack --config webpack.workers.js & webpack --config webpack.prod.js",
-    "test": "gulp"
+    "test": "gulp",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "name": "ResourceHub",
   "version": "0.0.3",
@@ -65,7 +67,8 @@
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1",
     "webpack-merge": "^4.1.1",
-    "webpack-stream": "^4.0.0"
+    "webpack-stream": "^4.0.0",
+    "snyk": "^1.123.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -87,5 +90,6 @@
     "nodemon": "^1.15.1",
     "svg-inline-loader": "^0.8.0",
     "url-loader": "^0.6.2"
-  }
+  },
+  "snyk": true
 }
