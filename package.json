@@ -47,7 +47,7 @@
     "react-router": "4.2.0",
     "react-router-bootstrap": "0.24.4",
     "react-router-dom": "4.2.2",
-    "react-scripts": "1.0.17",
+    "react-scripts": "2.0.0",
     "react-scrollbar": "0.5.1",
     "react-sidenav": "2.1.2",
     "react-toastify": "3.2.1",
@@ -62,7 +62,7 @@
     "thunk": "0.0.1",
     "uglifyjs-webpack-plugin": "^1.1.6",
     "uuid": "^3.1.0",
-    "webpack": "^3.10.0",
+    "webpack": "^4.0.0",
     "webpack-dev-server": "^2.11.1",
     "webpack-merge": "^4.1.1",
     "webpack-stream": "^4.0.0"
