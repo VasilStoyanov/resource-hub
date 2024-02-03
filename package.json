@@ -24,7 +24,7 @@
     "concurrently": "^3.5.1",
     "ddos": "^0.1.26",
     "del": "^3.0.0",
-    "eslint-loader": "^1.9.0",
+    "eslint-loader": "^4.0.2",
     "express": "^4.16.2",
     "faker": "4.1.0",
     "glob": "^7.1.2",
